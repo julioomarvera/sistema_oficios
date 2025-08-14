@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const historialMastercatalogo_empleados_1 = require("../controllers/historialMastercatalogo_empleados");
+const router = (0, express_1.Router)();
+router.get('/getAllhistorialMastercatalogo_empleados/:id_usuario', historialMastercatalogo_empleados_1.getAllhistorialMastercatalogo_empleados);
+router.get('/getRegByIdhistorialMastercatalogo_empleados/:id/:id_usuario', historialMastercatalogo_empleados_1.getRegByIdhistorialMastercatalogo_empleados);
+router.post('/', historialMastercatalogo_empleados_1.newhistorialMastercatalogo_empleados);
+router.put('/upd', historialMastercatalogo_empleados_1.updatehistorialMastercatalogo_empleados);
+router.delete('/del/:id/:id_usuario', historialMastercatalogo_empleados_1.delhistorialMastercatalogo_empleados);
+exports.default = router;

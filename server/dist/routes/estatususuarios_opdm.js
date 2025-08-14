@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const estatususuarios_opdm_1 = require("../controllers/estatususuarios_opdm");
+const router = (0, express_1.Router)();
+router.get('/getAllestatususuarios_opdm/:id_usuario', estatususuarios_opdm_1.getAllestatususuarios_opdm);
+router.get('/getRegByIdestatususuarios_opdm/:id/:id_usuario', estatususuarios_opdm_1.getRegByIdestatususuarios_opdm);
+router.post('/', estatususuarios_opdm_1.newestatususuarios_opdm);
+router.put('/upd', estatususuarios_opdm_1.updateestatususuarios_opdm);
+router.delete('/del/:id/:id_usuario', estatususuarios_opdm_1.delestatususuarios_opdm);
+exports.default = router;

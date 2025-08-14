@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const estatuscatalogo_empleados_1 = require("../controllers/estatuscatalogo_empleados");
+const router = (0, express_1.Router)();
+router.get('/getAllestatuscatalogo_empleados/:id_usuario', estatuscatalogo_empleados_1.getAllestatuscatalogo_empleados);
+router.get('/getRegByIdestatuscatalogo_empleados/:id/:id_usuario', estatuscatalogo_empleados_1.getRegByIdestatuscatalogo_empleados);
+router.post('/', estatuscatalogo_empleados_1.newestatuscatalogo_empleados);
+router.put('/upd', estatuscatalogo_empleados_1.updateestatuscatalogo_empleados);
+router.delete('/del/:id/:id_usuario', estatuscatalogo_empleados_1.delestatuscatalogo_empleados);
+exports.default = router;

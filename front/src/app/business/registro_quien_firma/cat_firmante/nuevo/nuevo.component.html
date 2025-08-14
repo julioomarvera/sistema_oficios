@@ -1,0 +1,139 @@
+@if(this.loading == true){
+<mat-card appearance='outlined' class='loadingPanel'>
+  <mat-card-content>
+    <div class='loader'></div>
+    <div class=' loadingPanelTitulo'></div>
+  </mat-card-content>
+</mat-card>
+<mat-card appearance='outlined' class='loadingPanelTitulo'>
+  <mat-card-content>
+    <h5>Procesando</h5>
+  </mat-card-content>
+</mat-card>
+} @else{
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <!-- <button class='botonGris' (click)='goInicio()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon=' keyboard_backspace'
+        ></mat-icon>
+      </button> -->
+    </div>
+    <div class='col-6'>
+      <mat-card-content>
+        <p class='title'>REGISTRO DE QUIEN FIRMA </p>
+      </mat-card-content>
+    </div>
+    <div class='col-3'>
+      <!-- <button class='botonGris-icon' (click)='openHelper()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon='help'
+        ></mat-icon>
+      </button> -->
+    </div>
+  </div>
+</mat-card>
+
+<div>
+  <mat-card appearance='outlined'>
+    <mat-card-content>
+      <form>
+        <div class='row'>
+          <div class='col-5'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Dirección</mat-label>
+              <select matNativeControl [(ngModel)]='id_direccion' id='id_direccion' name='id_direccion' [disabled]="banderaBloqueo">
+                <option *ngFor="let list_cat_direcciones of listcat_direcciones"
+                  [value]="list_cat_direcciones.id_cat_direcciones">{{list_cat_direcciones.descripcion}}
+                </option>
+              </select>
+            </mat-form-field>
+            @if (errortext_direccion) {
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+          </div>
+          <div class='col-7'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Área</mat-label>
+              <select matNativeControl [(ngModel)]='id_area' id='id_area' name='id_area'  [disabled]="banderaBloqueo">
+                <option *ngFor="let list_cat_areas of listcat_areas" [value]="list_cat_areas.id_cat_areas">
+                  {{list_cat_areas.descripcion}}
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-12'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Catalogo de Empleados correspondientes al Área</mat-label>
+              <select matNativeControl [(ngModel)]="numero_empledo" id="numero_empledo" name="numero_empledo"
+                (change)="get_info_empleado_by_numero_empleado($event)" [disabled]="banderaBloqueo">>
+                <option *ngFor="let list_cat_empleados of listcat_empleados"
+                  [value]="list_cat_empleados.numero_empleado">
+                  {{ list_cat_empleados.nombre_completo }}
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class='row'>
+          <div class="col-6">
+            <mat-card class="example-card" appearance="outlined" style="background-color: rgba(122, 20, 20, 0.404);">
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>
+                  Responsable del Área
+                  <img src="opdm_transparente.png" style="width: 25%;">
+                </mat-card-title>
+              </mat-card-header>
+              <p style="font-weight: bold;">
+                <img mat-card-image [src]="fotoCoordinador" alt="Photo of a Shiba Inu"
+                  style="width: 25%; align-items: center; justify-content: center;">
+                {{Nombre_coordinador}}
+              </p>
+            </mat-card>
+          </div>
+          <div class="col-6">
+            <mat-card class="example-card" appearance="outlined">
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>Nombre del firmante</mat-card-title>
+              </mat-card-header>
+              <p style="font-weight: bold;">
+                <img mat-card-image [src]="foto" alt="Photo of a Shiba Inu"
+                  style="width: 25%; align-items: center; justify-content: center;">
+                {{text_nombre_empleado}}
+              </p>
+            </mat-card>
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col-3">
+          </div>
+        </div>
+        <div class='row mt-5'>
+          <div class='col-6'></div>
+          <div class='col-3 boton-derecha'>
+            <div class='cont'>
+              <div class='btn'>
+                <button class='botonAlmacenar' (click)="save()" [disabled]="banderaBloqueo">
+                  <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='add'
+                    class='textoBoton'></mat-icon>
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+}

@@ -1,0 +1,236 @@
+@if(this.loading == true){
+<mat-card appearance='outlined' class='loadingPanel'>
+  <mat-card-content>
+    <div class='loader'></div>
+    <div class=' loadingPanelTitulo'></div>
+  </mat-card-content>
+</mat-card>
+<mat-card appearance='outlined' class='loadingPanelTitulo'>
+  <mat-card-content>
+    <h5>Procesando</h5>
+  </mat-card-content>
+</mat-card>
+} @else{
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <button class='botonGris' (click)='goInicio()'>
+        <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon=' keyboard_backspace'></mat-icon>
+      </button>
+    </div>
+    <div class='col-6'>
+      <mat-card-content>
+        <p class='title'>Actualizar SEGUIMIENTO DEL TéCNICO</p>
+      </mat-card-content>
+    </div>
+    <div class='col-3'>
+      <button class='botonGris-icon' (click)='openHelper()'>
+        <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='help'></mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+<div>
+  <br>
+  <div class="row">
+    <div class="col-6">
+      <mat-card appearance="outlined" class="card_firmante">
+        <mat-card-header>
+          <mat-card-title style="text-align: center; align-items: center;">Información del Área quien emitio
+            el oficio
+          </mat-card-title>
+          <mat-card-subtitle class="mt-3" style="text-align: center"></mat-card-subtitle>
+        </mat-card-header>
+        <div class="panel-vidrio">
+          <p><strong>{{text_direccion_firmante}} - {{text_area_firmante}}</strong></p>
+          <div class="row">
+            <div class="col-4">
+              <img mat-card-sm-image src="opdm-logo.png" style="width: 51%; margin-top: -2%; margin-left: 3%;">
+            </div>
+            <div class="col-6">
+              <h3 class="panel-vidrio-title">{{text_nombre_empleado}}</h3>
+            </div>
+            <div class="col-2">
+              <img mat-card-sm-image src="{{foto_firmante}}">
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-6">
+      <mat-card appearance="outlined" class="card_quien_asigno">
+        <mat-card-header>
+          <mat-card-title style="text-align: center; align-items: center;">Información de quien asigno el oficio
+          </mat-card-title>
+          <mat-card-subtitle class="mt-3" style="text-align: center"></mat-card-subtitle>
+        </mat-card-header>
+        <div class="panel-vidrio">
+          <p><strong>{{text_direccion_asignacion}} - {{text_area_asignacion}}</strong></p>
+          <div class="row">
+            <div class="col-4">
+              <img mat-card-sm-image src="{{foto_quien_asigno}}">
+            </div>
+            <div class="col-6">
+              <h3 class="panel-vidrio-title">{{text_nombre_empleado_quien_asignacion}}</h3>
+            </div>
+            <div class="col-2">
+              <img mat-card-sm-image src="opdm-logo.png" style="width: 115%; margin-top: -6%; margin-left: -25%;">
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-2"></div>
+    <!-- <div class="col-6">
+      <div class="panel-vidrio">
+        <div class="row">
+          <div class="col-3">
+            <p style="font-size: x-large;"><strong>Asunto : </strong></p>
+          </div>
+          <div class="col-9">
+            <p style="font-size: x-large;"><strong>{{asunto}}</strong></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <p style="font-size: x-large;"><strong>Contenido </strong></p>
+          </div>
+          <div class="col-10">
+            <p style="text-align: justify; font-size: large;"><strong>{{contenido}}</strong></p>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-8">
+      <mat-card appearance="outlined">
+        <mat-card-actions>
+          @if(this.archivo_oficio != ''){
+          <object type='text/html' [data]='this.archivo_oficio' ngDraggable
+            style="width: 100%; height: 800px;"></object>
+          }
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<hr>
+<div>
+  <mat-card appearance='outlined'>
+    <mat-card-content>
+      <p style="font-size: xx-large; text-align: center;">Número de Oficio : <strong>{{numero_oficio}}</strong></p>
+      <br>
+      <p style="font-size: x-large;">Instrucciones : {{instrucciones}}</p>
+      <form>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Estatus</mat-label>
+              <select matNativeControl [(ngModel)]='estatus_seguimiento' id='estatus_seguimiento'
+                name='estatus_seguimiento'>
+                <option value="2">En Proceso</option>
+                <option value="3">En Pausa</option>
+                <option value="4">Concluido</option>
+              </select>
+            </mat-form-field>
+            @if (errorestatus_seguimiento) {
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+          </div>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Porcentaje del seguimiento</mat-label>
+              <select matNativeControl [(ngModel)]='porcentaje_seguimiento' id='porcentaje_seguimiento'
+                name='porcentaje_seguimiento'>
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="75">75%</option>
+                <option value="100">100%</option>
+              </select>
+              @if (errorporcentaje_seguimiento) {
+              <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col-6 mt-2">
+            <p>{{porcentaje_seguimiento}}%</p>
+            <mat-progress-bar mode="determinate" [value]="porcentaje_seguimiento"></mat-progress-bar>
+          </div>
+        </div>
+        <div class='row mt-3'>
+          <div class='col-6'>
+            <mat-card appearance="outlined">
+              <mat-card-header>
+                <mat-card-title> </mat-card-title>
+                <mat-card-subtitle>Por favor, inserte una breve descripción</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-actions>
+                <mat-form-field class="example-full-width">
+
+                  <textarea [(ngModel)]="observaciones" name="observaciones" id="observaciones" style="height: 218px;"
+                    matInput></textarea>
+                </mat-form-field>
+              </mat-card-actions>
+              <div *ngIf="escuchando" class="mic-indicator">
+                🔊 Escuchando...
+              </div>
+              <mat-error *ngIf="errorobservaciones">
+                Error: Falta descripción en este parámetro.
+              </mat-error>
+              @if (errorobservaciones) {
+              <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+              }
+              <button mat-raised-button color="primary" (click)="toggleDictado()">
+                {{ escuchando ? '🛑 Detener dictado' : '🎙️ Iniciar dictado' }}
+              </button>
+            </mat-card>
+          </div>
+          <div class='col-6'>
+            <mat-card appearance="outlined">
+              <mat-card-header>
+                <mat-card-title> Descargué aquí el <strong>(DOCUMENTO EN PDF)</strong> como evidencia en el seguimiento
+                  del oficio con número de expediente <strong>{{numero_oficio}}</strong></mat-card-title>
+                <mat-card-subtitle style="color: brown;"><strong>(DOCUMENTO NO NECESARIO)</strong></mat-card-subtitle>
+                <span> adjuntar Archivo evidencia</span>
+              </mat-card-header>
+              <mat-card-actions>
+
+                <input type='file' (change)="getFile($event,'evidencia')" class='botonFile'>
+                @if(this.evidenciaImagen != ''){
+                <object type='text/html' [data]='this.evidenciaImagen' ngDraggable
+                  style="width: 100%; height: 800px;"></object>
+                }
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+        <div class='row mt-5'>
+          <div class='col-6'></div>
+          <div class='col-3 boton-derecha'>
+            <div class='cont'>
+              <div class='btn'>
+                <button class='botonAlmacenar' (click)="save()">
+                  <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='check_small'
+                    class='textoBoton'></mat-icon>
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+}
+
+
+<!-- -->
+<!-- <input type="range" value="25" min="0" max="100" [(ngModel)]="porcentaje_seguimiento" />  -->
+
+
+
+<!--  -->

@@ -1,0 +1,5 @@
+export interface Nuevoestatusgestion_oficios{
+  descripcion : string|any,  
+  activo       : number|any,  
+  id_usuario   : number|any,  
+}

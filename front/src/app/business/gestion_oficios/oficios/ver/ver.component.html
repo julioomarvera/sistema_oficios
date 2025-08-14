@@ -1,0 +1,314 @@
+
+<div>
+  <mat-card appearance='outlined'>
+    <p>Información del oficios con número de identificación : {{ id_oficios }}</p>
+    <mat-card-content>
+      <form>
+        <div class='row mt-5'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>oficio</mat-label>
+              <select matNativeControl  [(ngModel)]='oficio'  id='oficio'  name='oficio' disabled='true' >
+                <option *ngFor="let list_cat_oficios of listcat_oficios" 
+                  [value]="list_cat_oficios.id_cat_oficio">{{list_cat_oficios.descripcion}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_oficio</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_oficio'
+                name = 'text_oficio'
+                id = 'text_oficio'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_oficio) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>tipo_oficio</mat-label>
+              <select matNativeControl  [(ngModel)]='tipo_oficio'  id='tipo_oficio'  name='tipo_oficio' disabled='true' >
+                <option *ngFor="let list_cat_tipo_oficios of listcat_tipo_oficios" 
+                  [value]="list_cat_tipo_oficios.id_cat_tipo_oficios">{{list_cat_tipo_oficios.descripcion}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_tipo</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_tipo'
+                name = 'text_tipo'
+                id = 'text_tipo'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_tipo) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_oficio</mat-label>
+              <select matNativeControl  [(ngModel)]='numero_oficio'  id='numero_oficio'  name='numero_oficio' disabled='true' >
+                <option *ngFor="let list_cat_numero_oficios of listcat_numero_oficios" 
+                  [value]="list_cat_numero_oficios.id_cat_numero_oficios">{{list_cat_numero_oficios.descripcion}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>fecha_hora</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='fecha_hora'
+                name = 'fecha_hora'
+                id = 'fecha_hora'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfecha_hora) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>caso_cop</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='caso_cop'
+                name = 'caso_cop'
+                id = 'caso_cop'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorcaso_cop) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>asunto</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='asunto'
+                name = 'asunto'
+                id = 'asunto'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorasunto) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>contenido</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='contenido'
+                name = 'contenido'
+                id = 'contenido'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorcontenido) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <span> adjuntar Archivo archivo_oficio</span>
+            @if(this.archivo_oficio != ''){
+              <object type='text/html' [data]='this.archivo_oficio' ngDraggable></object>
+            }
+          </div>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>otro</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='otro'
+                name = 'otro'
+                id = 'otro'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorotro) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+              <div class='col-3'>
+                <mat-form-field class='example-full-width'>
+                  <mat-label>Estatus</mat-label>
+                  <select matNativeControl  [(ngModel)]='estatus'  id='estatus'  name='estatus'  disabled='true'>
+                    <option *ngFor="let list_estatus of listestatusgestion_oficios" 
+                      [value]="list_estatus.id_estatusgestion_oficios">{{list_estatus.descripcion}} 
+                    </option>
+                  </select>
+                </mat-form-field>
+              </div>
+          <div class='mat-elevation-z8'> 
+            <table mat-table [dataSource]='dataSource' matSort>
+              <ng-container matColumnDef='id_historialMaster'>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  id historial Mater
+                 </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_historialMaster}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='id_usuario'>
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                   id Usuario
+                  </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_usuario}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='id_oficios'>
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                   id_oficios
+                  </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_oficios}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='oficio'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                oficio 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.oficio}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='text_oficio'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                text_oficio 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.text_oficio}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='tipo_oficio'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                tipo_oficio 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.tipo_oficio}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='text_tipo'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                text_tipo 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.text_tipo}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='numero_oficio'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                numero_oficio 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.numero_oficio}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='fecha_hora'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                fecha_hora 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.fecha_hora}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='caso_cop'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                caso_cop 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.caso_cop}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='asunto'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                asunto 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.asunto}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='contenido'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                contenido 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.contenido}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='archivo_oficio'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                archivo_oficio 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.archivo_oficio}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='otro'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                otro 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.otro}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef='accion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    accion 
+                   </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.accion}}
+                  </td>
+                </ng-container>
+                 <ng-container matColumnDef='createAt'>
+                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                     createAt 
+                   </th>
+                   <td mat-cell *matCellDef='let element'>
+                     {{ element.createAt}}
+                   </td>
+                 </ng-container>
+                 <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+                 <tr mat-row *matRowDef='let row; columns: displayedColumns'></tr>
+               </table>
+             <mat-paginator
+              [pageSizeOptions]='[5, 10, 20]'
+              showFirstLastButtons
+              aria-label='Select page of periodic elements'
+             >
+             </mat-paginator>
+           </div>
+        </div> 
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

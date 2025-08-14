@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const catalogo_empleados_1 = require("../controllers/catalogo_empleados");
+const router = (0, express_1.Router)();
+router.get('/getAllcatalogo_empleados/:id_usuario/:id_rol/:estatus/:activo', catalogo_empleados_1.getAllcatalogo_empleados);
+router.get('/:id/:id_usuario/:id_rol', catalogo_empleados_1.getRegByIdcatalogo_empleados);
+router.get('/:id_usuario', catalogo_empleados_1.newcatalogo_empleados);
+router.delete('/delcatalogo_empleados/:id/:id_usuario', catalogo_empleados_1.delcatalogo_empleados);
+router.get('/actualizarEstatuscatalogo_empleados/:id_catalogo_empleados/:id_usuario/:estatus/:descripcion', catalogo_empleados_1.actualizarEstatusDescripcioncatalogo_empleados);
+router.get('/actualizarDesactivadocatalogo_empleados/:id_catalogo_empleados/:id_usuario/:estatus/:descripcion', catalogo_empleados_1.actualizarDesactivadocatalogo_empleados);
+exports.default = router;

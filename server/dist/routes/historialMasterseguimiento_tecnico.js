@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const historialMasterseguimiento_tecnico_1 = require("../controllers/historialMasterseguimiento_tecnico");
+const router = (0, express_1.Router)();
+router.get('/getAllhistorialMasterseguimiento_tecnico/:id_usuario', historialMasterseguimiento_tecnico_1.getAllhistorialMasterseguimiento_tecnico);
+router.get('/getRegByIdhistorialMasterseguimiento_tecnico/:id/:id_usuario', historialMasterseguimiento_tecnico_1.getRegByIdhistorialMasterseguimiento_tecnico);
+router.post('/', historialMasterseguimiento_tecnico_1.newhistorialMasterseguimiento_tecnico);
+router.put('/upd', historialMasterseguimiento_tecnico_1.updatehistorialMasterseguimiento_tecnico);
+router.delete('/del/:id/:id_usuario', historialMasterseguimiento_tecnico_1.delhistorialMasterseguimiento_tecnico);
+exports.default = router;

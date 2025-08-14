@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const gestion_oficios_1 = require("../controllers/gestion_oficios");
+const router = (0, express_1.Router)();
+router.get('/getAllgestion_oficios/:id_usuario/:id_rol/:estatus/:activo', gestion_oficios_1.getAllgestion_oficios);
+router.get('/getId_gestion_oficio/:id_oficios', gestion_oficios_1.getId_gestion_oficio);
+router.get('/:id/:id_usuario/:id_rol', gestion_oficios_1.getRegByIdgestion_oficios);
+router.post('/getOficiosByDireccion', gestion_oficios_1.getOficiosByDireccion);
+router.get('/:id_usuario', gestion_oficios_1.newgestion_oficios);
+router.delete('/delgestion_oficios/:id/:id_usuario', gestion_oficios_1.delgestion_oficios);
+router.get('/actualizarEstatusgestion_oficios/:id_gestion_oficios/:id_usuario/:estatus/:descripcion', gestion_oficios_1.actualizarEstatusDescripciongestion_oficios);
+router.get('/actualizarDesactivadogestion_oficios/:id_gestion_oficios/:id_usuario/:estatus/:descripcion', gestion_oficios_1.actualizarDesactivadogestion_oficios);
+exports.default = router;

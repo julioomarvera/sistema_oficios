@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const estatusseguimiento_tecnico_1 = require("../controllers/estatusseguimiento_tecnico");
+const router = (0, express_1.Router)();
+router.get('/getAllestatusseguimiento_tecnico/:id_usuario', estatusseguimiento_tecnico_1.getAllestatusseguimiento_tecnico);
+router.get('/getRegByIdestatusseguimiento_tecnico/:id/:id_usuario', estatusseguimiento_tecnico_1.getRegByIdestatusseguimiento_tecnico);
+router.post('/', estatusseguimiento_tecnico_1.newestatusseguimiento_tecnico);
+router.put('/upd', estatusseguimiento_tecnico_1.updateestatusseguimiento_tecnico);
+router.delete('/del/:id/:id_usuario', estatusseguimiento_tecnico_1.delestatusseguimiento_tecnico);
+exports.default = router;

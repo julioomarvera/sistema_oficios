@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const asignacion_1 = require("../controllers/asignacion");
+const router = (0, express_1.Router)();
+router.get('/getAsignacionByDireccionArea/:id_gestion_oficios/:id_direccion/:id_area', asignacion_1.getAllcat_empleadosByDireccionAreas);
+router.get('/getAllcat_empleadosByid_gestion_oficios/:id_gestion_oficios', asignacion_1.getAllcat_empleadosByid_gestion_oficios);
+router.get('/getEncargadoArea/:id_direccion/:id_area', asignacion_1.getEncargadoArea);
+router.get('/getOficiosByNumeroEmpleado/:numero_empleado/:id_direccion/:id_area/:estatus_seguimiento/:roll', asignacion_1.getOficiosByNumeroEmpleado);
+router.get('/getInfo_quien_solicito/:id_gestion_oficios/:numero_tecnico_asignado', asignacion_1.getInfo_quien_solicito);
+router.get('/getInstrucciones/:id_gestion_oficios', asignacion_1.getInstrucciones);
+router.post('/', asignacion_1.new_asignacion);
+router.delete('/deleteAsignacion/:id_usuario/:id_gestion_oficios/:numero_empleado', asignacion_1.deleteAsignacion);
+router.put('/update_firmante_instrucciones', asignacion_1.update_firmante_instrucciones);
+exports.default = router;

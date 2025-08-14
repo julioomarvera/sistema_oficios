@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const catalogo_areas_1 = require("../controllers/catalogo_areas");
+const router = (0, express_1.Router)();
+router.get('/getAllcatalogo_areas/:id_usuario/:id_rol/:estatus/:activo', catalogo_areas_1.getAllcatalogo_areas);
+router.get('/:id/:id_usuario/:id_rol', catalogo_areas_1.getRegByIdcatalogo_areas);
+router.get('/:id_usuario', catalogo_areas_1.newcatalogo_areas);
+router.delete('/delcatalogo_areas/:id/:id_usuario', catalogo_areas_1.delcatalogo_areas);
+router.get('/actualizarEstatuscatalogo_areas/:id_catalogo_areas/:id_usuario/:estatus/:descripcion', catalogo_areas_1.actualizarEstatusDescripcioncatalogo_areas);
+router.get('/actualizarDesactivadocatalogo_areas/:id_catalogo_areas/:id_usuario/:estatus/:descripcion', catalogo_areas_1.actualizarDesactivadocatalogo_areas);
+exports.default = router;

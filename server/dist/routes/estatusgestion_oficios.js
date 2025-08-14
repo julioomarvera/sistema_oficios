@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const estatusgestion_oficios_1 = require("../controllers/estatusgestion_oficios");
+const router = (0, express_1.Router)();
+router.get('/getAllestatusgestion_oficios/:id_usuario', estatusgestion_oficios_1.getAllestatusgestion_oficios);
+router.get('/getRegByIdestatusgestion_oficios/:id/:id_usuario', estatusgestion_oficios_1.getRegByIdestatusgestion_oficios);
+router.post('/', estatusgestion_oficios_1.newestatusgestion_oficios);
+router.put('/upd', estatusgestion_oficios_1.updateestatusgestion_oficios);
+router.delete('/del/:id/:id_usuario', estatusgestion_oficios_1.delestatusgestion_oficios);
+exports.default = router;

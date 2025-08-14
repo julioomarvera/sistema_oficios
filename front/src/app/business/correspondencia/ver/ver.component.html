@@ -1,0 +1,455 @@
+<div>
+    <br>
+    <mat-card appearance='outlined'>
+        <br>
+        <p style="font-weight: bold; font-size: x-large; align-items: center; text-align: center;">Información del
+            oficios con número de identificación : {{
+            numero_oficio }}</p>
+
+        <div class="row">
+            <div class="col-6">
+                <mat-card appearance="outlined" class="big-card" style="height: 100%;">
+                    <mat-card-header>
+                        <mat-card-title style="text-align: center; align-items: center;">
+                            <p style="font-size: xx-large;">Información del oficio</p>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-actions>
+                        <mat-card appearance="outlined" style="flex: 1; max-width: 950px; ">
+
+                            <div class="row mt-3">
+                                <div class="col-3">
+                                    <p class="renglon1">OFICIO </p>
+                                </div>
+                                <div class="col-9">
+                                    <p class="renglon1">{{text_oficio}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="renglon2"> TIPO DE OFICIO </p>
+                                </div>
+                                <div class="col-9">
+                                    <p class="renglon2"> {{text_tipo}} </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="renglon1">NÚMERO DE OFICIO </p>
+                                </div>
+                                <div class="col-9">
+                                    <p class="renglon1">{{numero_oficio}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="renglon2">FECHA DE CREACIÓN</p>
+                                </div>
+                                <div class="col-9">
+                                    <p class="renglon2"> {{fecha_hora}} </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="renglon1">CASO / COP</p>
+                                </div>
+                                <div class="col-9">
+                                    <p class="renglon1">{{caso_cop}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="renglon2">ASUNTO</p>
+                                </div>
+                                <div class="col-9">
+                                    <p class="renglon2">{{asunto}} </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="renglon1">CONTENIDO</p>
+                                </div>
+                                <div class="col-9">
+                                    <p class="renglon1">{{contenido}}</p>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="col-6">
+                <mat-card appearance="outlined">
+                    <mat-card-header>
+                        <mat-card-title></mat-card-title>
+                    </mat-card-header>
+                    <mat-card-actions>
+                        @if(this.archivo_oficio != ''){
+                        <object type='text/html' [data]='this.archivo_oficio' ngDraggable
+                            style="width: 100%; height: 800px;"></object>
+                        }
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+                {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+            </button>
+            <mat-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                    <form [formGroup]="firstFormGroup">
+                        <!-- Sello de OFICIO-------------------------------------------------------------------------------- -->
+                        <ng-template matStepLabel>SELLAR EL OFICIO</ng-template>
+                        <mat-card appearance='outlined'>
+                            <mat-card-content>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <mat-card appearance="outlined">
+                                                <mat-card-header>
+                                                    <mat-card-title>Sellar el documento digitalmente</mat-card-title>
+                                                    <mat-card-subtitle></mat-card-subtitle>
+                                                </mat-card-header>
+                                                <mat-card-actions>
+                                                    <div class="example-button-container">
+                                                        <a mat-fab extended routerLink="." (click)="generatePdf()"
+                                                            [disabled]="desactivarImagenSello">
+                                                            <mat-icon>approval</mat-icon>
+                                                            Sellar el oficio digitalmente
+                                                        </a>
+                                                        @if(this.nombre_documento_sello_digitalImagen != ''){
+                                                        <object type='text/html' style="width: 150%; height: 800px;"
+                                                            [data]='this.nombre_documento_sello_digitalImagen'
+                                                            ngDraggable></object>
+                                                        }
+                                                    </div>
+                                                </mat-card-actions>
+                                            </mat-card>
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-card appearance="outlined">
+                                                <mat-card-header>
+                                                    <mat-card-title> Inserte el oficio sellado de manera
+                                                        física</mat-card-title>
+                                                    <mat-card-subtitle>Cargue el documento solo en la hoja que fue
+                                                        sellada</mat-card-subtitle>
+                                                </mat-card-header>
+                                                <mat-card-actions>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <span> adjuntar Archivo <strong>(Sellado)</strong></span>
+                                                            <input type='file'
+                                                                (change)="getFile($event,'nombre_documento_sello')"
+                                                                class='botonFile'>
+                                                        </div>
+                                                    </div>
+                                                </mat-card-actions>
+                                                <div class="row">
+                                                    @if(this.nombre_documento_selloImagen != ''){
+                                                    <object type='text/html' style="width: 150%; height: 800px;"
+                                                        [data]='this.nombre_documento_selloImagen' ngDraggable></object>
+                                                    }
+                                                </div>
+                                            </mat-card>
+                                        </div>
+                                    </div>
+
+                                    <div class='row mt-5'>
+                                        <div class='col-6'></div>
+                                        <div class='col-3 boton-derecha'>
+                                            <div class='cont'>
+                                                <div class='btn'>
+                                                    <button class='botonAlmacenar' (click)="save_sello()">
+                                                        <mat-icon aria-hidden='false' aria-label='Example home icon'
+                                                            fontIcon='check_small' class='textoBoton'></mat-icon>
+                                                        Actualizar Informacion del sello
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </mat-card-content>
+                        </mat-card>
+                        <div>
+                            <div class='contNext'>
+                                <div class='btn'>
+                                    <button mat-button matStepperNext class='botonSiguientePaso'>Siguiente paso:
+                                        Asignación</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+                <!-------------------------------------------------------------------------------------------------------------------------------------->
+                <!-- aqui empieza la asignaion ------------------------------------------------------------------------------------------------------- -->
+               
+                <mat-step [stepControl]="secondFormGroup" label="Asignación" class="mt-5">
+                    <form [formGroup]="secondFormGroup">
+                        <br>
+                        <p style="font-size: x-large; ">Listado del personal disponible para la direccion
+                            <strong>{{text_direccion}}</strong> / <strong>{{text_area}}</strong>
+                        </p>
+                        <div class='row mt-5'>
+                            <div class='col-12'>
+                                <mat-form-field class='example-full-width'>
+                                    <mat-label>Catalogo de Empleados correspondientes al Área</mat-label>
+                                    <select matNativeControl [(ngModel)]="numero_empledo" id="numero_empledo"
+                                        formControlName="secondCtrl" name="numero_empledo"
+                                        (change)="get_info_empleado_by_numero_empleado($event)"
+                                        [disabled]="banderaBloqueo">
+                                        <option *ngFor="let list_cat_empleados of listcat_empleados"
+                                            [value]="list_cat_empleados.numero_empleado">
+                                            {{ list_cat_empleados.nombre_completo }}
+                                        </option>
+                                    </select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            @if(text_nombre_empleado_asignacion != ""){
+                            <div class="col-4">
+                                <mat-card class="example-card2" appearance="outlined">
+                                    <mat-card-header>
+                                        <div mat-card-avatar class="example-header-image"></div>
+                                        <mat-card-title>Nombre Personal Asignado</mat-card-title>
+                                    </mat-card-header>
+                                    <p style="font-weight: bold;">
+                                        <img [src]="foto_asignacion" alt="Foto de empleado"
+                                            (error)="mostrarImagenFallback()" (load)="imagenCargada = true"
+                                            [hidden]="!imagenCargada" style="width: 25%;" class="imagen-hover">
+                                        <!-- Imagen alternativa -->
+                                        <img *ngIf="!imagenCargada" src="sombra.png" alt="Imagen por defecto"
+                                            class="imagen-hover" style="width: 25%;">
+                                        Nombre :{{text_nombre_empleado_asignacion}}
+                                    </p>
+                                    <p>total de tramites que este usuario tiene en asignacion {{total_tramites}}</p>
+                                    <form class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Agregar instrucciones</mat-label>
+                                            <input matInput [(ngModel)]="instrucciones" id="instrucciones"
+                                                name="instrucciones" (keyup)="agregarInstrucciones()">
+                                        </mat-form-field>
+                                    </form>
+                                </mat-card>
+                            </div>
+                            <div class='col-3 mt-5'>
+                                <div class='cont'>
+                                    <div class='btn'>
+                                        <button class='botonAlmacenar' (click)="saveAsignacion()"
+                                            [disabled]="banderaBloqueo">
+                                            <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='add'
+                                                class='textoBoton'></mat-icon>
+                                            Agregar a {{text_nombre_empleado_asignacion}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+
+                        <mat-card appearance='outlined'>
+                            <div class='row mt-2'>
+                                <mat-card-content>
+                                    <mat-form-field>
+                                        <mat-label>Búsqueda </mat-label>
+                                        <input matInput (keyup)='applyFilter($event)'
+                                            placeholder='Escriba un parámetro para su búsqueda.' #input />
+                                    </mat-form-field>
+
+                                    <div class='mat-elevation-z8'>
+                                        <table mat-table [dataSource]='dataSource' matSort>
+                                            <ng-container matColumnDef='activo'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    activo
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.activo}}
+                                                </td>
+                                            </ng-container>
+                                            <!-- <ng-container matColumnDef='id_asignacion'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    id_asignacion
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.id_asignacion}}
+                                                </td>
+                                            </ng-container> -->
+                                            <!-- <ng-container matColumnDef='id_usuario_quien_asigna'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    id id_usuario_quien_asigna
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.id_usuario_quien_asigna}}
+                                                </td>
+                                            </ng-container> -->
+
+                                            <!-- <ng-container matColumnDef='id_gestion_oficios'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    id_gestion_oficios
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.id_gestion_oficios}}
+                                                </td>
+                                            </ng-container> -->
+                                            <ng-container matColumnDef='id_oficio'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    id_oficio
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.id_oficio}}
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef='text_direccion'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    Dirección / Área
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.text_direccion}} - {{ element.text_area}}
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef='text_nombre_empleado_asignacion'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    Nombre del Empleado
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.text_nombre_empleado_asignacion}}
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef='foto'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                    style="width: 10%;">
+                                                    foto
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    <img src="{{element.foto}}" style="width: 55%;"
+                                                        matTooltip="{{element.text_nombre_empleado_asignacion}}"
+                                                        class="imagen-hover" (error)="element.foto = 'sombra2.png'" />
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef='fecha_asignacion'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    fecha_asignacion
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.fecha_asignacion}}
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef='estatus_oficio'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    estatus_oficio
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.estatus_oficio}}
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef='instrucciones'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    Instrucciones
+                                                </th>
+                                                <td mat-cell *matCellDef='let element'>
+                                                    {{ element.instrucciones}}
+                                                </td>
+                                            </ng-container>
+                                            <!-- <ng-container matColumnDef='createdAt'>
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                                    style="font-size: 16px; padding: 16px 24px; min-width: 150px;">
+                                                    Fecha de creación
+                                                </th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <div style="font-size: larger;">
+                                                        <strong>Creado:</strong> {{ element.fecha_hora }}
+                                                    </div>
+                                                    <div class="alerta-hora">
+                                                        <strong>Transcurrido:</strong> {{
+                                                        getTiempoTranscurrido(element.fecha_hora) }}
+                                                    </div>
+                                                </td>
+
+                                            </ng-container> -->
+                                            <ng-container matColumnDef='Funciones'>
+                                                <th class='text-center' mat-header-cell *matHeaderCellDef>
+                                                    Funciones
+                                                </th>
+                                                <td mat-cell *matCellDef='let element' style="width: 10%;">
+                                                    <div class='example-flex-container text-center'>
+
+
+
+                                                        <button mat-mini-fab
+                                                            aria-label='Example icon button with a menu icon'
+                                                            style='background-color: rgb(250, 250, 250)'
+                                                            matTooltip='Ver el registro'
+                                                            (click)='verAvance(element.id_gestion_oficios)'>
+                                                            <mat-icon>visibility</mat-icon>
+                                                        </button>
+
+
+                                                        <button mat-mini-fab style="background-color: rgba(255, 174, 0, 0.76);"
+                                                            (click)="openDialogContrasenia(element.id_asignacion,element.numero_empledo_asignacion, element.instrucciones,element.foto)"
+                                                            aria-label="Example icon button with a home icon"
+                                                            matTooltip="editar las instrucciones">
+                                                            <mat-icon>border_color</mat-icon>
+                                                        </button>
+
+                                                        <button mat-mini-fab
+                                                            aria-label='Example icon button with a menu icon'
+                                                            style='background-color: rgb(126, 0, 0)'
+                                                            matTooltip='Eliminar el registro'
+                                                            (click)='DeleteAsignado(element.id_gestion_oficios, element.numero_empledo_asignacion)'>
+                                                            <mat-icon
+                                                                style='color: rgb(255, 255, 255)'>delete</mat-icon>
+                                                        </button>
+
+
+                                                    </div>
+                                                </td>
+                                            </ng-container>
+                                            <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+                                            <tr mat-row *matRowDef='let row; columns: displayedColumns'></tr>
+
+                                        </table>
+
+
+                                        <mat-paginator [pageSizeOptions]='[5, 10, 20]' showFirstLastButtons
+                                            aria-label='Select page of periodic elements'>
+                                        </mat-paginator>
+                                    </div>
+                                </mat-card-content>
+                            </div>
+                        </mat-card>
+
+
+
+
+
+
+
+
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Done</ng-template>
+                    <p>You are now done.</p>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="stepper.reset()">Reset</button>
+                    </div>
+                </mat-step>
+            </mat-stepper>
+
+
+
+        </mat-card-content>
+    </mat-card>
+
+
+
+</div>

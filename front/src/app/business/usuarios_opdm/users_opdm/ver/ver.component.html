@@ -1,0 +1,145 @@
+<div>
+  <mat-card appearance='outlined'>
+    <p>Información del users_opdm con número de identificación : {{ id_users_opdm }}</p>
+    <mat-card-content style="min-height: 500%;">
+      <form>
+        <div class='row mt-5'>
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Nombre</mat-label>
+              <input type='text' matInput [(ngModel)]='nombre' name='nombre' id='nombre' disabled='true' />
+            </mat-form-field>
+            @if (errornombre) {
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+          </div>
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Apellido Paterno</mat-label>
+              <input type='text' matInput [(ngModel)]='apepa' name='apepa' id='apepa' disabled='true' />
+            </mat-form-field>
+            @if (errorapepa) {
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+          </div>
+
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>apema</mat-label>
+              <input type='text' matInput [(ngModel)]='apema' name='apema' id='apema' disabled='true' />
+            </mat-form-field>
+            @if (errorapema) {
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+          </div>
+
+        </div>
+        <div class='row'>
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Roll</mat-label>
+              <select matNativeControl [(ngModel)]='id_roll' id='id_roll' name='id_roll' (change)="getPrivileges()"
+                disabled="true">
+                <option *ngFor="let listRooles of listRooles" [value]="listRooles.id_roll">{{listRooles.descripcion}}
+                </option>
+              </select>
+            </mat-form-field>
+            @if (errorid_roll) {
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+          </div>
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>correo</mat-label>
+              <input type='text' matInput [(ngModel)]='correo' name='correo' id='correo' disabled='true' />
+            </mat-form-field>
+          </div>
+          @if (errorcorreo) {
+          <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>telefono</mat-label>
+              <input type='text' matInput [(ngModel)]='telefono' name='telefono' id='telefono' disabled='true' />
+            </mat-form-field>
+          </div>
+          @if (errortelefono) {
+          <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_direccion</mat-label>
+              <select matNativeControl [(ngModel)]='id_direccion' id='id_direccion' name='id_direccion' disabled='true'>
+                <option *ngFor="let list_cat_direcciones of listcat_direcciones"
+                  [value]="list_cat_direcciones.id_cat_direcciones">{{list_cat_direcciones.descripcion}}
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_area</mat-label>
+              <select matNativeControl [(ngModel)]='id_area' id='id_area' name='id_area' disabled='true'>
+                <option *ngFor="let list_cat_areas of listcat_areas" [value]="list_cat_areas.id_cat_areas">
+                  {{list_cat_areas.descripcion}}
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class='col-4'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado</mat-label>
+              <input type='text' matInput [(ngModel)]='numero_empleado' name='numero_empleado' id='numero_empleado'
+                disabled='true' />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado) {
+          <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row mt-5'>
+          <div class='col-3'>
+            <span> adjuntar Archivo foto</span>
+            @if(this. foto != ''){
+            <object type='text/html' [data]='this. foto' ngDraggable style="width: 100%; height: 200%; overflow-y: hidden;"></object>
+            }
+          </div>
+          <!-- <div class='col-9'>
+            <mat-card appearance="outlined">
+              <mat-card-header>
+                <mat-card-title>El usuario y la clave son los parámetros que se necesitan para iniciar
+                  sesión</mat-card-title>
+                <mat-card-subtitle> <br>campos obligatorios</mat-card-subtitle>
+              </mat-card-header>
+              <br>
+              <mat-card appearance="outlined">
+                <div class='row'>
+                  <div class='col-6'>
+                    <mat-form-field class='example-full-width'>
+                      <mat-label>usuario</mat-label>
+                      <input type='text' matInput [(ngModel)]='usuario' name='usuario' id='usuario' />
+                    </mat-form-field>
+                  </div>
+                  @if (errorusuario) {
+                  <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+                  }
+                  <div class='col-6'>
+                    <mat-form-field class='example-full-width'>
+                      <mat-label>clave</mat-label>
+                      <input type='password' matInput [(ngModel)]='clave' name='clave' id='clave' />
+                    </mat-form-field>
+                  </div>
+                  @if (errorclave) {
+                  <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+                  }
+                </div>
+              </mat-card>
+            </mat-card>
+          </div>-->
+        </div> 
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

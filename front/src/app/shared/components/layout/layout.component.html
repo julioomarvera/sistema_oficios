@@ -1,0 +1,77 @@
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="openSideNav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Menú</span>
+  <span class="example-spacer"></span>
+  <section class="example-section">
+    <section class="example-section">
+      <label>{{text_direccion}}/{{text_area}} &nbsp;&nbsp;&nbsp;</label>
+    
+      <img [src]="foto" style="width: 3%; border-radius: 50% / 30%">
+    </section>
+
+
+    <mat-slide-toggle name="changeTheme" [(ngModel)]="isDarkThemeActive" (ngModelChange)="onChange($event)">cambiar el
+      tema
+    </mat-slide-toggle>
+  </section>
+  <button class='botonGris' title="Salir" (click)="Logout()">
+    <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='output'></mat-icon>
+  </button>
+
+
+
+  <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button> -->
+</mat-toolbar>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="nine">
+      <h1>MENU<span>Seleccion de Menus</span></h1>
+    </div>
+    @if (showFiller) {
+    <p>Lorem, ipsum dolor sit amet consectetur.</p>
+    }
+    <nav>
+      <ul class="nav">
+        <li>
+          <div class="box">
+            <!-- <button type='button' (click)="menu()">
+                <i class='fa fa-search'>
+                  <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='schedule'></mat-icon>
+                </i>
+                menu
+              </button>    -->
+            <!-- <button type='button' >
+                <i class='fa fa-search'>
+                  <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='schedule'></mat-icon>
+                </i>
+                rolles
+              </button> -->
+            @for (item of listmenu; track item) {
+
+            <button type='button' (click)="goMenu(item.direccion_url)">
+              <i class='fa fa-search'>
+                <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='schedule'></mat-icon>
+              </i>
+              {{ item.titulo }}
+            </button>
+            }
+            <!-- MENU BOTON -->
+          </div>
+        </li>
+
+
+      </ul>
+    </nav>
+  </mat-drawer>
+  <router-outlet />
+  <div class="example-sidenav-content">
+  </div>
+
+</mat-drawer-container>

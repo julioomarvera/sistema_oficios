@@ -1,0 +1,15 @@
+export interface historialMastergestion_oficiosTable{
+  id_historialMastergestion_oficios :number | any,  
+  id_oficios : string|any,  
+  oficio : string|any,  
+  text_oficio : string|any,  
+  tipo_oficio : string|any,  
+  text_tipo : string|any,  
+  numero_oficio : string|any,  
+  fecha_hora : string|any,  
+  caso_cop : string|any,  
+  asunto : string|any,  
+  contenido : string|any,  
+  archivo_oficio : string|any,  
+  otro : string|any,  
+}

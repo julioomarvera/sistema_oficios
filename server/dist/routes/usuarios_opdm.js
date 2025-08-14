@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const usuarios_opdm_1 = require("../controllers/usuarios_opdm");
+const router = (0, express_1.Router)();
+router.get('/getAllusuarios_opdm/:id_usuario/:id_rol/:estatus/:activo', usuarios_opdm_1.getAllusuarios_opdm);
+router.get('/:id/:id_usuario/:id_rol', usuarios_opdm_1.getRegByIdusuarios_opdm);
+router.get('/:id_usuario', usuarios_opdm_1.newusuarios_opdm);
+router.delete('/delusuarios_opdm/:id/:id_usuario', usuarios_opdm_1.delusuarios_opdm);
+router.get('/actualizarEstatususuarios_opdm/:id_usuarios_opdm/:id_usuario/:estatus/:descripcion', usuarios_opdm_1.actualizarEstatusDescripcionusuarios_opdm);
+router.get('/actualizarDesactivadousuarios_opdm/:id_usuarios_opdm/:id_usuario/:estatus/:descripcion', usuarios_opdm_1.actualizarDesactivadousuarios_opdm);
+exports.default = router;

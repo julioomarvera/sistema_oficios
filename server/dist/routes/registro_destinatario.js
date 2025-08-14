@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const registro_destinatario_1 = require("../controllers/registro_destinatario");
+const router = (0, express_1.Router)();
+router.get('/getAllregistro_destinatario/:id_usuario/:id_rol/:estatus/:activo', registro_destinatario_1.getAllregistro_destinatario);
+router.get('/:id/:id_usuario/:id_rol', registro_destinatario_1.getRegByIdregistro_destinatario);
+router.get('/:id_usuario', registro_destinatario_1.newregistro_destinatario);
+router.delete('/delregistro_destinatario/:id/:id_usuario', registro_destinatario_1.delregistro_destinatario);
+router.get('/actualizarEstatusregistro_destinatario/:id_registro_destinatario/:id_usuario/:estatus/:descripcion', registro_destinatario_1.actualizarEstatusDescripcionregistro_destinatario);
+router.get('/actualizarDesactivadoregistro_destinatario/:id_registro_destinatario/:id_usuario/:estatus/:descripcion', registro_destinatario_1.actualizarDesactivadoregistro_destinatario);
+exports.default = router;

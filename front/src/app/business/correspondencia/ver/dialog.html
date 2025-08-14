@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>¿Desea cambiar las instrucciones para este usuario?</h2>
+<mat-dialog-content>
+    <div class="row">
+        <div class="col-3">
+            <img [src]="foto" style="width: 80%;">
+        </div>
+        <div class="col-9">
+            Las instrucciones Actuales son : {{instrucciones}}
+        </div>
+    </div>
+    <hr>
+    <div class="row mt-5">
+        <p style="font-size: x-large;"><strong>Inserte las Instrucciones </strong></p>
+        <div class="col-12">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nuevas instrucciones</mat-label>
+                <input matInput [(ngModel)]="nuevaIntruccion" />
+                @if(errorActualizar){
+                    <p style="color:red"><strong>Inserte las nuevas instrucciones</strong></p>
+                }
+            </mat-form-field>
+        </div>
+    </div>
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-fab extended (click)="onNoClick()" style="background-color: #4d09098e; color: white;">
+        <mat-icon style="color: white;">cancel</mat-icon>
+        Cancelar
+    </button>
+    <button mat-fab extended (click)="actualizar()" style="background-color: #094d128e; color: white;">
+        <mat-icon style="color: white;">cloud_download</mat-icon>
+        Aceptar
+    </button>
+
+    
+</mat-dialog-actions>

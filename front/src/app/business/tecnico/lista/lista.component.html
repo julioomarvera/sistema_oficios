@@ -1,0 +1,233 @@
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+    <mat-card-content>
+        <p class='title'>Oficios</p>
+
+    </mat-card-content>
+
+</mat-card>
+
+<div class='row'>
+    <div class='col-2'>
+        <mat-card (click)='getInformacionById(5)' class='carta'>
+            <div class='icono' style="font-size: 68px;">
+                <mat-icon class="mat-icon-botonera" [ngClass]="{ 'activo': botonActivo === 5 }" aria-hidden="false"
+                    aria-label="Example home icon" fontIcon="article"></mat-icon>
+            </div>
+            <mat-card-header>
+                <mat-card-title class='titulo' style="text-align: center; justify-items: center;">
+                    <p style="margin-left: 20%;">Ver Todos los oficios </p>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <p class='texto'>Ver Oficios Nuevo</p> -->
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class='col-2'>
+        <mat-card (click)='getInformacionById(1)' class='carta'>
+            <div class='icono' style="font-size: 68px;">
+                <mat-icon class="mat-icon-botonera" [ngClass]="{ 'activo': botonActivo === 1 }" aria-hidden="false"
+                    aria-label="Example home icon" fontIcon="article"></mat-icon>
+            </div>
+            <mat-card-header>
+                <mat-card-title class='titulo' style="text-align: center; justify-items: center;">
+                    <p style="margin-left: 20%;">Ver Nuevos Oficios </p>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <p class='texto'>Ver Oficios Nuevo</p> -->
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class='col-2'>
+        <mat-card (click)='getInformacionById(2)' class='carta'>
+            <div class='icono' style="font-size: 68px;">
+                <mat-icon class="mat-icon-botonera" [ngClass]="{ 'activo': botonActivo === 2 }" aria-hidden="false"
+                    aria-label="Example home icon" fontIcon="incomplete_circle"></mat-icon>
+            </div>
+            <mat-card-header>
+                <mat-card-title class='titulo' style="text-align: center; justify-items: center;">
+                    <p style="margin-left: 20%;">Ver Oficios En Proceso </p>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <p class='texto'>Ver Oficios Nuevo</p> -->
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class='col-2'>
+        <mat-card (click)='getInformacionById(3)' class='carta'>
+            <div class='icono' style="font-size: 68px;">
+                <mat-icon class="mat-icon-botonera" [ngClass]="{ 'activo': botonActivo === 3 }" aria-hidden="false"
+                    aria-label="Example home icon" fontIcon="pause_circle"></mat-icon>
+            </div>
+            <mat-card-header>
+                <mat-card-title class='titulo' style="text-align: center; justify-items: center;">
+                    <p style="margin-left: 20%;">Ver Oficios En Pausa </p>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <p class='texto'>Ver Oficios Nuevo</p> -->
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class='col-2'>
+        <mat-card (click)='getInformacionById(4)' class='carta'>
+            <div class='icono' style="font-size: 68px;">
+                <mat-icon class="mat-icon-botonera" [ngClass]="{ 'activo': botonActivo === 4 }" aria-hidden="false"
+                    aria-label="Example home icon" fontIcon="folder_check_2"></mat-icon>
+            </div>
+            <mat-card-header>
+                <mat-card-title class='titulo' style="text-align: center; justify-items: center;">
+                    <p style="margin-left: 20%;">Ver Oficios Concluidos </p>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <p class='texto'>Ver Oficios Nuevo</p> -->
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class='col-2'>
+        <mat-card (click)='openHelper()' class='carta'>
+
+            <mat-card-header>
+                <mat-card-title class='titulo' style="text-align: center; justify-items: center;">
+                    <button class='botonGris-icon'>
+                        <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='help'></mat-icon>
+                    </button>
+
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <br>
+                <p style="margin-left: 2%; font-size: xx-large;">Información</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+
+
+</div>
+
+<div class='row'>
+    <mat-card appearance='outlined'>
+        <div class='row mt-2'>
+            <mat-card-content>
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Búsqueda </mat-label>
+                    <input matInput (keyup)='applyFilter($event)' placeholder='Escriba un parámetro para su búsqueda.'
+                        #input />
+                </mat-form-field>
+                <div class='mat-elevation-z8'>
+                    <table mat-table [dataSource]='dataSource' matSort>
+                        <ng-container matColumnDef='activo'>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Activo
+                            </th>
+                            <td mat-cell *matCellDef='let element'>
+                                {{ element.activo}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef='text_oficio'>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Oficio
+                            </th>
+                            <td mat-cell *matCellDef='let element'>
+                                {{ element.text_oficio}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef='text_tipo'>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Tipo
+                            </th>
+                            <td mat-cell *matCellDef='let element'>
+                                {{ element.text_tipo}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef='numero_oficio'>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Número de oficio
+                            </th>
+                            <td mat-cell *matCellDef='let element'>
+                                {{ element.numero_oficio}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef='asunto'>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Asunto
+                            </th>
+                            <td mat-cell *matCellDef='let element'>
+                                {{ element.asunto}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef='estatus'>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Estatus
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-chip [color]="getEstatusVisual(element.estatus_oficio).color" selected>
+                                    <mat-icon>{{ getEstatusVisual(element.estatus_oficio).icon }}</mat-icon>
+                                    {{ getEstatusVisual(element.estatus_oficio).label }}
+                                </mat-chip>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef='archivo_oficio'>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Archivo del oficio
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <ng-container *ngIf="element.archivo_oficio">
+                                    <!-- <object [data]="getPdfUrl(element.archivo_oficio)" 
+                                        width="500px" height="120px">
+                                        
+                                    </object> -->
+                                    <p><a [href]="element.archivo_oficio" target="_blank">ver el oficio
+                                            :{{element.numero_oficio}}</a></p>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef='fecha_hora'>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Fecha de creación
+                            </th>
+                            <td mat-cell *matCellDef='let element'>
+                                {{ element.fecha_hora}}
+                                <strong>Tiempo transcurrido:</strong>
+                                {{getTiempoTranscurrido(element.fecha_hora) }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef='Funciones'>
+                            <th class='text-center' mat-header-cell *matHeaderCellDef>
+                                Funciones
+                            </th>
+                            <td mat-cell *matCellDef='let element'>
+                                <div class='example-flex-container text-center'>
+                                    <button mat-mini-fab aria-label='Example icon button with a menu icon'
+                                        style='background-color: rgb(250, 250, 250)' matTooltip='Ver el registro'
+                                        (click)='verAvance(element.id_oficios,element.id_asignacion)'>
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+                                    @if(element.estatus_oficio > 1){
+                                    <button mat-mini-fab aria-label='Example icon button with a menu icon'
+                                        style='background-color: rgba(255, 196, 3, 0.836)'
+                                        matTooltip='Actualizar el registro'
+                                        (click)='actualizarSeguimiento(element.id_oficios,element.id_asignacion)'>
+                                        <mat-icon>edit_note</mat-icon>
+                                    </button>
+                                    }
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+                        <tr mat-row *matRowDef='let row; columns: displayedColumns'></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]='[5, 10, 20]' showFirstLastButtons
+                        aria-label='Select page of periodic elements'>
+                    </mat-paginator>
+                </div>
+            </mat-card-content>
+        </div>
+    </mat-card>
+</div>

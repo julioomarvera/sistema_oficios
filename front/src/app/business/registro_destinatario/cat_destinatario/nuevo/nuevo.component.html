@@ -1,0 +1,125 @@
+@if(this.loading == true){
+<mat-card appearance='outlined' class='loadingPanel'>
+  <mat-card-content>
+    <div class='loader'></div>
+    <div class=' loadingPanelTitulo'></div>
+  </mat-card-content>
+</mat-card>
+<mat-card appearance='outlined' class='loadingPanelTitulo'>
+  <mat-card-content>
+    <h5>Procesando</h5>
+  </mat-card-content>
+</mat-card>
+} @else{
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <!-- <button class='botonGris' (click)='goInicio()'>
+        <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon=' keyboard_backspace'></mat-icon>
+      </button> -->
+    </div>
+    <div class='col-6'>
+      <mat-card-content>
+        <p style="font-weight: bold;">REGISTRO A QUIEN VA DIRIGIDO DESTINATARIO</p>
+      </mat-card-content>
+    </div>
+    <div class='col-3'>
+      <!-- <button class='botonGris-icon' (click)='openHelper()'>
+        <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='help'></mat-icon>
+      </button> -->
+    </div>
+  </div>
+</mat-card>
+<div>
+  <mat-card appearance='outlined'>
+    <mat-card-content>
+      <form>
+        <div class='row'>
+          <div class='col-5'>
+            <mat-form-field class="example-full-width">
+              <mat-label>Dirección</mat-label>
+              <input type="text" placeholder="Busca una dirección" aria-label="Dirección" matInput
+                [formControl]="myControlDirecciones" [matAutocomplete]="autoDirecciones" (click)="clearDirecciones()">
+              <mat-autocomplete autoActiveFirstOption #autoDirecciones="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptionsDirecciones | async; trackBy: trackById"
+                  [value]="option.descripcion" style="color: black;"
+                  (onSelectionChange)="onDireccionChange($event, option)">
+                  {{ option.descripcion }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class='col-7'>
+            <mat-form-field class="example-full-width">
+              <mat-label>Área</mat-label>
+              <input type="text" placeholder="Busca una área" aria-label="Área" matInput [formControl]="myControlAreas"
+                [matAutocomplete]="autoAreas" (click)="clearArea()">
+              <mat-autocomplete autoActiveFirstOption #autoAreas="matAutocomplete">
+                <mat-option
+                  *ngFor="let optionArea of filteredOptionsAreas | async; let i = index; trackBy: trackByIdAreas"
+                  [value]="optionArea.descripcion" style="color: black;"
+                  (onSelectionChange)="onAreaChange($event, optionArea)"
+                  [disabled]="areasSeleccionadas.includes(optionArea.id_cat_areas)"
+>
+                  @if(i == 4){
+                  <ng-container>
+                    <p>{{ optionArea.descripcion }}</p>
+                    <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='arrow_drop_down'></mat-icon>
+                  </ng-container>
+                  }
+                  @else {
+                  {{ optionArea.descripcion }}
+                  }
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class='row mt-1'>
+          <div class="col-12">
+            @if(foto != ""){
+            <mat-card appearance="outlined" style="width: 100%; background-color: #521d2e28;">
+              <div class="row mt-3">
+                <div class="col-1"></div>
+                <div class="col-8">
+                  <p style="font-weight: bold; font-size: x-large;">Responsable del área a la que va dirigido el Oficio
+                  </p>
+                </div>
+                <div class="col-3">
+                  <img src="opdm_transparente.png" style="width: 60%;">
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-1"></div>
+                <div class="col-4">
+                  <img mat-card-image [src]="foto" alt="Photo of a Shiba Inu" style="width: 80%; align-items: center; justify-content: center; margin-top: -24%;">
+                </div>
+                <div class="col-6">
+                  <p style="font-weight: bold; font-size: x-large; margin-top: 20%;" >{{text_nombre_empleado}}</p>
+                </div>
+              </div>
+
+
+            </mat-card>
+            }
+          </div>
+        </div>
+        <div class='row mt-5'>
+          <div class='col-6'></div>
+          <div class='col-3 boton-derecha'>
+            <div class='cont'>
+              <div class='btn'>
+                <button class='botonAlmacenar' (click)="save()">
+                  <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='add'
+                    class='textoBoton'></mat-icon>
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+}

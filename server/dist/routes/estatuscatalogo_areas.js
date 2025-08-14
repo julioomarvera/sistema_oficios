@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const estatuscatalogo_areas_1 = require("../controllers/estatuscatalogo_areas");
+const router = (0, express_1.Router)();
+router.get('/getAllestatuscatalogo_areas/:id_usuario', estatuscatalogo_areas_1.getAllestatuscatalogo_areas);
+router.get('/getRegByIdestatuscatalogo_areas/:id/:id_usuario', estatuscatalogo_areas_1.getRegByIdestatuscatalogo_areas);
+router.post('/', estatuscatalogo_areas_1.newestatuscatalogo_areas);
+router.put('/upd', estatuscatalogo_areas_1.updateestatuscatalogo_areas);
+router.delete('/del/:id/:id_usuario', estatuscatalogo_areas_1.delestatuscatalogo_areas);
+exports.default = router;

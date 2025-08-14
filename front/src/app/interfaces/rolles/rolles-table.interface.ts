@@ -1,0 +1,15 @@
+export interface rollesTable{
+  id_roll : number|any,  
+  descripcion : string|any,  
+  crear : boolean|any,  
+  ver : boolean|any,  
+  editar : boolean|any,  
+  eliminar : boolean|any,  
+  activo     : number|any,  
+  id_usuario : number|any,  
+  imp: string|any,  
+  edit: string|any,  
+  elim: string|any,  
+  nuev: string|any,  
+  img: string|any,  
+}

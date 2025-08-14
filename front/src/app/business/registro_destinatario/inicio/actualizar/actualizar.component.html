@@ -1,0 +1,34 @@
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <button class='botonGris' (click)='goInicio()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon=' keyboard_backspace'
+        ></mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+@if(this.id_cat_destinatario != 'null'){ 
+    <app-actualizar-cat_destinatario [peticionVerificacion]  = 'comandoVerificacioncat_destinatario' (enviarRespuestaVerificacion)='recibirMensajecat_destinatario($event)' [peticionActualizacion] = 'comandoActualizarcat_destinatario ' (enviarRespuestaActualizacion)='recibirMensajeActualizacioncat_destinatario($event)'></app-actualizar-cat_destinatario> 
+}
+<div class='row mt-5'>
+  <div class='col-6'></div>
+  <div class='col-3 boton-derecha'>
+    <div class='cont'>
+      <div class='btn'>
+        <button class='botonAlmacenar' (click)="comandoVerificacionActualizacion()">
+          <mat-icon
+            aria-hidden='false'
+            aria-label='Example home icon'
+            fontIcon='tv_options_edit_channels'
+            class='textoBoton'
+          ></mat-icon>
+          Actualizar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

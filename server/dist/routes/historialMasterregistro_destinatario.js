@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const historialMasterregistro_destinatario_1 = require("../controllers/historialMasterregistro_destinatario");
+const router = (0, express_1.Router)();
+router.get('/getAllhistorialMasterregistro_destinatario/:id_usuario', historialMasterregistro_destinatario_1.getAllhistorialMasterregistro_destinatario);
+router.get('/getRegByIdhistorialMasterregistro_destinatario/:id/:id_usuario', historialMasterregistro_destinatario_1.getRegByIdhistorialMasterregistro_destinatario);
+router.post('/', historialMasterregistro_destinatario_1.newhistorialMasterregistro_destinatario);
+router.put('/upd', historialMasterregistro_destinatario_1.updatehistorialMasterregistro_destinatario);
+router.delete('/del/:id/:id_usuario', historialMasterregistro_destinatario_1.delhistorialMasterregistro_destinatario);
+exports.default = router;

@@ -1,0 +1,18 @@
+export interface asignacion {
+    id_asignacion: number | any,
+    id_usuario_quien_asigna: number | any,
+    id_gestion_oficios: number | any,
+    id_oficio: number | any,
+    id_direccion_asignacion: number | any,
+    id_area_asignacion: number | any,
+    numero_empledo_asignacion: number | any,
+    text_direccion: string | any,
+    text_area: string | any,
+    text_nombre_empleado_asignacion: string | any,
+    foto: string | any,
+    fecha_asignacion: string | any,
+    estatus_oficio: string | any,
+    activo?: number | any,
+    instrucciones : string | any,
+}
+

@@ -1,0 +1,134 @@
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <mat-card-content>
+    <p class='title'>cat_direcciones</p>
+  </mat-card-content>
+</mat-card>
+@if(this.nuev  == '1'){
+<div class='row'>
+  <div class='col-4'>
+    <mat-card (click)='agregarcat_direcciones($event)' class='carta'>
+      <div class='icono'>
+        <i class='material-icons md-36'>add_circle</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Agregar cat_direcciones </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+}
+<div class='row'> 
+  <mat-card appearance='outlined'> 
+    <div class='row mt-2'> 
+      <div class='col-3 boton-derecha'> 
+        @if(this.imp  == '1'){
+          <button class='botonGris-icon' (click)='exportAsXLSX()'> 
+            <mat-icon 
+              aria-hidden='false' 
+              aria-label='Example home icon' 
+              fontIcon='table' 
+            ></mat-icon> 
+          </button>
+        }
+      </div>
+    </div>
+    <div class='row mt-2'> 
+      <mat-card-content> 
+        <mat-form-field> 
+          <mat-label>Búsqueda</mat-label> 
+          <input 
+            matInput 
+            (keyup)='applyFilter($event)' 
+            placeholder='Escriba un parámetro para su búsqueda.' 
+            #input 
+          /> 
+        </mat-form-field> 
+ 
+        <div class='mat-elevation-z8'> 
+          <table mat-table [dataSource]='dataSource' matSort> 
+            <ng-container matColumnDef='id_cat_direcciones'>   
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                ID CAT DIRECCIONES
+              </th>
+              <td mat-cell *matCellDef='let element'>
+                {{ element.id_cat_direcciones}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef='descripcion'>   
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                DESCRIPCION
+              </th>
+              <td mat-cell *matCellDef='let element'>
+                {{ element.descripcion}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef='createdAt'>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Fecha de creación
+              </th>
+              <td mat-cell *matCellDef='let element'>
+                {{ element.createdAt }}
+              </td>
+            </ng-container> 
+            <ng-container matColumnDef='Funciones'>
+              <th class='text-center' mat-header-cell *matHeaderCellDef>
+                Funciones
+              </th>
+              <td mat-cell *matCellDef='let element'>
+                <div class='example-flex-container text-center'>
+                  <button
+                    mat-mini-fab
+                    aria-label= 'Example icon button with a menu icon'
+                    style= 'background-color: rgb(250, 250, 250)'
+                    matTooltip= 'Ver el registro'
+                    (click)= 'vercat_direcciones(element.id_cat_direcciones)'
+                  >
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+
+                  @if(this.edit  == '1'){
+                     <button
+                       mat-mini-fab
+                       aria-label= 'Example icon button with a menu icon'
+                       style= 'background-color: rgb(245, 188, 0)'
+                       matTooltip= 'Modificar el registro'
+                       (click)= 'updatecat_direcciones(element.id_cat_direcciones)'
+                     >
+                       <mat-icon style= 'color: rgb(0, 0, 0)'>edit</mat-icon>
+                     </button>
+                  }
+
+                  @if(this.elim  == '1'){
+                     <button
+                       mat-mini-fab
+                       aria-label= 'Example icon button with a menu icon'
+                       style= 'background-color: rgb(126, 0, 0)'
+                       matTooltip= 'Eliminar el registro'
+                       (click)= 'Deletecat_direcciones(element.id_cat_direcciones)'
+                     >
+                       <mat-icon style= 'color: rgb(255, 255, 255)'>delete</mat-icon>
+                     </button>
+                  }
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+            <tr mat-row *matRowDef='let row; columns: displayedColumns'></tr>
+          </table>
+
+          <mat-paginator
+            [pageSizeOptions]='[5, 10, 20]'
+            showFirstLastButtons
+            aria-label='Select page of periodic elements'
+          >
+          </mat-paginator>
+        </div>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>

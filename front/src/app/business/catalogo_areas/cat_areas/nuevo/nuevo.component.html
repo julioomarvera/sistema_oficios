@@ -1,0 +1,113 @@
+  
+@if(this.loading  ==  true){
+  <mat-card appearance='outlined' class='loadingPanel'>
+    <mat-card-content>
+      <div class='loader'></div>
+      <div class=' loadingPanelTitulo'></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance='outlined' class='loadingPanelTitulo'>
+    <mat-card-content>
+      <h5>Procesando</h5>
+    </mat-card-content>
+  </mat-card>
+} @else{
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <button class='botonGris' (click)='goInicio()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon=' keyboard_backspace'
+        ></mat-icon>
+      </button>
+    </div>
+    <div class='col-6'>
+      <mat-card-content>
+        <p class='title'>Nuevo CATALOGO DE ÁREAS</p>
+      </mat-card-content>
+    </div>
+    <div class='col-3'>
+      <button class='botonGris-icon' (click)='openHelper()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon='help'
+        ></mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<div>
+  <mat-card appearance='outlined'>
+    <mat-card-content>
+      <form>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_direccion</mat-label>
+              <select matNativeControl  [(ngModel)]='id_direccion'  id='id_direccion'  name='id_direccion'>
+                <option *ngFor="let list_cat_direcciones of listcat_direcciones" 
+                  [value]="list_cat_direcciones.id_cat_direcciones">{{list_cat_direcciones.descripcion}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_direccion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_direccion'
+                name = 'text_direccion'
+                id = 'text_direccion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_direccion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>descripcion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='descripcion'
+                name = 'descripcion'
+                id = 'descripcion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errordescripcion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div> 
+        <div class='row mt-5'>
+          <div class='col-6'></div>
+            <div class='col-3 boton-derecha'>
+              <div class='cont'>
+                <div class='btn'>
+                  <button class='botonAlmacenar' (click)="save()">
+                    <mat-icon
+                      aria-hidden='false'
+                      aria-label='Example home icon'
+                      fontIcon='check_small'
+                      class='textoBoton'
+                    ></mat-icon>
+                     Finalizar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

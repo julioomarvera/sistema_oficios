@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const rolles_1 = require("../controllers/rolles");
+const router = (0, express_1.Router)();
+router.get('/getAllrolles/:id_usuario', rolles_1.getAllws_rolles);
+router.get('/:id/:id_usuario', rolles_1.getRegByIdws_rolles);
+router.post('/', rolles_1.newws_rolles);
+router.put('/upd', rolles_1.updws_rolles);
+router.delete('/del/:id', rolles_1.delws_rolles);
+exports.default = router;

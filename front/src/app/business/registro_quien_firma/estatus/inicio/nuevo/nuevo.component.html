@@ -1,0 +1,83 @@
+  
+@if(this.loading  ==  true){
+  <mat-card appearance='outlined' class='loadingPanel'>
+    <mat-card-content>
+      <div class='loader'></div>
+      <div class=' loadingPanelTitulo'></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance='outlined' class='loadingPanelTitulo'>
+    <mat-card-content>
+      <h5>Procesando</h5>
+    </mat-card-content>
+  </mat-card>
+} @else{
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <button class='botonGris' (click)='goInicio()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon=' keyboard_backspace'
+        ></mat-icon>
+      </button>
+    </div>
+    <div class='col-6'>
+      <mat-card-content>
+        <p class='title'>Nuevo parámetro descripción</p>
+      </mat-card-content>
+    </div>
+    <div class='col-3'>
+      <button class='botonGris-icon' (click)='openHelper()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon='help'
+        ></mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<div>
+  <mat-card appearance='outlined'>
+    <mat-card-content>
+      <form>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>Descripción</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='descripcion'
+                name = 'descripcion'
+                id = 'descripcion'
+              />
+            </mat-form-field>
+          </div>
+        </div> 
+        <div class='row mt-5'>
+          <div class='col-6'></div>
+            <div class='col-3 boton-derecha'>
+              <div class='cont'>
+                <div class='btn'>
+                  <button class='botonAlmacenar' (click)="save()">
+                    <mat-icon
+                      aria-hidden='false'
+                      aria-label='Example home icon'
+                      fontIcon='save'
+                      class='textoBoton'
+                    ></mat-icon>
+                     Almacenar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

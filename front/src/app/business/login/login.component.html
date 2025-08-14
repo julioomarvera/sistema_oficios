@@ -1,0 +1,58 @@
+<body>
+    <div class="bodySatnd">
+    <div class="header">
+        <div class="inner-header flex">
+            <div class="row">
+                <div class="col-6">
+                    <div class="contenedor">
+                        <div class="caja1">
+                            <span></span>
+                            <div class="content">
+                                <img class="imagenPanel" src="opdm_transparente.png" alt="" style="height: 50%; width: 150%;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="contenedor">
+                        <div class="caja2">
+                            <div class="content">
+                                <h1 class="text-center">Sistema de Control de Oficios OPDM</h1>
+                                <div class="form-floating mb-9 control-login">
+                                    <input type="email" class="form-control form-control-lg" id="user" (keyup.enter)="onSubmit()"
+                                        placeholder="name@example.com" matinput [(ngModel)]="usuario" />
+                                    @if(formLogin.get('usuario')?.hasError('required')&&
+                                    formLogin.get('usuario')?.touched){
+                                    <mat-error>El campo no es correcto o esta Vacio</mat-error>
+                                    }
+                                    <label for="floatingInput">Usuario</label>
+                                </div>
+                                <br />
+                                <div class="form-floating mb-9 control-login">
+                                    <input type="password" class="form-control form-control-lg" id="clave" (keyup.enter)="onSubmit()"
+                                        placeholder="name@example.com" matinput [(ngModel)]="clave" />
+                                    @if(formLogin.get('clave')?.hasError('required')&&
+                                    formLogin.get('clave')?.touched){
+                                    <mat-error>El campo no es correcto o esta Vacio</mat-error>
+                                    }
+                                    <label for="floatingInput">Contraseña</label>
+                                </div>
+                                <div class="d-grid gap-2 control-boton-login mt-3">
+                                    <button class="btn-login btn-lg" type="button" (click)="onSubmit()">
+                                        Entrar
+                                    </button>
+                                </div>
+                                <img class="imagenPanel" src="opdm-logo.png" alt="" style="width: 20%; margin-left: 45%; margin-top: 5%;"/>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+   
+</div>
+
+</body>

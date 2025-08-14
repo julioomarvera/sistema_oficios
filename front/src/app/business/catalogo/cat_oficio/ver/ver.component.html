@@ -1,0 +1,73 @@
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <button class='botonGris' (click)='goInicio()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon=' keyboard_backspace'
+        ></mat-icon>
+      </button>
+    </div>
+    <div class='col-6'>
+      <mat-card-content>
+        <p class='title'>Ver Información CATALOGO DE OFICIOS</p>
+      </mat-card-content>
+    </div>
+    <div class='col-3'>
+      <button class='botonGris-icon' (click)='openHelper()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon='help'
+        ></mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<div>
+  <mat-card appearance='outlined'>
+    <p>Información del cat_oficio con número de identificación : {{ id_cat_oficio }}</p>
+    <mat-card-content>
+      <form>
+        <div class='row mt-5'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>descripcion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='descripcion'
+                name = 'descripcion'
+                id = 'descripcion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errordescripcion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div> 
+        <div class='row mt-5'>
+          <div class='col-6'></div>
+            <div class='col-3 boton-derecha'>
+              <div class='cont'>
+                <div class='btn'>
+                  <button class='botonAlmacenar' (click)="goInicio()">
+                    <mat-icon
+                      aria-hidden='false'
+                      aria-label='Example home icon'
+                      fontIcon='home'
+                      class='textoBoton'
+                    ></mat-icon>
+                     Aceptar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

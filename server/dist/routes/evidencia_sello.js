@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const evidencia_sello_1 = require("../controllers/evidencia_sello");
+const router = (0, express_1.Router)();
+router.get('/getAllevidencia_sello/:id_usuario/:id_rol/:estatus/:activo', evidencia_sello_1.getAllevidencia_sello);
+router.get('/:id/:id_usuario/:id_rol', evidencia_sello_1.getRegByIdevidencia_sello);
+router.get('/:id_usuario', evidencia_sello_1.newevidencia_sello);
+router.delete('/delevidencia_sello/:id/:id_usuario', evidencia_sello_1.delevidencia_sello);
+router.get('/actualizarEstatusevidencia_sello/:id_evidencia_sello/:id_usuario/:estatus/:descripcion', evidencia_sello_1.actualizarEstatusDescripcionevidencia_sello);
+router.get('/actualizarDesactivadoevidencia_sello/:id_evidencia_sello/:id_usuario/:estatus/:descripcion', evidencia_sello_1.actualizarDesactivadoevidencia_sello);
+exports.default = router;

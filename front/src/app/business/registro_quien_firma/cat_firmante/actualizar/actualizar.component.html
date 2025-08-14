@@ -1,0 +1,163 @@
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+    </div>
+    <div class='col-6'>
+      <mat-card-content>
+        <p class='title'>Actualizar Información REGISTRO DE QUIEN FIRMA </p>
+      </mat-card-content>
+    </div>
+    <div class='col-3'>
+    </div>
+  </div>
+</mat-card>
+
+  <div>
+    <mat-card appearance='outlined'>
+      <p>Información del cat_firmante con número de identificación : {{ id_cat_firmante }}</p>
+      <mat-card-content>
+        <form>
+          <div class='row mt-5'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_direccion</mat-label>
+              <select matNativeControl  [(ngModel)]='id_direccion'  id='id_direccion' name='id_direccion'>
+                <option *ngFor="let list_cat_direcciones of listcat_direcciones" 
+                  [value]="list_cat_direcciones.id_cat_direcciones">{{list_cat_direcciones.descripcion}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+            <div class='col-3'>
+              <mat-form-field class='example-full-width'>
+                <mat-label>text_direccion</mat-label>
+                <input
+                  type='text'
+                  matInput 
+                  [(ngModel)]='text_direccion'
+                  name = 'text_direccion'
+                  id = 'text_direccion'
+                  
+                />
+              </mat-form-field>
+            </div>
+            @if (errortext_direccion) { 
+              <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_area</mat-label>
+              <select matNativeControl  [(ngModel)]='id_area'  id='id_area' name='id_area'>
+                <option *ngFor="let list_cat_areas of listcat_areas" 
+                  [value]="list_cat_areas.id_cat_areas">{{list_cat_areas.descripcion}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+            <div class='col-3'>
+              <mat-form-field class='example-full-width'>
+                <mat-label>area_texto</mat-label>
+                <input
+                  type='text'
+                  matInput 
+                  [(ngModel)]='area_texto'
+                  name = 'area_texto'
+                  id = 'area_texto'
+                  
+                />
+              </mat-form-field>
+            </div>
+            @if (errorarea_texto) { 
+              <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+          </div>
+          <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empledo</mat-label>
+              <select matNativeControl  [(ngModel)]='numero_empledo'  id='numero_empledo' name='numero_empledo'>
+                <option *ngFor="let list_cat_empleados of listcat_empleados" 
+                  [value]="list_cat_empleados.id_cat_empleados">{{list_cat_empleados.numero_empleado}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+            <div class='col-3'>
+              <mat-form-field class='example-full-width'>
+                <mat-label>text_nombre_empleado</mat-label>
+                <input
+                  type='text'
+                  matInput 
+                  [(ngModel)]='text_nombre_empleado'
+                  name = 'text_nombre_empleado'
+                  id = 'text_nombre_empleado'
+                  
+                />
+              </mat-form-field>
+            </div>
+            @if (errortext_nombre_empleado) { 
+              <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+            <div class='col-3'>
+              <mat-form-field class='example-full-width'>
+                <mat-label>foto</mat-label>
+                <input
+                  type='text'
+                  matInput 
+                  [(ngModel)]='foto'
+                  name = 'foto'
+                  id = 'foto'
+                  
+                />
+              </mat-form-field>
+            </div>
+            @if (errorfoto) { 
+              <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+            <div class='col-3'>
+              <mat-form-field class='example-full-width'>
+                <mat-label>id_oficio</mat-label>
+                <input
+                  type='text'
+                  matInput 
+                  [(ngModel)]='id_oficio'
+                  name = 'id_oficio'
+                  id = 'id_oficio'
+                  
+                />
+              </mat-form-field>
+            </div>
+            @if (errorid_oficio) { 
+              <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+            <div class='col-3'>
+              <mat-form-field class='example-full-width'>
+                <mat-label>otro</mat-label>
+                <input
+                  type='text'
+                  matInput 
+                  [(ngModel)]='otro'
+                  name = 'otro'
+                  id = 'otro'
+                  
+                />
+              </mat-form-field>
+            </div>
+            @if (errorotro) { 
+              <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+            }
+            <div class='col-3'>
+              <mat-form-field class='example-full-width'>
+                <mat-label>Estatus</mat-label>
+                <select matNativeControl  [(ngModel)]='estatus'  id='estatus'  name='estatus'>
+                  <option *ngFor="let list_estatus of listestatusregistro_quien_firma" 
+                    [value]="list_estatus.id_estatusregistro_quien_firma">{{list_estatus.descripcion}} 
+                  </option>
+                </select>
+              </mat-form-field>
+            </div>
+          </div> 
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

@@ -1,0 +1,275 @@
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <mat-card-content>
+    <p class='title'>Gestión de oficios</p>
+  </mat-card-content>
+</mat-card>
+@if(this.nuev == '1'){
+<div class='row'>
+  <div class='col-3'>
+    <mat-card (click)='agregargestion_oficios($event)' class='carta'>
+      <div class='icono'>
+        <i class='material-icons md-36'>add_circle</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Agregar gestion_oficios </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class='col-3'>
+    <mat-card (click)='vertodo()' class='carta'>
+      <div class='icono'>
+        <i class='material-icons md-36'>visibility</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Ver todos los registros </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class='col-3'>
+    @if(activo == 1){
+    <mat-card (click)='activadoDesactivado(1)' class='carta'>
+      <div class='icono'>
+        <i class='material-icons md-36'>toggle_on</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Ver parametros Activos</p>
+      </mat-card-content>
+    </mat-card>
+    }
+    @else {
+    <mat-card (click)='activadoDesactivado(0)' class='carta'>
+      <div class='icono'>
+        <i class='material-icons md-36'>toggle_off</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Ver parametros desactivos </p>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+  <div class='col-3'>
+    <mat-card (click)='exportAsXLSX()' class='carta'>
+      <div class='icono'>
+        <i class='material-icons md-36'>table_view</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Generar Excel gestion_oficios </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- <div class='row'>
+    @for (item of listEstatus; track item) {
+    <div class='col-1'>
+      <button class='botonGris-icon' (click)='goMenu(item.id_estatusgestion_oficios)'>
+        <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='table'
+          [ngStyle]='{"background-color": cambiarColor(item.id_estatusgestion_oficios)}'></mat-icon>
+        {{ item.descripcion }}
+      </button>
+    </div>
+    }
+  </div> -->
+</div>
+}
+<div class='row mt-2'>
+  <mat-card appearance='outlined'>
+    <div class='row mt-2'>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Búsqueda </mat-label>
+          <input matInput (keyup)='applyFilter($event)' placeholder='Escriba un parámetro para su búsqueda.' #input />
+        </mat-form-field>
+
+        <div class='mat-elevation-z8'>
+          <table mat-table [dataSource]='dataSource' matSort>
+
+            <ng-container matColumnDef='activo'>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                activo
+              </th>
+              <td mat-cell *matCellDef='let element'
+                [ngStyle]='{"background-color": cambiarColorActivo(element.activo)}'>
+                {{ element.activo}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef='id_gestion_oficios'>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id gestion_oficios
+              </th>
+              <td mat-cell *matCellDef='let element' [ngStyle]='{"background-color": cambiarColor(element.estatus)}'>
+                {{ element.id_gestion_oficios}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef='id_usuario'>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_usuario
+              </th>
+              <td mat-cell *matCellDef='let element' [ngStyle]='{"background-color": cambiarColor(element.estatus)}'>
+                {{ element.id_usuario}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef='id_oficios'>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_oficios
+              </th>
+              <td mat-cell *matCellDef='let element' [ngStyle]='{"background-color": cambiarColor(element.estatus)}'>
+                {{ element.id_oficios}} -{{element.numero_oficio}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef='asunto'>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Asunto
+              </th>
+              <td mat-cell *matCellDef='let element' [ngStyle]='{"background-color": cambiarColor(element.estatus)}'>
+                <p style="font-size: x-larger; text-align: justify; font-weight: bold;">{{ element.asunto}}</p>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef='estatus'>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                estatus
+              </th>
+              <td mat-cell *matCellDef='let element'
+                [ngStyle]='{"background-color": cambiarColor(element.id_estatusgestion_oficios)}'>
+                <button mat-mini-fab aria-label="Example icon button with a menu icon"
+                  matTooltip="Ver estatus del registro" (click)="getInfo(element.id_gestion_oficios)">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef='createdAt'>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header
+                style="font-size: 16px; padding: 16px 24px; min-width: 150px;">
+                Fecha de creación
+              </th>
+              <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': cambiarColor(element.estatus) }">
+                <div style="font-size: larger;">
+                  <strong>Creado:</strong> {{ element.fecha_hora }}
+                </div>
+                <div class="alerta-hora">
+                  <strong>Transcurrido:</strong> {{ getTiempoTranscurrido(element.fecha_hora) }}
+                </div>
+              </td>
+
+            </ng-container>
+            <!-- Destinatarios---------------------------------------------------------------------------------------------------------------------->
+            <ng-container matColumnDef="destinatarios" style="text-align: center; align-items: center;">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Destinatarios
+              </th>
+              <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': cambiarColor(element.estatus) }"
+                style="width: 40%;">
+                <ng-container *ngIf="element.destinatarios?.length > 0; else sinDestinatarios">
+                  <div class="row">
+                    <div class="col-2" *ngFor="let d of element.destinatarios"
+                      [ngClass]="{'example-button-container-asignado': d.estatus == 4,'example-button-container-sellado': d.estatus == 3,'example-button-container-Leido': d.estatus == 2, 'example-button-container-noLido': d.estatus == 1}">
+                      <a mat-fab extended class="mat-fab-container">
+                        <img [src]="d.foto" class="foto-avatar" matTooltip="{{d.area_texto}}"
+                          (error)="d.foto = 'sombra2.png'" />
+                      </a>
+
+
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #sinDestinatarios>
+                  <span>No hay destinatarios</span>
+                </ng-template>
+              </td>
+            </ng-container>
+            <!---------------------------------------------------------------------------------------------------------------------------------------->
+            <ng-container matColumnDef='Funciones'>
+              <th class='text-center' mat-header-cell *matHeaderCellDef>
+                Funciones
+              </th>
+              <td mat-cell *matCellDef='let element' [ngStyle]='{"background-color": cambiarColor(element.estatus)}'>
+                <div class='example-flex-container text-center'>
+                  <button (click)='openHelper(element.id_estatusreporteador)' mat-mini-fab
+                    aria-label='Example icon button with a menu icon' style='background-color: rgb(250, 250, 250)'
+                    matTooltip='Modificar Estatus del registro'>
+                    <mat-icon style='color: rgb(0, 0, 0)'>login</mat-icon>
+                  </button>
+                  @if(element.finalizado == '0'){
+                  <button mat-mini-fab aria-label='Example icon button with a menu icon'
+                    style='background-color: rgb(0, 98, 245, 0.288)' matTooltip='Modificar el registro'
+                    (click)='continuarTramite(element.PaginaActual,element.id_gestion_oficios)'>
+                    <mat-icon style='color: rgb(0, 0, 0)'>login</mat-icon>
+                  </button>
+                  }
+                  @if(element.id_oficios != null ){
+                  <button mat-mini-fab aria-label='Example icon button with a menu icon'
+                    style='background-color: rgb(250, 250, 250)' matTooltip='Ver el registro'
+                    (click)='vergestion_oficios(element.id_gestion_oficios,element.id_oficios)'>
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+
+                  @if(this.edit == '1'){
+                  <button mat-mini-fab aria-label='Example icon button with a menu icon'
+                    style='background-color: rgb(245, 188, 0)' matTooltip='Modificar el registro'
+                    (click)='updategestion_oficios(element.id_gestion_oficios,element.id_oficios,element.estatus)'>
+                    <mat-icon style='color: rgb(0, 0, 0)'>edit</mat-icon>
+                  </button>
+                  }
+
+                  @if(this.elim == '1'){
+                  <button mat-mini-fab aria-label='Example icon button with a menu icon'
+                    style='background-color: rgb(126, 0, 0)' matTooltip='Eliminar el registro'
+                    (click)='Deletegestion_oficios(element.id_gestion_oficios)'>
+                    <mat-icon style='color: rgb(255, 255, 255)'>delete</mat-icon>
+                  </button>
+                  }
+                  }
+                  @if(element.finalizado == '2'){
+                  <p>El trámite está siendo evaluado</p>
+                  }
+                  @if(element.finalizado == '3'){
+                  <p>Tramite Finalizado</p>
+                  }
+                  @if(element.finalizado == '4'){
+                  <p>Tramite Evaluado con Errores</p>
+                  <button mat-mini-fab aria-label='Example icon button with a menu icon'
+                    style='background-color: rgb(126, 0, 0)' matTooltip='Ver Evaluacion'
+                    (click)='editarVerificaciongestion_oficios(element.id_gestion_oficios,element.id_oficios)'>
+                    <mat-icon style='color: rgb(255, 255, 255)'>edit_square</mat-icon>
+                  </button>
+                  }
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+            <tr mat-row *matRowDef='let row; columns: displayedColumns'></tr>
+
+          </table>
+
+
+          <mat-paginator [pageSizeOptions]='[5, 10, 20]' showFirstLastButtons
+            aria-label='Seleccione el numero de elemantos'>
+          </mat-paginator>
+        </div>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>

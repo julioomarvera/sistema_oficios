@@ -1,0 +1,34 @@
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <button class='botonGris' (click)='goInicio()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon=' keyboard_backspace'
+        ></mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+  @if(this.id_oficios != 'null'){ 
+    <app-ver-oficios></app-ver-oficios> 
+  }
+<div class='row mt-5'>
+  <div class='col-6'></div>
+  <div class='col-3 boton-derecha'>
+    <div class='cont'>
+      <div class='btn'>
+        <button class='botonAlmacenar' (click)="goInicio()">
+          <mat-icon
+            aria-hidden='false'
+            aria-label='Example home icon'
+            fontIcon='home'
+            class='textoBoton'
+          ></mat-icon>
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

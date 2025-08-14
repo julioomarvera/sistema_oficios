@@ -1,0 +1,458 @@
+body {
+	background: linear-gradient(-45deg, #6D0C2E, #a58c95, #a58c95, #ffffff);
+  background-color: #000000;
+	background-size: 400% 400%;
+	-webkit-animation: gradient 15s ease infinite;
+	        animation: gradient 15s ease infinite;
+		
+}
+
+@-webkit-keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+// esta es para la carta transparente //---------------------------------------------------------------
+
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: consolas;
+}
+
+.bodySatnd
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+ 
+}
+
+.contenedor
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 50px 0;
+  background-color: #ff141400;
+}
+
+.contenedor .caja1
+{
+  position: relative;
+  width: 320px;
+  height:300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px -15px;
+  transition: 0.5s;
+  
+}
+
+.contenedor .caja2
+{
+  position: relative;
+  width: 320px;
+  height:300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 280px;
+  transition: 0.5s;
+  
+}
+
+.contenedor .caja1::before
+{
+  content:' ';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 70%;
+  height: 100%;
+  text-decoration: none;
+  background: #a54444;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+ 
+}
+
+.contenedor .caja2::before
+{
+  content:' ';
+  position: absolute;
+  top: 0;
+  left: 80px;
+  width: 50%;
+  height: 100%;
+  text-decoration: none;
+  background: #a54444;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+ 
+}
+
+.contenedor .caja1::after
+{
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 50;
+  width: 50%;
+  height: 100%;
+  background: #df0000;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+  filter: blur(30px);
+}
+
+.contenedor .caja2::after
+{
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 3%;
+  width: 120%;
+  height: 100%;
+  background: #df0000;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+  filter: blur(30px);
+  margin-left: 15%;
+}
+
+
+
+.contenedor .caja1:hover:before,
+.contenedor .caja1:hover:after
+{
+  transform: skewX(0deg);
+  left: 20px;
+  width: calc(100% - 90px);
+  //aqui
+  
+}
+
+.contenedor .caja2:hover:before,
+.contenedor .caja2:hover:after
+{
+  transform: skewX(0deg);
+  left: 30px;
+  width: calc(100% - 90px);
+  
+}
+
+.contenedor .caja1:nth-child(1):before,
+.contenedor .caja1:nth-child(1):after
+{
+  background: linear-gradient(315deg, #916262, #440000)
+ 
+}
+
+.contenedor .caja2:nth-child(1):before,
+.contenedor .caja2:nth-child(1):after
+{
+  background: linear-gradient(315deg, #440000, #ffffff)
+}
+
+
+.contenedor .caja:nth-child(2):before,
+.contenedor .caja:nth-child(2):after
+{
+  background: linear-gradient(315deg, #03a9f4, #ff0058)
+}
+
+.contenedor .caja:nth-child(3):before,
+.contenedor .caja:nth-child(3):after
+{
+  background: linear-gradient(315deg, #ffbc00, #ff0058)
+}
+
+.contenedor .caja1 span
+{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+ 
+}
+
+.contenedor .caja2 span
+{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+
+.contenedor .caja1 span::before
+{
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.1s;  
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08)
+}
+
+.contenedor .caja2 span::before
+{
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.1s;  
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08)
+}
+
+.contenedor .caja1:hover span::before
+{
+  top: -50px;
+  left: 50px;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+}
+
+.contenedor .caja2:hover span::before
+{
+  top: -50px;
+  left: 50px;
+  width: 140px;
+  height: 100px;
+  opacity: 1;
+}
+
+.contenedor .caja1 span::after
+{
+  content:'';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.5s;
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  animation-delay: -1s;
+}
+
+.contenedor .caja2 span::after
+{
+  content:'';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.5s;
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  animation-delay: -1s;
+}
+
+.contenedor .caja1:hover span:after
+{
+  bottom: -50px;
+  right: 50px;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+}
+
+.contenedor .caja2:hover span:after
+{
+  bottom: -50px;
+  right: 50px;
+  width: 120px;
+  height: 100px;
+  opacity: 1;
+}
+
+@keyframes animate
+{
+  0%, 100%
+  {
+    transform: translateY(10px);
+  }
+  
+  50%
+  {
+    transform: translate(-10px);
+  }
+}
+
+.contenedor .caja1 .content
+{
+  //position: static;
+  left: 0;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(238, 5, 5, 0);
+  border-radius: 8px;
+  z-index: 1;
+  transform: 0.5s;
+  color: #fff;
+
+  min-height: 160%;
+}
+
+.contenedor .caja2 .content
+{
+  //position: static;
+  left: 101px;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1;
+  transform: 0.5s;
+  // color: #fff;
+
+  min-height: 160%;
+  min-width: 200%;
+}
+
+.contenedor .caja:hover .content
+{
+  //  left: -25px;
+  //  padding: 60px 40px;
+}
+
+.contenedor .caja1 .content h2
+{
+  font-size: 2em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.contenedor .caja2 .content h2
+{
+  font-size: 2em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.contenedor .caja1 .content p
+{
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  line-height: 1.4em;
+}
+
+.contenedor .caja2 .content p
+{
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  line-height: 1.4em;
+}
+
+.contenedor .caja1 .content a
+{
+  display: inline-block;
+  font-size: 1.1em;
+  color: #111;
+  background: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.contenedor .caja2 .content a
+{
+  display: inline-block;
+  font-size: 1.1em;
+  color: #111;
+  background: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.contenedor .caja1 .content a:hover
+{
+  background: #ffcf4d;
+  border: 1px solid rgba(255, 0, 88, 0.4);
+  box-shadow: 0 1px 15px rgba(1, 1, 1, 0.2);
+}
+
+.contenedor .caja2 .content a:hover
+{
+  background: #ffcf4d;
+  border: 1px solid rgba(255, 0, 88, 0.4);
+  box-shadow: 0 1px 15px rgba(1, 1, 1, 0.2);
+}
+
+#user{
+  color: rgb(0, 0, 0);
+}
+.btn-login{
+  color: #fcf3f3;
+  background-color: #6e1414f6;
+}
+//---------------------------------------------------------------------------------------------------------

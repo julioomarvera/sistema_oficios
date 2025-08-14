@@ -1,0 +1,452 @@
+
+<div>
+  <mat-card appearance='outlined'>
+    <p>Información del cat_empleados con número de identificación : {{ id_cat_empleados }}</p>
+    <mat-card-content>
+      <form>
+        <div class='row mt-5'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_usuario</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_usuario'
+                name = 'id_usuario'
+                id = 'id_usuario'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_usuario) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_completo</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_completo'
+                name = 'nombre_completo'
+                id = 'nombre_completo'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_completo) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado</mat-label>
+              <input
+                type='number'
+                matInput 
+                [(ngModel)]='numero_empleado'
+                name = 'numero_empleado'
+                id = 'numero_empleado'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>cargo</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='cargo'
+                name = 'cargo'
+                id = 'cargo'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorcargo) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>direccion</mat-label>
+              <select matNativeControl  [(ngModel)]='direccion'  id='direccion'  name='direccion' disabled='true' >
+                <option *ngFor="let list_cat_direcciones of listcat_direcciones" 
+                  [value]="list_cat_direcciones.id_cat_direcciones">{{list_cat_direcciones.descripcion}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>direccion_texto</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='direccion_texto'
+                name = 'direccion_texto'
+                id = 'direccion_texto'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errordireccion_texto) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>subdireccion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='subdireccion'
+                name = 'subdireccion'
+                id = 'subdireccion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorsubdireccion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>area</mat-label>
+              <select matNativeControl  [(ngModel)]='area'  id='area'  name='area' disabled='true' >
+                <option *ngFor="let list_cat_areas of listcat_areas" 
+                  [value]="list_cat_areas.id_cat_areas">{{list_cat_areas.descripcion}} 
+                </option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>area_texto</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='area_texto'
+                name = 'area_texto'
+                id = 'area_texto'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarea_texto) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombreJefe</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombreJefe'
+                name = 'nombreJefe'
+                id = 'nombreJefe'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombreJefe) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>cargoJefe</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='cargoJefe'
+                name = 'cargoJefe'
+                id = 'cargoJefe'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorcargoJefe) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>correo_institucional</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='correo_institucional'
+                name = 'correo_institucional'
+                id = 'correo_institucional'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorcorreo_institucional) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>telefono_opdm</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='telefono_opdm'
+                name = 'telefono_opdm'
+                id = 'telefono_opdm'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errortelefono_opdm) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>url</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='url'
+                name = 'url'
+                id = 'url'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorurl) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>codigo_qr</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='codigo_qr'
+                name = 'codigo_qr'
+                id = 'codigo_qr'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorcodigo_qr) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto'
+                name = 'foto'
+                id = 'foto'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+              <div class='col-3'>
+                <mat-form-field class='example-full-width'>
+                  <mat-label>Estatus</mat-label>
+                  <select matNativeControl  [(ngModel)]='estatus'  id='estatus'  name='estatus'  disabled='true'>
+                    <option *ngFor="let list_estatus of listestatuscatalogo_empleados" 
+                      [value]="list_estatus.id_estatuscatalogo_empleados">{{list_estatus.descripcion}} 
+                    </option>
+                  </select>
+                </mat-form-field>
+              </div>
+          <div class='mat-elevation-z8'> 
+            <table mat-table [dataSource]='dataSource' matSort>
+              <ng-container matColumnDef='id_historialMaster'>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  id historial Mater
+                 </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_historialMaster}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='id_usuario'>
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                   id Usuario
+                  </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_usuario}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='id_cat_empleados'>
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                   id_cat_empleados
+                  </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_cat_empleados}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='id_usuario'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_usuario 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.id_usuario}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='nombre_completo'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                nombre_completo 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.nombre_completo}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='numero_empleado'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                numero_empleado 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.numero_empleado}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='cargo'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                cargo 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.cargo}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='direccion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                direccion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.direccion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='direccion_texto'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                direccion_texto 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.direccion_texto}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='subdireccion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                subdireccion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.subdireccion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='area'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                area 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.area}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='area_texto'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                area_texto 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.area_texto}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='nombreJefe'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                nombreJefe 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.nombreJefe}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='cargoJefe'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                cargoJefe 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.cargoJefe}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='correo_institucional'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                correo_institucional 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.correo_institucional}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='telefono_opdm'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                telefono_opdm 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.telefono_opdm}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='url'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                url 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.url}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='codigo_qr'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                codigo_qr 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.codigo_qr}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='foto'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                foto 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.foto}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef='accion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    accion 
+                   </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.accion}}
+                  </td>
+                </ng-container>
+                 <ng-container matColumnDef='createAt'>
+                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                     createAt 
+                   </th>
+                   <td mat-cell *matCellDef='let element'>
+                     {{ element.createAt}}
+                   </td>
+                 </ng-container>
+                 <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+                 <tr mat-row *matRowDef='let row; columns: displayedColumns'></tr>
+               </table>
+             <mat-paginator
+              [pageSizeOptions]='[5, 10, 20]'
+              showFirstLastButtons
+              aria-label='Select page of periodic elements'
+             >
+             </mat-paginator>
+           </div>
+        </div> 
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
