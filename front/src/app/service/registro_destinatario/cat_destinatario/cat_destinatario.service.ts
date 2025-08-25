@@ -55,8 +55,14 @@ export class cat_destinatarioService {
     return this.http.get<string>(`${this.myAppUrl}${this.myApiUrl}/ccp_destinatario/${id_cat_destinatario}/${id_gestion_oficios}`);
   }
 
+<<<<<<< HEAD
   get_id_gestion_oficiosByArea(id_direccion:number, id_area:number,estatus:number):Observable<cat_destinatarioTable[]>{
     return this.http.get<cat_destinatarioTable[]>(`${this.myAppUrl}${this.myApiUrl}/get_id_gestion_oficiosByArea/${id_direccion}/${id_area}/${estatus}`);
+=======
+  get_id_gestion_oficiosByArea(id_direccion:number, id_area:number,estatus:number):Observable<gestion_oficiosTable[]>{
+    debugger
+    return this.http.get<gestion_oficiosTable[]>(`${this.myAppUrl}${this.myApiUrl}/get_id_gestion_oficiosByArea/${id_direccion}/${id_area}/${estatus}`);
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e
   }
 
   actualizarEstatusDestinatario(id_gestion_oficios:string,id_direccion:number, id_area:number,estatus:number):Observable<void>{

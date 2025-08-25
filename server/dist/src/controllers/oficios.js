@@ -382,7 +382,6 @@ const actualizar_id_oficio_destinatarios = (id_gestion_oficios, id_oficio, fecha
     }
 });
 exports.actualizar_id_oficio_destinatarios = actualizar_id_oficio_destinatarios;
-//actualizar en la tabla gestion_oficios ----------------------------------------------------------------------> 
 const actualizar_id_oficio_destinatariosActaulizar = (id_oficio, fecha_hora, numero_oficio, asunto) => __awaiter(void 0, void 0, void 0, function* () {
     const time = (0, exports.timeNow)();
     try {

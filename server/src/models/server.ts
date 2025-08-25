@@ -258,6 +258,8 @@ class Server {
       await dbhistorialMasterregistro_destinatario.sync();
       await dbestatusregistro_destinatario.sync();
       await dbhistorialestatusregistro_destinatario.sync();
+    await dboficios.sync();
+
       await dbcat_destinatario.sync();
       await dbhistorialcat_destinatario.sync();
       await dbregistro_destinatario.sync();
@@ -266,7 +268,7 @@ class Server {
       await dbhistorialcat_numero_oficios.sync();
       await dbestatusgestion_oficios.sync();
       await dbhistorialestatusgestion_oficios.sync();
-      await dboficios.sync();
+                                                                        
       await dbhistorialoficios.sync();
       await dbgestion_oficios.sync();
       await dbhistorialgestion_oficios.sync();
@@ -286,8 +288,13 @@ class Server {
       await dbevidencia_sello.sync();
       await dbhistorialevidencia_sello.sync();
       await dbasignacion.sync();
+<<<<<<< HEAD
       await dbhistorialMasterseguimiento_tecnico.sync();
       await dbestatusseguimiento_tecnico.sync();
+=======
+      await dbhistorialMasterseguimiento_tecnico.sync(); 
+      await dbestatusseguimiento_tecnico.sync(); 
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e
       await dbhistorialestatusseguimiento_tecnico.sync();
       await dbtecnico.sync({ alter: true });
       await dbhistorialtecnico.sync();

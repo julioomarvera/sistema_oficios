@@ -396,7 +396,24 @@ const actualizarEstadoActivoregistro_destinatario = (id_registro_destinatario) =
     }
 });
 exports.actualizarEstadoActivoregistro_destinatario = actualizarEstadoActivoregistro_destinatario;
-//Traer todos los Parametros ----------------------------------------------------------------------> 
+// 1. Define los tipos
+// interface Destinatario {
+//   id_gestion_oficios: number;
+//   id_oficio: number;
+// }
+// interface Oficio {
+//   id_oficios: number;
+//   numero_oficio: string;
+//   asunto: string;
+//   archivo_oficio: string;
+//   fecha_hora: string;
+//   text_oficio: string;
+//   text_tipo: string;
+// }
+// interface DestinatarioConOficio extends Destinatario {
+//   oficio: Oficio | null;
+// }
+// 2. Función principal
 const get_id_gestion_oficiosByArea = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_direccion, id_area, estatus } = req.params;
     const whereDestinatarios = {

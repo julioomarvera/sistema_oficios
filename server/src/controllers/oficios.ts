@@ -109,7 +109,11 @@ export const newoficios = async (req: Request, res: Response) => {
       actualizargestion_oficios(id_gestion_oficios, id, PaginaActual, finalizado);
       actualizarEstadoActivogestion_oficios(id_gestion_oficios);
       NewHistorialMastergestion_oficios(id_usuario, id, oficio, text_oficio, tipo_oficio, text_tipo, numero_oficio, fecha_hora, caso_cop, asunto, contenido, archivo_oficio, otro);
+<<<<<<< HEAD
       actualizar_id_oficio_destinatarios(id_gestion_oficios,id,fecha_hora,numero_oficio,asunto);
+=======
+      actualizar_id_oficio_destinatarios(id_gestion_oficios,id);
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e
    }
    catch (error) {
       res.status(404).json({
@@ -356,24 +360,35 @@ export const actualizarEstadoActivogestion_oficios = async (id_gestion_oficios: 
 }
 
 //actualizar en la tabla gestion_oficios ----------------------------------------------------------------------> 
+<<<<<<< HEAD
 export const actualizar_id_oficio_destinatarios = async (id_gestion_oficios: any, id_oficio: any,fecha_hora:string,numero_oficio:string,asunto:string) => {
+=======
+export const actualizar_id_oficio_destinatarios = async (id_gestion_oficios: any, id_oficio: any,) => {
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e
    const time = timeNow();
    try {
       const resultado: any = await dbcat_destinatario.update({
          estatus : 0,
          id_oficio: id_oficio,
+<<<<<<< HEAD
          fecha_terminacion:fecha_hora,
          numero_oficio:numero_oficio,
          asunto:asunto,
       }, {
          where: {
             id_gestion_oficios : id_gestion_oficios
+=======
+      }, {
+         where: {
+            id_gestion_oficios: id_gestion_oficios
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e
          },
       }).then();
    }
    catch (error) {
    }
 }
+<<<<<<< HEAD
 
 //actualizar en la tabla gestion_oficios ----------------------------------------------------------------------> 
 export const actualizar_id_oficio_destinatariosActaulizar = async (id_oficio: any,fecha_hora:string,numero_oficio:string,asunto:string) => {
@@ -394,3 +409,5 @@ export const actualizar_id_oficio_destinatariosActaulizar = async (id_oficio: an
    }
 }
 
+=======
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e

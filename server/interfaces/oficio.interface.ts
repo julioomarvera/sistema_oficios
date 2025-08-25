@@ -1,0 +1,18 @@
+export interface oficio{
+    id_usuario :number | any,  
+    id_oficios:number | any,  
+    oficio:number | any,  
+    text_oficio:string | any,
+    tipo_oficio : string |any,
+    text_tipo : string |any,
+    folio : string |any,
+    numero_oficio : string |any,
+    fecha_hora : string |any,
+    caso_cop : string |any,
+    asunto : string |any,
+    contenido : string |any,
+    archivo_oficio : string |any,
+    otro : string |any,
+    id_estatusgestion_oficios:number | any,  
+    activo:number | any,  
+}

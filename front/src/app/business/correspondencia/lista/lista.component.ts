@@ -108,7 +108,12 @@ getOficioByArea(estatus: number): void {
   if (!this.id_direcion || !this.id_area) return;
 
   this.cat_destinatarioService.get_id_gestion_oficiosByArea(this.id_direcion, this.id_area, estatus).subscribe({
+<<<<<<< HEAD
       next: (oficios: cat_destinatarioTable[]) => {
+=======
+      next: (oficios: gestion_oficiosTable[]) => {
+        debugger
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e
         const enriched = oficios.map(oficio => ({
           ...oficio,
           visual: this.statusVisualMap[Number(oficio.estatus)] || {
@@ -117,13 +122,21 @@ getOficioByArea(estatus: number): void {
             color: ''
           }
         }));
+<<<<<<< HEAD
         this.dataSource = new MatTableDataSource<cat_destinatarioTable>(enriched);
+=======
+        this.dataSource = new MatTableDataSource<gestion_oficiosTable>(enriched);
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error: err => {
         console.error('Error al obtener oficios:', err);
+<<<<<<< HEAD
         this.dataSource = new MatTableDataSource<cat_destinatarioTable>([]);
+=======
+        this.dataSource = new MatTableDataSource<gestion_oficiosTable>([]);
+>>>>>>> 0cc160d239c80f679b2a0734af2c9e2a4bf3c65e
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }

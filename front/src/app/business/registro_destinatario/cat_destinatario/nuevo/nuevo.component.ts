@@ -461,7 +461,7 @@ export default class NuevoComponentDestinatario {
       numero_empledo: this.numero_empledo,
       text_nombre_empleado: this.text_nombre_empleado,
       foto: this.foto,
-      id_oficio: '',
+      id_oficio:0,
       estatus: this.estatus,
       activo: 1,
       con_copia : 0,

@@ -248,6 +248,7 @@ class Server {
                 yield historialMasterregistro_destinatario_2.dbhistorialMasterregistro_destinatario.sync();
                 yield estatusregistro_destinatario_2.dbestatusregistro_destinatario.sync();
                 yield historialestatusregistro_destinatario_1.dbhistorialestatusregistro_destinatario.sync();
+                yield oficios_2.dboficios.sync();
                 yield cat_destinatario_2.dbcat_destinatario.sync();
                 yield historialcat_destinatario_1.dbhistorialcat_destinatario.sync();
                 yield registro_destinatario_2.dbregistro_destinatario.sync();
@@ -256,7 +257,6 @@ class Server {
                 yield historialcat_numero_oficios_1.dbhistorialcat_numero_oficios.sync();
                 yield estatusgestion_oficios_2.dbestatusgestion_oficios.sync();
                 yield historialestatusgestion_oficios_1.dbhistorialestatusgestion_oficios.sync();
-                yield oficios_2.dboficios.sync();
                 yield historialoficios_1.dbhistorialoficios.sync();
                 yield gestion_oficios_2.dbgestion_oficios.sync();
                 yield historialgestion_oficios_1.dbhistorialgestion_oficios.sync();
