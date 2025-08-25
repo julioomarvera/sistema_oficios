@@ -9,11 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.actualizarEstadoActivogestion_oficios = exports.DelMasterHistorialoficios = exports.actualizarHistorialMastergestion_oficios = exports.NewHistorialMastergestion_oficios = exports.actualizargestion_oficios = exports.DelHistorialoficios = exports.UpdHistorialoficios = exports.NewHistorialoficios = exports.HistorialgetRegByIdoficios = exports.HistorialgetAlloficios = exports.deloficios = exports.updoficios = exports.newoficios = exports.getRegByIdoficios = exports.getOficio_by_id_oficio = exports.getAlloficios = exports.timeNow = void 0;
+exports.actualizar_id_oficio_destinatarios = exports.actualizarEstadoActivogestion_oficios = exports.DelMasterHistorialoficios = exports.actualizarHistorialMastergestion_oficios = exports.NewHistorialMastergestion_oficios = exports.actualizargestion_oficios = exports.DelHistorialoficios = exports.UpdHistorialoficios = exports.NewHistorialoficios = exports.HistorialgetRegByIdoficios = exports.HistorialgetAlloficios = exports.deloficios = exports.updoficios = exports.newoficios = exports.getRegByIdoficios = exports.getOficio_by_id_oficio = exports.getAlloficios = exports.timeNow = void 0;
 const oficios_1 = require("../models/oficios");
 const gestion_oficios_1 = require("../models/gestion_oficios");
 const historialoficios_1 = require("../models/historialoficios");
 const historialMastergestion_oficios_1 = require("../models/historialMastergestion_oficios");
+const cat_destinatario_1 = require("../models/cat_destinatario");
 //extraer la hora para el sistema //-------------------------------------------------------------> 
 const timeNow = () => {
     const now = new Date(); // Jul 2021 Friday 
@@ -104,6 +105,7 @@ const newoficios = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         (0, exports.actualizargestion_oficios)(id_gestion_oficios, id, PaginaActual, finalizado);
         (0, exports.actualizarEstadoActivogestion_oficios)(id_gestion_oficios);
         (0, exports.NewHistorialMastergestion_oficios)(id_usuario, id, oficio, text_oficio, tipo_oficio, text_tipo, numero_oficio, fecha_hora, caso_cop, asunto, contenido, archivo_oficio, otro);
+        (0, exports.actualizar_id_oficio_destinatarios)(id_gestion_oficios, id);
     }
     catch (error) {
         res.status(404).json({
@@ -359,3 +361,20 @@ const actualizarEstadoActivogestion_oficios = (id_gestion_oficios) => __awaiter(
     }
 });
 exports.actualizarEstadoActivogestion_oficios = actualizarEstadoActivogestion_oficios;
+//actualizar en la tabla gestion_oficios ----------------------------------------------------------------------> 
+const actualizar_id_oficio_destinatarios = (id_gestion_oficios, id_oficio) => __awaiter(void 0, void 0, void 0, function* () {
+    const time = (0, exports.timeNow)();
+    try {
+        const resultado = yield cat_destinatario_1.dbcat_destinatario.update({
+            estatus: 0,
+            id_oficio: id_oficio,
+        }, {
+            where: {
+                id_gestion_oficios: id_gestion_oficios
+            },
+        }).then();
+    }
+    catch (error) {
+    }
+});
+exports.actualizar_id_oficio_destinatarios = actualizar_id_oficio_destinatarios;

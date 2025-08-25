@@ -60,7 +60,7 @@ export default class ListaComponent {
   @ViewChild(MatSort) sort !: MatSort;
   visualActual: string | any = "";
   private breakpointObserver = inject(BreakpointObserver);
-  estatusConsulta
+  estatusConsulta: number = 5;
 
 
   constructor(@Inject(DOCUMENT) private document: Document,
@@ -96,51 +96,40 @@ export default class ListaComponent {
       }
     });
     if (this.id_direcion != "" && this.id_area != "") {
-      this.getOficioByArea();
+       this.getOficioByArea(5);
+      // this.getEstatus(5);
     }
 
 
   }
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
 
-  onChange(newValue: boolean): void {
-    console.log(newValue);
-    if (newValue) {
-      this.document.body.classList.add('dark-mode');
-    }
-    else {
-      this.document.body.classList.remove('dark-mode');
-    }
-  }
+getOficioByArea(estatus: number): void {
+  if (!this.id_direcion || !this.id_area) return;
 
+  this.cat_destinatarioService.get_id_gestion_oficiosByArea(this.id_direcion, this.id_area, estatus).subscribe({
+      next: (oficios: gestion_oficiosTable[]) => {
+        debugger
+        const enriched = oficios.map(oficio => ({
+          ...oficio,
+          visual: this.statusVisualMap[Number(oficio.estatus)] || {
+            label: 'Desconocido',
+            icon: 'help',
+            color: ''
+          }
+        }));
+        this.dataSource = new MatTableDataSource<gestion_oficiosTable>(enriched);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: err => {
+        console.error('Error al obtener oficios:', err);
+        this.dataSource = new MatTableDataSource<gestion_oficiosTable>([]);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
+}
 
-  getOficioByArea() {
-    if (this.id_direcion !== "" && this.id_area !== "") {
-      this.cat_destinatarioService.get_id_gestion_oficiosByArea(this.id_direcion, this.id_area,).subscribe(oficios => {
-        const enrichedOficios: gestion_oficiosTable[] = [];
-        let pending = oficios.length;
-        oficios.forEach(oficio => {
-          this.cat_destinatarioService
-            .getEstatusDestinatario(oficio.id_gestion_oficios, this.id_direcion, this.id_area)
-            .subscribe(data => {
-              const estatus = data?.estatus;
-              oficio.visual = this.statusVisualMap[estatus] || { label: 'Desconocido', icon: 'help', color: '' };
-              enrichedOficios.push(oficio);
-              // Esperamos a que todos los estatus se hayan cargado
-              pending--;
-              if (pending === 0) {
-                this.dataSource = new MatTableDataSource<gestion_oficiosTable>(enrichedOficios);
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.sort = this.sort;
-              }
-            });
-        });
-      });
-    }
-  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -185,47 +174,6 @@ export default class ListaComponent {
     }
   }
 
-  // getTiempoRestante(fechaLimite: string | Date): string {
-  //   let fechaFin: Date;
-
-  //   if (!fechaLimite) return 'Fecha inválida';
-
-  //   if (typeof fechaLimite === 'string') {
-  //     if (fechaLimite.includes('T')) {
-  //       fechaFin = new Date(fechaLimite);
-  //     } else {
-  //       const partes = fechaLimite.split(',');
-  //       const fechaParte = partes[0]?.trim();
-  //       const horaParte = partes[1]?.trim() || '23:59:59';
-
-  //       if (!fechaParte) return 'Fecha inválida';
-
-  //       const [dia, mes, año] = fechaParte.split('/');
-  //       fechaFin = new Date(`${año}-${mes}-${dia}T${horaParte}`);
-  //     }
-  //   } else {
-  //     fechaFin = fechaLimite;
-  //   }
-
-  //   const fechaActual = new Date();
-  //   const milisegundos = fechaFin.getTime() - fechaActual.getTime();
-
-  //   if (milisegundos < 0) return 'Plazo vencido';
-
-  //   const horasTotales = milisegundos / (1000 * 60 * 60);
-  //   const dias = Math.floor(horasTotales / 24);
-  //   const horas = Math.floor(horasTotales % 24);
-  //   const minutos = Math.floor((milisegundos / (1000 * 60)) % 60);
-
-  //   // 🟡 Mensajes especiales
-  //   if (horasTotales < 3) return '⏰ Últimas horas';
-  //   if (horasTotales < 24) return '📅 Vence hoy';
-
-
-
-
-  //   return `${dias} días, ${horas} hrs, ${minutos} min restantes`;
-  // }
   getTiempoRestante(fechaLimite: string | Date): string {
     let fechaFin: Date;
 
@@ -392,7 +340,7 @@ export default class ListaComponent {
         complete: () => console.info('complete')
       })
     }
-    this.getOficioByArea();
+    this.getOficioByArea(5);
   }
 
   editarVerificaciongestion_oficios(id_gestion_oficios: string, id_oficios: string) {
@@ -433,16 +381,31 @@ export default class ListaComponent {
     2: { label: 'Visto', icon: 'visibility', color: 'accent' },
     3: { label: 'Sellado', icon: 'verified', color: 'warn' },
     4: { label: 'Asignado', icon: 'assignment_turned_in', color: 'success' },
-    5: { label: 'Firmado por coordinador', icon: 'edit_document', color: 'info' }
+ 
   };
 
-  getEstatusVisual(id_gestion_oficios: string): void {
-    this.cat_destinatarioService.getEstatusDestinatario(id_gestion_oficios, this.id_direcion, this.id_area)
-      .subscribe(data => {
-        const estatus = data?.estatus; // Asegúrate que el backend lo devuelve como número
-        const visual = this.statusVisualMap[estatus] || { label: 'Desconocido', icon: 'help', color: '' };
-        this.visualActual = visual;
-      });
+
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  onChange(newValue: boolean): void {
+    console.log(newValue);
+    if (newValue) {
+      this.document.body.classList.add('dark-mode');
+    }
+    else {
+      this.document.body.classList.remove('dark-mode');
+    }
+  }
+
+  getEstatus(estatus: number) {
+    this.estatusConsulta = estatus;
+    if (this.estatusConsulta != null) {
+      this.getOficioByArea(this.estatusConsulta);
+    }
   }
 
 

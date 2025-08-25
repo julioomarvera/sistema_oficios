@@ -5,10 +5,10 @@
 </mat-card>
 @if(this.nuev == '1'){
 <div class='row'>
-  <div class='col-3'>
-    <!-- <mat-card (click)='agregarRespuesta($event)' class='carta'>
+  <div class='col-2'>
+    <mat-card (click)='getEstatus(5)' [ngClass]="{'carta': true, 'activa': estatusConsulta === 5}">
       <div class='icono'>
-        <i class='material-icons md-36'>add_circle</i>
+        <i class='material-icons md-36'>folder_open</i>
       </div>
       <mat-card-header>
         <mat-card-title class='titulo'>
@@ -16,45 +16,14 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class='texto'>Agregar gestion_oficios </p>
-      </mat-card-content>
-    </mat-card> -->
-  </div>
-  <div class='col-3'>
-    <!-- <mat-card (click)='vertodo()' class='carta'>
-      <div class='icono'>
-        <i class='material-icons md-36'>visibility</i>
-      </div>
-      <mat-card-header>
-        <mat-card-title class='titulo'>
-          <p></p>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p class='texto'>Ver todos los registros </p>
-      </mat-card-content>
-    </mat-card> -->
-  </div>
-  <div class='col-3'>
-    <!-- @if(activo == 1){
-    <mat-card (click)='activadoDesactivado(1)' class='carta'>
-      <div class='icono'>
-        <i class='material-icons md-36'>toggle_on</i>
-      </div>
-      <mat-card-header>
-        <mat-card-title class='titulo'>
-          <p></p>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p class='texto'>Ver parametros Activos</p>
+        <p class='texto'>Ver todos los oficios</p>
       </mat-card-content>
     </mat-card>
-    }
-    @else {
-    <mat-card (click)='activadoDesactivado(0)' class='carta'>
+  </div>
+  <div class='col-2'>
+    <mat-card (click)='getEstatus(1)'  [ngClass]="{'carta': true, 'activa': estatusConsulta === 1}">
       <div class='icono'>
-        <i class='material-icons md-36'>toggle_off</i>
+        <i class='material-icons md-36'>folder_managed</i>
       </div>
       <mat-card-header>
         <mat-card-title class='titulo'>
@@ -62,12 +31,56 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class='texto'>Ver parametros desactivos </p>
+        <p class='texto'>Ver oficios nuevos </p>
       </mat-card-content>
     </mat-card>
-    }-->
   </div>
-  <div class='col-3'>
+  <div class='col-2'>
+     <mat-card (click)='getEstatus(2)'  [ngClass]="{'carta': true, 'activa': estatusConsulta === 2}">
+      <div class='icono'>
+        <i class='material-icons md-36'>disabled_visible</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Ver oficios (solo en visto) </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class='col-2'>
+     <mat-card (click)='getEstatus(3)'  [ngClass]="{'carta': true, 'activa': estatusConsulta === 3}">
+      <div class='icono'>
+        <i class='material-icons md-36'>approval</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Ver oficios con sello </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class='col-2'>
+     <mat-card (click)='getEstatus(4)'  [ngClass]="{'carta': true, 'activa': estatusConsulta === 4}">
+      <div class='icono'>
+        <i class='material-icons md-36'>engineering</i>
+      </div>
+      <mat-card-header>
+        <mat-card-title class='titulo'>
+          <p></p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class='texto'>Ver oficios asignados </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class='col-2'>
     <mat-card (click)='exportAsXLSX()' class='carta'>
       <div class='icono'>
         <i class='material-icons md-36'>table_view</i>
@@ -158,17 +171,13 @@
               <td mat-cell *matCellDef="let element">
                 <div style="font-size: larger;">
                   <strong>petición de terminó:</strong> {{ element.fecha_hora | date: 'dd/MM/yyyy' }}
-
                 </div>
-
                 <div class="alerta-hora" style="display: flex; align-items: center; gap: 8px;">
                   <strong>Restante:</strong> {{ getTiempoRestante(element.fecha_hora) }}
                   <span class="semaforo" [ngClass]="getSemaforoColor(element.fecha_hora)"
                     style="width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span>
                 </div>
               </td>
-
-
             </ng-container>
             <ng-container matColumnDef='Funciones'>
               <th class='text-center' mat-header-cell *matHeaderCellDef>

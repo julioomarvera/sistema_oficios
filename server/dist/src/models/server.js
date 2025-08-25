@@ -34,7 +34,6 @@ const cat_firmante_1 = __importDefault(require("../routes/cat_firmante"));
 const registro_quien_firma_1 = __importDefault(require("../routes/registro_quien_firma"));
 const historialMasterregistro_destinatario_1 = __importDefault(require("../routes/historialMasterregistro_destinatario"));
 const estatusregistro_destinatario_1 = __importDefault(require("../routes/estatusregistro_destinatario"));
-const cat_destinatario_1 = __importDefault(require("../routes/cat_destinatario"));
 const registro_destinatario_1 = __importDefault(require("../routes/registro_destinatario"));
 const cat_numero_oficios_1 = __importDefault(require("../routes/cat_numero_oficios"));
 const historialMastergestion_oficios_1 = __importDefault(require("../routes/historialMastergestion_oficios"));
@@ -93,7 +92,7 @@ const historialregistro_quien_firma_1 = require("./historialregistro_quien_firma
 const historialMasterregistro_destinatario_2 = require("./historialMasterregistro_destinatario");
 const estatusregistro_destinatario_2 = require("./estatusregistro_destinatario");
 const historialestatusregistro_destinatario_1 = require("./historialestatusregistro_destinatario");
-const cat_destinatario_2 = require("./cat_destinatario");
+const cat_destinatario_1 = require("./cat_destinatario");
 const historialcat_destinatario_1 = require("./historialcat_destinatario");
 const registro_destinatario_2 = require("./registro_destinatario");
 const historialregistro_destinatario_1 = require("./historialregistro_destinatario");
@@ -170,7 +169,7 @@ class Server {
         this.app.use('/api/registro_quien_firma', registro_quien_firma_1.default);
         this.app.use('/api/historialMasterregistro_destinatario', historialMasterregistro_destinatario_1.default);
         this.app.use('/api/estatusregistro_destinatario', estatusregistro_destinatario_1.default);
-        this.app.use('/api/cat_destinatario', cat_destinatario_1.default);
+        // this.app.use('/api/cat_destinatario', routercat_destinatario);
         this.app.use('/api/registro_destinatario', registro_destinatario_1.default);
         this.app.use('/api/cat_numero_oficios', cat_numero_oficios_1.default);
         this.app.use('/api/historialMastergestion_oficios', historialMastergestion_oficios_1.default);
@@ -234,7 +233,8 @@ class Server {
                 yield historialMasterregistro_destinatario_2.dbhistorialMasterregistro_destinatario.sync();
                 yield estatusregistro_destinatario_2.dbestatusregistro_destinatario.sync();
                 yield historialestatusregistro_destinatario_1.dbhistorialestatusregistro_destinatario.sync();
-                yield cat_destinatario_2.dbcat_destinatario.sync();
+                yield oficios_2.dboficios.sync();
+                yield cat_destinatario_1.dbcat_destinatario.sync();
                 yield historialcat_destinatario_1.dbhistorialcat_destinatario.sync();
                 yield registro_destinatario_2.dbregistro_destinatario.sync();
                 yield historialregistro_destinatario_1.dbhistorialregistro_destinatario.sync();
@@ -242,7 +242,6 @@ class Server {
                 yield historialcat_numero_oficios_1.dbhistorialcat_numero_oficios.sync();
                 yield estatusgestion_oficios_2.dbestatusgestion_oficios.sync();
                 yield historialestatusgestion_oficios_1.dbhistorialestatusgestion_oficios.sync();
-                yield oficios_2.dboficios.sync();
                 yield historialoficios_1.dbhistorialoficios.sync();
                 yield gestion_oficios_2.dbgestion_oficios.sync();
                 yield historialgestion_oficios_1.dbhistorialgestion_oficios.sync();
@@ -261,7 +260,7 @@ class Server {
                 yield historialsello_1.dbhistorialsello.sync();
                 yield evidencia_sello_2.dbevidencia_sello.sync();
                 yield historialevidencia_sello_1.dbhistorialevidencia_sello.sync();
-                yield asignacion_2.dbasignacion.sync({ alter: true });
+                yield asignacion_2.dbasignacion.sync();
                 yield historialMasterseguimiento_tecnico_2.dbhistorialMasterseguimiento_tecnico.sync();
                 yield estatusseguimiento_tecnico_2.dbestatusseguimiento_tecnico.sync();
                 yield historialestatusseguimiento_tecnico_1.dbhistorialestatusseguimiento_tecnico.sync();

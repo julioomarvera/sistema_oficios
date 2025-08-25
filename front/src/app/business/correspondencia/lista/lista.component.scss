@@ -501,3 +501,23 @@ section {
 .semaforo.rojo {
   background-color: #f44336; /* rojo */
 }
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.05); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.carta {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.carta.activa {
+  animation: heartbeat 6s infinite;
+  box-shadow: 0 0 15px rgb(255, 255, 255);
+  border: 2px solid #ffffff;
+  background-color: #00acce60;
+}

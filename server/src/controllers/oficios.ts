@@ -9,6 +9,7 @@ import { dbhistorialMastergestion_oficios } from '../models/historialMastergesti
 import { dbcat_oficio } from '../models/cat_oficio';
 import { dbcat_tipo_oficios } from '../models/cat_tipo_oficios';
 import { dbcat_numero_oficios } from '../models/cat_numero_oficios';
+import { dbcat_destinatario } from '../models/cat_destinatario';
 
 //extraer la hora para el sistema //-------------------------------------------------------------> 
 
@@ -106,7 +107,7 @@ export const newoficios = async (req: Request, res: Response) => {
       actualizargestion_oficios(id_gestion_oficios, id, PaginaActual, finalizado);
       actualizarEstadoActivogestion_oficios(id_gestion_oficios);
       NewHistorialMastergestion_oficios(id_usuario, id, oficio, text_oficio, tipo_oficio, text_tipo, numero_oficio, fecha_hora, caso_cop, asunto, contenido, archivo_oficio, otro);
-
+      actualizar_id_oficio_destinatarios(id_gestion_oficios,id);
    }
    catch (error) {
       res.status(404).json({
@@ -340,6 +341,23 @@ export const actualizarEstadoActivogestion_oficios = async (id_gestion_oficios: 
    try {
       const resultado: any = await dbgestion_oficios.update({
          activo: 1,
+      }, {
+         where: {
+            id_gestion_oficios: id_gestion_oficios
+         },
+      }).then();
+   }
+   catch (error) {
+   }
+}
+
+//actualizar en la tabla gestion_oficios ----------------------------------------------------------------------> 
+export const actualizar_id_oficio_destinatarios = async (id_gestion_oficios: any, id_oficio: any,) => {
+   const time = timeNow();
+   try {
+      const resultado: any = await dbcat_destinatario.update({
+         estatus : 0,
+         id_oficio: id_oficio,
       }, {
          where: {
             id_gestion_oficios: id_gestion_oficios

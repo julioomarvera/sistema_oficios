@@ -23,7 +23,7 @@ const router = Router();
    router.get('/getAllcat_destinatario/:id_usuario', getAllcat_destinatario  ); 
    router.get('/getregistro_destinatarioByid_gestion_oficios/:id_gestion_oficios', getregistro_destinatarioByid_gestion_oficios  ); 
    router.get('/ccp_destinatario/:id_cat_destinatario/:id_gestion_oficios', ccp_destinatario  ); 
-   router.get('/get_id_gestion_oficiosByArea/:id_direcion/:id_area/:estatus', get_id_gestion_oficiosByArea  ); 
+   router.get('/get_id_gestion_oficiosByArea/:id_direccion/:id_area/:estatus', get_id_gestion_oficiosByArea  ); 
    router.get('/cancelarDestinatario/:id_cat_destinatario/:id_gestion_oficios', cancelarDestinatario     );
    router.get('/actualizarEstatusDestinatario/:id_gestion_oficios/:id_direccion/:id_area/:estatus', actualizarEstatusDestinatario     );
    router.get('/getEstatusDestinatario/:id_gestion_oficios/:id_direccion/:id_area', getEstatusDestinatario     );

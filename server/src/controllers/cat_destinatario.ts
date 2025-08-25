@@ -11,6 +11,9 @@ import { dbcat_areas } from '../models/cat_areas';
 import { dbcat_empleados } from '../models/cat_empleados';
 import { dbgestion_oficios } from '../models/gestion_oficios';
 import { dboficios } from '../models/oficios';
+import { oficio } from '../../interfaces/oficio.interface';
+import { destinatarios } from '../../interfaces/destinatario.interface';
+import { destinatarioConOficio } from '../../interfaces/destinatarioConOficio.interface';
 const { Sequelize, DataTypes } = require('sequelize');
 
 //extraer la hora para el sistema //-------------------------------------------------------------> 
@@ -393,54 +396,155 @@ export const actualizarEstadoActivoregistro_destinatario = async (id_registro_de
    catch (error) {
    }
 }
-//Traer todos los Parametros ----------------------------------------------------------------------> 
+
+// 1. Define los tipos
+// interface Destinatario {
+//   id_gestion_oficios: number;
+//   id_oficio: number;
+// }
+
+// interface Oficio {
+//   id_oficios: number;
+//   numero_oficio: string;
+//   asunto: string;
+//   archivo_oficio: string;
+//   fecha_hora: string;
+//   text_oficio: string;
+//   text_tipo: string;
+// }
+
+// interface DestinatarioConOficio extends Destinatario {
+//   oficio: Oficio | null;
+// }
+
+// 2. Función principal
 export const get_id_gestion_oficiosByArea = async (req: Request, res: Response) => {
-  const { id_direccion, id_area, estatus } = req.params;
+  
+   console.log("aquiiiiiiiii");
+   
+//   try {
+//     const { id_direccion, id_area, estatus } = req.params;
 
-  try {
-    const destinatarios = await dbcat_destinatario.findAll({
-      where: {
-        activo: 1,
-        id_direccion,
-        id_area,
-        estatus: estatus // aquí aplicas el filtro directamente
-      },
-      attributes: ['id_gestion_oficios']
-    });
+//     const whereDestinatarios: any = {
+//       activo: 1,
+//       id_direccion,
+//       id_area
+//     };
+//     if (estatus !== "5") {
+//       whereDestinatarios.estatus = estatus;
+//     }
 
-    const ids = destinatarios.map((d: any) => d.id_gestion_oficios);
+//     const destinatariosRaw = await dbcat_destinatario.findAll({
+//       where: whereDestinatarios,
+//       raw: true
+//     });
 
-    if (ids.length === 0) return res.json([]);
+//     if (!destinatariosRaw.length) return res.json([]);
 
-    const oficios = await dbgestion_oficios.findAll({
-      where: {
-        id_gestion_oficios: ids,
-        activo: 1
-      },
-      include: [
-        {
-          model: dboficios,
-          attributes: []
-        }
-      ],
-      attributes: [
-        'id_gestion_oficios',
-        'descripcion',
-        'createdAt',
-        [Sequelize.col('ws_oficio.numero_oficio'), 'numero_oficio'],
-        [Sequelize.col('ws_oficio.asunto'), 'asunto'],
-        [Sequelize.literal(`${estatus}`), 'estatus'] // opcional si quieres devolverlo explícitamente
-      ],
-      raw: true,
-      nest: false
-    });
+//     const destinatarios: destinatarioConOficio[] = destinatariosRaw.map((d: any) => ({
+//       id_usuario: d.id_usuario,
+//       id_cat_destinatario: d.id_cat_destinatario,
+//       id_gestion_oficios: d.id_gestion_oficios,
+//       id_direccion: d.id_direccion,
+//       text_direccion: d.text_direccion,
+//       id_area: d.id_area,
+//       area_texto: d.area_texto,
+//       numero_empledo: d.numero_empledo,
+//       text_nombre_empleado: d.text_nombre_empleado,
+//       foto: d.foto,
+//       id_oficio: d.id_oficio,
+//       estatus: d.estatus,
+//       id_estatusregistro_destinatario: d.id_estatusregistro_destinatario,
+//       respuesta: d.respuesta,
+//       id_asignacion: d.id_asignacion,
+//       sello_digital: d.sello_digital,
+//       con_copia: d.con_copia,
+//       activo: d.activo,
 
-    return res.json(oficios);
-  } catch (error) {
-    console.error('Error al filtrar por estatus:', error);
-    return res.status(500).json({ error: 'Error interno del servidor' });
-  }
+//       // Campos del oficio se inicializan vacíos
+//       id_oficios: null,
+//       oficio: null,
+//       text_oficio: '',
+//       tipo_oficio: '',
+//       text_tipo: '',
+//       folio: '',
+//       numero_oficio: '',
+//       fecha_hora: '',
+//       caso_cop: '',
+//       asunto: '',
+//       contenido: '',
+//       archivo_oficio: '',
+//       otro: '',
+//       id_estatusgestion_oficios: null
+//     }));
+// console.log(destinatarios);
+
+   
+//     const idsOficio = destinatarios.map(d => d.id_oficio).filter(Boolean);
+
+ 
+//     const oficiosRaw = await dboficios.findAll({
+//       where: { id_oficios: idsOficio },
+//       raw: true
+//     });
+
+//     const oficios: oficio[] = oficiosRaw.map((o: any) => ({
+//       id_usuario: o.id_usuario,
+//       id_oficios: o.id_oficios,
+//       oficio: o.oficio,
+//       text_oficio: o.text_oficio,
+//       tipo_oficio: o.tipo_oficio,
+//       text_tipo: o.text_tipo,
+//       folio: o.folio,
+//       numero_oficio: o.numero_oficio,
+//       fecha_hora: o.fecha_hora,
+//       caso_cop: o.caso_cop,
+//       asunto: o.asunto,
+//       contenido: o.contenido,
+//       archivo_oficio: o.archivo_oficio,
+//       otro: o.otro,
+//       id_estatusgestion_oficios: o.id_estatusgestion_oficios,
+//       activo: o.activo
+//     }));
+
+
+//     // 🔗 6. Enriquecer destinatarios con datos del oficio
+//     const resultado: destinatarioConOficio[] = destinatarios.map(dest => {
+//       const oficioEncontrado = oficios.find(o => o.id_oficios === dest.id_oficio);
+//       return {
+//         ...dest,
+//         id_oficios: oficioEncontrado?.id_oficios ?? dest.id_oficios,
+//         oficio: oficioEncontrado?.oficio ?? dest.oficio,
+//         text_oficio: oficioEncontrado?.text_oficio ?? dest.text_oficio,
+//         tipo_oficio: oficioEncontrado?.tipo_oficio ?? dest.tipo_oficio,
+//         text_tipo: oficioEncontrado?.text_tipo ?? dest.text_tipo,
+//         folio: oficioEncontrado?.folio ?? dest.folio,
+//         numero_oficio: oficioEncontrado?.numero_oficio ?? dest.numero_oficio,
+//         fecha_hora: oficioEncontrado?.fecha_hora ?? dest.fecha_hora,
+//         caso_cop: oficioEncontrado?.caso_cop ?? dest.caso_cop,
+//         asunto: oficioEncontrado?.asunto ?? dest.asunto,
+//         contenido: oficioEncontrado?.contenido ?? dest.contenido,
+//         archivo_oficio: oficioEncontrado?.archivo_oficio ?? dest.archivo_oficio,
+//         otro: oficioEncontrado?.otro ?? dest.otro,
+//         id_estatusgestion_oficios: oficioEncontrado?.id_estatusgestion_oficios ?? dest.id_estatusgestion_oficios,
+//         activo: oficioEncontrado?.activo ?? dest.activo
+//       };
+//     });
+
+
+    
+//    //  return res.json(resultado);
+
+//     res.json(resultado);
+
+
+//   } catch (error) {
+//     console.error("Error al obtener gestión de oficios:", error);
+//     return res.status(500).json({ error: "Error interno del servidor" });
+//   }
 };
+
+
 
 //Actualizar un nuevo Parametro --------------------------------------------------------------------------> 
 export const ccp_destinatario = async (req: Request, res: Response) => {
