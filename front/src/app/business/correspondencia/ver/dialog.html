@@ -1,3 +1,4 @@
+
 <h2 mat-dialog-title>¿Desea cambiar las instrucciones para este usuario?</h2>
 <mat-dialog-content>
     <div class="row">
@@ -16,7 +17,7 @@
                 <mat-label>Nuevas instrucciones</mat-label>
                 <input matInput [(ngModel)]="nuevaIntruccion" />
                 @if(errorActualizar){
-                    <p style="color:red"><strong>Inserte las nuevas instrucciones</strong></p>
+                <p style="color:red"><strong>Inserte las nuevas instrucciones</strong></p>
                 }
             </mat-form-field>
         </div>
@@ -34,5 +35,5 @@
         Aceptar
     </button>
 
-    
+
 </mat-dialog-actions>

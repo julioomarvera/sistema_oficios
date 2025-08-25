@@ -48,7 +48,7 @@ exports.dboficios = connection_1.default.define('ws_oficios', {
         allowNull: true,
     },
     asunto: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING(1000),
         allowNull: true,
     },
     contenido: {

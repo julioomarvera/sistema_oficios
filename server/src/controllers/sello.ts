@@ -85,13 +85,18 @@ export const getRegByIdsello = async (req: Request, res: Response) => {
 //Agregar un nuevo Parametro --------------------------------------------------------------------------> 
 export const newsello = async (req: Request, res: Response) => {
    const time = timeNow();
-   const { id_evidencia_sello, id_usuario, id_gestion_oficios, id_direccion, text_direccion, id_area, text_area, numero_oficio, fecha_creacion, nombre_documento_oficio, nombre_documento_sello_digital, nombre_documento_sello, id_estatusevidencia_sello, PaginaActual, finalizado } = req.body;
+   const { id_evidencia_sello, id_usuario, id_gestion_oficios, id_direccion, text_direccion, id_area, text_area, 
+           numero_oficio, fecha_creacion, nombre_documento_oficio, 
+           nombre_documento_sello_digital, nombre_documento_sello, id_estatusevidencia_sello, PaginaActual, finalizado,
+           numero_empleado_secretaria,foto_secretaria } = req.body;
    //Validamos si ya existe el Parametro en la base de datos 
    const params = await dbsello.findOne({ where: { id_gestion_oficios: id_gestion_oficios } });
    if (params) {
       const id_sello = params.dataValues.id_sello;
-      const actualizar = await Actualizarsello(id_usuario, id_sello, id_gestion_oficios, id_direccion, text_direccion, id_area, text_area, numero_oficio, fecha_creacion, nombre_documento_oficio,
-                                               nombre_documento_sello_digital, nombre_documento_sello, id_estatusevidencia_sello);
+      const actualizar = await Actualizarsello(id_usuario, id_sello, id_gestion_oficios, id_direccion, text_direccion, 
+                                               id_area, text_area, numero_oficio, fecha_creacion, nombre_documento_oficio,
+                                               nombre_documento_sello_digital, nombre_documento_sello, id_estatusevidencia_sello,
+                                             );
       if (actualizar == 1) {
          return res.status(404).json({
             msg: 'Registro de la tabla : sello  actualizado correctamente',
@@ -106,8 +111,12 @@ export const newsello = async (req: Request, res: Response) => {
    try {
       const resultado: any = await dbsello.create({
          id_usuario: id_usuario,
-         id_gestion_oficios, id_direccion, text_direccion, id_area, text_area, numero_oficio, fecha_creacion, nombre_documento_oficio, nombre_documento_sello_digital, nombre_documento_sello,
+         id_gestion_oficios, id_direccion, text_direccion, id_area, text_area, 
+         numero_oficio, fecha_creacion, nombre_documento_oficio, nombre_documento_sello_digital, 
+         nombre_documento_sello,
          id_estatusevidencia_sello: id_estatusevidencia_sello,
+         numero_empleado_secretaria,
+         foto_secretaria,
          activo: 1,
          createdAt: time,
          updatedAt: time,
@@ -405,3 +414,18 @@ export const actualizarEstadoActivoevidencia_sello = async (id_evidencia_sello: 
    catch (error) {
    }
 }
+
+
+//Traer todos los Parametros ----------------------------------------------------------------------> 
+export const getInformacionSello = async (req: Request, res: Response) => {
+   const { id_gestion_oficio,id_direccion,id_area,numero_empleado } = req.params;
+   console.log(req.params);
+
+   let listsello: any = '';
+   listsello = await dbsello.findOne(
+      { where: 
+         { activo: 1, id_gestion_oficios: id_gestion_oficio, id_direccion: id_direccion, id_area: id_area,numero_empleado_secretaria:numero_empleado  } 
+      });
+   res.json(listsello);
+}
+

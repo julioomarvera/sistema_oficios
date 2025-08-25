@@ -1,0 +1,8 @@
+<mat-chip
+  [ngClass]="color"
+  selected
+  matTooltip="Fecha límite: {{ fechaLimite | date:'medium' }}"
+>
+  <mat-icon class="chip-icon">{{ icono }}</mat-icon>
+  {{ tiempoRestante }}
+</mat-chip>

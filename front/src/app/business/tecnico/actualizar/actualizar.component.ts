@@ -164,7 +164,8 @@ export default class ActualizarComponent {
   id_asignacion: string | any = "";
 
   id_tecnico: number | any = "";
-
+  usuario:string | any = "";
+  foto:string | any = "";
 
   private fileTmp: any;
   constructor(private aRouter: ActivatedRoute, private gestion_oficiosService: gestion_oficiosService,
@@ -189,6 +190,8 @@ export default class ActualizarComponent {
     this.elim = localStorage.getItem('elim');
     this.nuev = localStorage.getItem('nuev');
     this.img = localStorage.getItem('img');
+    this.usuario = localStorage.getItem('usuario');
+    this.foto = localStorage.getItem('foto');
 
     if (this.id_oficio != "") {
       this.getId_gestion_oficio(this.id_oficio);
@@ -243,7 +246,7 @@ export default class ActualizarComponent {
   }
 
   getInformacionAsignacion(id_gestion_oficio: number, numero_empleado: number) {
-    this.asigacionService.getInfo_quien_solicito(id_gestion_oficio, numero_empleado).subscribe(data => {
+    this.asigacionService.getInfo_quien_solicito(id_gestion_oficio, numero_empleado,this.id_rol).subscribe(data => {
       this.id_direccion_asignacion = data.id_direccion;
       this.id_area_asignacion = data.id_area;
       this.numero_empleado_asignacion = data.numero_empleado;
@@ -255,7 +258,7 @@ export default class ActualizarComponent {
   }
 
   getInstrucciones(id_gestion_oficio: number) {
-    this.asigacionService.getInstrucciones(id_gestion_oficio).subscribe(data => {
+    this.asigacionService.getInstruccion(id_gestion_oficio).subscribe(data => {
       if (data != null) {
         this.instrucciones = data.instrucciones;
       } else {
@@ -472,7 +475,10 @@ export default class ActualizarComponent {
       id_estatusseguimiento_tecnico: this.estatus_seguimiento,
       activo: 1,
       id_usuario: this.id_usuario,
-    }
+      numero_empleado_tecnico : this.numero_empleado,
+      nombre_tecnico: this.usuario, 
+      foto_tecnico: this.foto,
+    }    
     this.tecnico_Service.updatetecnico(tecnico).subscribe({
       next: (v) => {
         this.toastr.success('Registro almacenado Correctamente', 'Correcto', { "positionClass": "toast-bottom-center" });

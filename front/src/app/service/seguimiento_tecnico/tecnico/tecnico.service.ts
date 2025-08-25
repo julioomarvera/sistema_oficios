@@ -43,4 +43,16 @@ export class tecnicoService {
   get_oficio_tecnico_by_id_gestion_oficio_id_oficios(id_gestion_oficio : number,id_oficios: number):Observable<tecnicoTable>{
     return this.http.get<tecnicoTable>(`${this.myAppUrl}${this.myApiUrl}/get_oficio_tecnico_by_id_gestion_oficio_id_oficios/${id_gestion_oficio}/${id_oficios}`);
   }
+
+  get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo(id_gestion_oficio : number,id_oficios: number):Observable<tecnicoTable[]>{
+    return this.http.get<tecnicoTable[]>(`${this.myAppUrl}${this.myApiUrl}/get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo/${id_gestion_oficio}/${id_oficios}`);
+  }
+
+  get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado(id_gestion_oficio : number,id_oficios: number,numero_empleado:number):Observable<Nuevotecnico[]>{
+    return this.http.get<Nuevotecnico[]>(`${this.myAppUrl}${this.myApiUrl}/get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado/${id_gestion_oficio}/${id_oficios}/${numero_empleado}`);
+  }
+  get_estatus_oficio(id_gestion_oficio : number,id_oficios: number):Observable<tecnicoTable>{
+    return this.http.get<tecnicoTable>(`${this.myAppUrl}${this.myApiUrl}/get_estatus_oficio/${id_gestion_oficio}/${id_oficios}`);
+  }
+
 }

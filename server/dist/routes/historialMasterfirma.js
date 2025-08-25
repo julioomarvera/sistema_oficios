@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const historialMasterfirma_1 = require("../controllers/historialMasterfirma");
+const router = (0, express_1.Router)();
+router.get('/getAllhistorialMasterfirma/:id_usuario', historialMasterfirma_1.getAllhistorialMasterfirma);
+router.get('/getRegByIdhistorialMasterfirma/:id/:id_usuario', historialMasterfirma_1.getRegByIdhistorialMasterfirma);
+router.post('/', historialMasterfirma_1.newhistorialMasterfirma);
+router.put('/upd', historialMasterfirma_1.updatehistorialMasterfirma);
+router.delete('/del/:id/:id_usuario', historialMasterfirma_1.delhistorialMasterfirma);
+exports.default = router;

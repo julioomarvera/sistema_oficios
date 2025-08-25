@@ -1,5 +1,6 @@
 import {Router} from 'express'; 
-import {getRegByIdsello, getAllsello,getselloByIdgestonOficios,newsello,updsello,delsello} from '../controllers/sello';
+import {getRegByIdsello, getAllsello,getselloByIdgestonOficios,
+        getInformacionSello, newsello,updsello,delsello} from '../controllers/sello';
 import validateToken from './validate-token';
 import multer    from 'multer';
 require('dotenv').config();
@@ -22,6 +23,7 @@ require('dotenv').config();
 const router = Router(); 
    router.get('/getAllsello/:id_usuario', getAllsello  );
    router.get('/getselloByIdgestonOficios/:id_gestion_oficios/:id_usuario', getselloByIdgestonOficios  ); 
+   router.get('/getInformacionSello/:id_gestion_oficio/:id_direccion/:id_area/:numero_empleado', getInformacionSello  ); 
    router.get('/:id/:id_usuario', getRegByIdsello  ); 
    router.post('/',    newsello     ); 
    router.put('/upd', updsello     ); 

@@ -23,6 +23,7 @@ const upload = (0, multer_1.default)({ storage });
 const router = (0, express_1.Router)();
 router.get('/getAllsello/:id_usuario', sello_1.getAllsello);
 router.get('/getselloByIdgestonOficios/:id_gestion_oficios/:id_usuario', sello_1.getselloByIdgestonOficios);
+router.get('/getInformacionSello/:id_gestion_oficio/:id_direccion/:id_area/:numero_empleado', sello_1.getInformacionSello);
 router.get('/:id/:id_usuario', sello_1.getRegByIdsello);
 router.post('/', sello_1.newsello);
 router.put('/upd', sello_1.updsello);

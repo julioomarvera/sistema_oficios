@@ -1,0 +1,36 @@
+mat-chip {
+  font-weight: bold;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chip-icon {
+  font-size: 18px;
+}
+
+.verde {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+    animation: latido 10s infinite;
+}
+
+.amarillo {
+  background-color: #fff8e1;
+  color: #df8e0c;
+    animation: latido 8s infinite;
+}
+
+.rojo {
+  background-color: #ffebee;
+  color: #c62828;
+  animation: latido 4s infinite;
+}
+
+
+@keyframes latido {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

@@ -65,8 +65,20 @@ export const dbcat_destinatario = sequelize.define('ws_cat_destinatario', {
     type: DataTypes.TINYINT,
     allowNull: true,
   },
-  con_copia:{
+  con_copia: {
     type: DataTypes.TINYINT,
+    allowNull: true,
+  },
+  fecha_terminacion: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  numero_oficio: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  asunto: {
+    type: DataTypes.STRING(1000),
     allowNull: true,
   },
   activo: {

@@ -11,6 +11,8 @@ import { dbcat_areas } from '../models/cat_areas';
 import { dbcat_empleados } from '../models/cat_empleados';
 import { dbgestion_oficios } from '../models/gestion_oficios';
 import { dboficios } from '../models/oficios';
+import { Op } from 'sequelize';
+
 const { Sequelize, DataTypes } = require('sequelize');
 
 //extraer la hora para el sistema //-------------------------------------------------------------> 
@@ -87,7 +89,8 @@ export const getRegByIdcat_destinatario = async (req: Request, res: Response) =>
 //Agregar un nuevo Parametro --------------------------------------------------------------------------> 
 export const newcat_destinatario = async (req: Request, res: Response) => {
    const time = timeNow();
-   const { id_registro_destinatario, id_usuario, id_gestion_oficios, id_direccion, text_direccion, id_area, area_texto, numero_empledo, text_nombre_empleado, foto, id_oficio, estatus, id_estatusregistro_destinatario, con_copia, PaginaActual, finalizado } = req.body;
+   const { id_registro_destinatario, id_usuario, id_gestion_oficios, id_direccion, text_direccion, id_area, area_texto, numero_empledo, text_nombre_empleado, foto,
+      id_oficio, estatus, id_estatusregistro_destinatario, con_copia, PaginaActual, finalizado, fecha_terminacion } = req.body;
    //Validamos si ya existe el Parametro en la base de datos 
    const params = await dbcat_destinatario.findOne({ where: { id_gestion_oficios: id_gestion_oficios, area_texto: area_texto } }); //a
    if (params) {
@@ -102,6 +105,7 @@ export const newcat_destinatario = async (req: Request, res: Response) => {
          id_direccion, text_direccion, id_area, area_texto, numero_empledo, text_nombre_empleado, foto, id_oficio, estatus,
          id_estatusregistro_destinatario: id_estatusregistro_destinatario,
          con_copia: con_copia,
+         fecha_terminacion: fecha_terminacion,
          activo: 1,
          visto: 0,
          respuesta: 0,
@@ -395,51 +399,33 @@ export const actualizarEstadoActivoregistro_destinatario = async (id_registro_de
 }
 //Traer todos los Parametros ----------------------------------------------------------------------> 
 export const get_id_gestion_oficiosByArea = async (req: Request, res: Response) => {
-  const { id_direccion, id_area, estatus } = req.params;
+   const { id_direccion, id_area, estatus } = req.params;
 
-  try {
-    const destinatarios = await dbcat_destinatario.findAll({
-      where: {
-        activo: 1,
-        id_direccion,
-        id_area,
-        estatus: estatus // aquí aplicas el filtro directamente
-      },
-      attributes: ['id_gestion_oficios']
-    });
-
-    const ids = destinatarios.map((d: any) => d.id_gestion_oficios);
-
-    if (ids.length === 0) return res.json([]);
-
-    const oficios = await dbgestion_oficios.findAll({
-      where: {
-        id_gestion_oficios: ids,
-        activo: 1
-      },
-      include: [
-        {
-          model: dboficios,
-          attributes: []
-        }
-      ],
-      attributes: [
-        'id_gestion_oficios',
-        'descripcion',
-        'createdAt',
-        [Sequelize.col('ws_oficio.numero_oficio'), 'numero_oficio'],
-        [Sequelize.col('ws_oficio.asunto'), 'asunto'],
-        [Sequelize.literal(`${estatus}`), 'estatus'] // opcional si quieres devolverlo explícitamente
-      ],
-      raw: true,
-      nest: false
-    });
-
-    return res.json(oficios);
-  } catch (error) {
-    console.error('Error al filtrar por estatus:', error);
-    return res.status(500).json({ error: 'Error interno del servidor' });
+   const whereDestinatarios: any = {
+      activo: 1,
+      id_direccion,
+      id_area,
+     id_oficio: {
+    [Op.ne]: "" // 👈 Esto es lo que necesitas
   }
+
+   };
+   if (estatus !== "5") {
+      whereDestinatarios.estatus = estatus;
+   }
+
+
+   try {
+      const destinatarios = await dbcat_destinatario.findAll({
+         where: whereDestinatarios
+      });
+
+   
+      return res.json(destinatarios);
+   } catch (error) {
+      console.error('Error al filtrar por estatus:', error);
+      return res.status(500).json({ error: 'Error interno del servidor' });
+   }
 };
 
 //Actualizar un nuevo Parametro --------------------------------------------------------------------------> 
@@ -539,7 +525,7 @@ export const actualizarEstatusDestinatario = async (req: Request, res: Response)
 }
 
 export const getEstatusDestinatario = async (req: Request, res: Response) => {
-   
+
 
    //1 es cuando julio ya subio el pdf y ya le dio asignacion al area correspondiente
    //2 es cuando el area correcpondiente (detinatario ) ya vio el     oficio
@@ -549,7 +535,7 @@ export const getEstatusDestinatario = async (req: Request, res: Response) => {
 
 
    const time = timeNow();
-   const { id_gestion_oficios, id_direccion, id_area} = req.params;
+   const { id_gestion_oficios, id_direccion, id_area } = req.params;
    try {
       const params = await dbcat_destinatario.findOne({ where: { id_gestion_oficios: id_gestion_oficios, id_direccion: id_direccion, id_area: id_area } });
       return res.json(params)

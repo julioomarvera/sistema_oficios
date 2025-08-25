@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.actualizarEstadoActivoevidencia_sello = exports.DelMasterHistorialsello = exports.actualizarHistorialMasterevidencia_sello = exports.NewHistorialMasterevidencia_sello = exports.actualizarevidencia_sello = exports.DelHistorialsello = exports.UpdHistorialsello = exports.NewHistorialsello = exports.HistorialgetRegByIdsello = exports.HistorialgetAllsello = exports.delsello = exports.Actualizarsello = exports.updsello = exports.newsello = exports.getRegByIdsello = exports.getselloByIdgestonOficios = exports.getAllsello = exports.timeNow = void 0;
+exports.getInformacionSello = exports.actualizarEstadoActivoevidencia_sello = exports.DelMasterHistorialsello = exports.actualizarHistorialMasterevidencia_sello = exports.NewHistorialMasterevidencia_sello = exports.actualizarevidencia_sello = exports.DelHistorialsello = exports.UpdHistorialsello = exports.NewHistorialsello = exports.HistorialgetRegByIdsello = exports.HistorialgetAllsello = exports.delsello = exports.Actualizarsello = exports.updsello = exports.newsello = exports.getRegByIdsello = exports.getselloByIdgestonOficios = exports.getAllsello = exports.timeNow = void 0;
 const sello_1 = require("../models/sello");
 const evidencia_sello_1 = require("../models/evidencia_sello");
 const historialsello_1 = require("../models/historialsello");
@@ -83,7 +83,7 @@ exports.getRegByIdsello = getRegByIdsello;
 //Agregar un nuevo Parametro --------------------------------------------------------------------------> 
 const newsello = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const time = (0, exports.timeNow)();
-    const { id_evidencia_sello, id_usuario, id_gestion_oficios, id_direccion, text_direccion, id_area, text_area, numero_oficio, fecha_creacion, nombre_documento_oficio, nombre_documento_sello_digital, nombre_documento_sello, id_estatusevidencia_sello, PaginaActual, finalizado } = req.body;
+    const { id_evidencia_sello, id_usuario, id_gestion_oficios, id_direccion, text_direccion, id_area, text_area, numero_oficio, fecha_creacion, nombre_documento_oficio, nombre_documento_sello_digital, nombre_documento_sello, id_estatusevidencia_sello, PaginaActual, finalizado, numero_empleado_secretaria, foto_secretaria } = req.body;
     //Validamos si ya existe el Parametro en la base de datos 
     const params = yield sello_1.dbsello.findOne({ where: { id_gestion_oficios: id_gestion_oficios } });
     if (params) {
@@ -103,8 +103,12 @@ const newsello = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultado = yield sello_1.dbsello.create({
             id_usuario: id_usuario,
-            id_gestion_oficios, id_direccion, text_direccion, id_area, text_area, numero_oficio, fecha_creacion, nombre_documento_oficio, nombre_documento_sello_digital, nombre_documento_sello,
+            id_gestion_oficios, id_direccion, text_direccion, id_area, text_area,
+            numero_oficio, fecha_creacion, nombre_documento_oficio, nombre_documento_sello_digital,
+            nombre_documento_sello,
             id_estatusevidencia_sello: id_estatusevidencia_sello,
+            numero_empleado_secretaria,
+            foto_secretaria,
             activo: 1,
             createdAt: time,
             updatedAt: time,
@@ -411,3 +415,13 @@ const actualizarEstadoActivoevidencia_sello = (id_evidencia_sello) => __awaiter(
     }
 });
 exports.actualizarEstadoActivoevidencia_sello = actualizarEstadoActivoevidencia_sello;
+//Traer todos los Parametros ----------------------------------------------------------------------> 
+const getInformacionSello = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_gestion_oficio, id_direccion, id_area, numero_empleado } = req.params;
+    console.log(req.params);
+    let listsello = '';
+    listsello = yield sello_1.dbsello.findOne({ where: { activo: 1, id_gestion_oficios: id_gestion_oficio, id_direccion: id_direccion, id_area: id_area, numero_empleado_secretaria: numero_empleado }
+    });
+    res.json(listsello);
+});
+exports.getInformacionSello = getInformacionSello;

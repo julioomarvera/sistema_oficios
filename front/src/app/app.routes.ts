@@ -456,8 +456,58 @@ export const routes: Routes = [{
             path: 'coordinador',
             loadComponent: () => import('./business/coordinador/list/list.component'),
         },
+        {
+            path: 'historialCoordinador/:id_gestion_oficios/:id_oficios',
+            loadComponent: () => import('./business/coordinador/historial/historial.component'),
+        },
+        {
+            path: 'historialCoordinador/:id_gestion_oficios/:id_oficios',
+            loadComponent: () => import('./business/coordinador/historial/historial.component'),
+        },
 
-
+         //estatus firma --------------------------------------------------------------->
+            {
+                path:'estatusfirma',
+                loadComponent: () => import('./business/firma/estatus/inicio/index/index.component'),
+            },
+            {
+                path:'estatusnuevofirma',
+                loadComponent: () => import('./business/firma/estatus/inicio/nuevo/nuevo.component'),
+            },
+            {
+                path:'estatusverfirma/:id_estatusfirma',
+                loadComponent: () => import('./business/firma/estatus/inicio/ver/ver.component'),
+            },
+            {
+                path:'estatusactualizarfirma/:id_estatusfirma',
+                loadComponent: () => import('./business/firma/estatus/inicio/actualizar/actualizar.component'),
+            },
+            //firma_coordinador --------------------------------------------------------------->
+            {
+                path:'nuevofirma_coordinador/:id_firma/:estatus',
+                loadComponent: () => import('./business/firma/firma_coordinador/nuevo/nuevo.component'),
+            },
+            {
+                path:'updatefirma_coordinador/:id_firma/:id_firma_coordinador',
+                loadComponent: () => import('./business/firma/firma_coordinador/actualizar/actualizar.component'),
+            },
+            {
+                path:'verfirma_coordinador/:id_firma/:id_firma_coordinador',
+                loadComponent: () => import('./business/firma/firma_coordinador/ver/ver.component'),
+            },
+            //firma --------------------------------------------------------------->
+            {
+                path:'firma',
+                loadComponent: () => import('./business/firma/inicio/index/index.component'),
+            },
+            {
+                path:'verfirma/:id_firma/:id_firma_coordinador',
+                loadComponent: () => import('./business/firma/inicio/ver/ver.component'),
+            },
+            {
+                path:'actualizarfirma/:id_firma/:id_firma_coordinador/:estatus',
+                loadComponent: () => import('./business/firma/inicio/actualizar/actualizar.component'),
+            },
 
 
         //MENU ROUTE---------------------------------------------------------->

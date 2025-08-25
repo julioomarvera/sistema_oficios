@@ -17,11 +17,17 @@ export interface Nuevotecnico{
   fecha_asignacion : string|any,  
   estatus_seguimiento : string|any,  
   observaciones : string|any,  
-  porcentaje_seguimiento : string|any,  
+  porcentaje_seguimiento : number,  
   fecha_contestacion : string|any,  
   evidencia : string|any,  
   documento_oficio : string|any,  
   id_estatusseguimiento_tecnico : number|any,  
   activo     : number|any,  
   id_usuario : number|any,  
+  numero_empleado_tecnico: number|any,  
+  createdAt? : string|any,  
+  nombre_tecnico : string|any,  
+  foto_tecnico: string|any,  
+
+  
 }

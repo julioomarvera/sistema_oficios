@@ -277,6 +277,7 @@ export default class NuevoComponentDestinatario {
       estatus: this.estatus,
       con_copia : "0",
       activo: 1,
+      fecha_terminacion:'n/a',
     }
     this.cat_destinatario_Service.newcat_destinatario(cat_destinatario).subscribe({
       next: (v) => {
@@ -464,6 +465,7 @@ export default class NuevoComponentDestinatario {
       estatus: this.estatus,
       activo: 1,
       con_copia : 0,
+      fecha_terminacion:'n/a',
     }
     this.cat_destinatario_Service.newcat_destinatario(cat_destinatario).subscribe({
       next: (v) => {

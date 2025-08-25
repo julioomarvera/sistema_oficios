@@ -29,6 +29,16 @@ exports.dbasignacion = connection_1.default.define('ws_asignacion', {
     id_area_asignacion: {
         type: sequelize_1.DataTypes.TINYINT,
     },
+    numero_oficio: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
+    numero_empleado_secretaria: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    foto_empleado_secretaria: {
+        type: sequelize_1.DataTypes.STRING,
+    },
     numero_empledo_asignacion: {
         type: sequelize_1.DataTypes.STRING,
     },
@@ -43,6 +53,10 @@ exports.dbasignacion = connection_1.default.define('ws_asignacion', {
     },
     foto: {
         type: sequelize_1.DataTypes.STRING,
+    },
+    fecha_terminacion: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
     },
     fecha_asignacion: {
         type: sequelize_1.DataTypes.STRING,

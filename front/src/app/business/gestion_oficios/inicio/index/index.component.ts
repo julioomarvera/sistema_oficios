@@ -30,6 +30,7 @@ import { cat_destinatarioTable } from '../../../../interfaces/registro_destinata
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'; // Add MAT_DIALOG_DATA and MatDialogRef
 import { MatStepperIntl, MatStepperModule } from '@angular/material/stepper';
+import { ContadorChipComponent } from "../../../../tools/pipes/contador.chip.component";
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -43,7 +44,7 @@ export interface PeriodicElement {
   imports: [MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule,
     MatIconModule, CommonModule, MatFormFieldModule,
     MatTableModule, MatPaginatorModule, MatInputModule,
-    MatSortModule, MatTooltipModule, FormsModule],
+    MatSortModule, MatTooltipModule, FormsModule, ContadorChipComponent],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss'
 })
@@ -166,29 +167,45 @@ export default class IndexComponent {
 
   }
 
-  getTiempoTranscurrido(fechaCreacion: string | Date): string {
+getTiempoTranscurrido(fechaCreacion: string | Date): string {
+  let fechaInicio: Date;
 
-    let fechaInicio: Date;
+  if (typeof fechaCreacion === 'string') {
+    // Detectar si es formato ISO
+    const esISO = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z?$/.test(fechaCreacion);
 
-    if (typeof fechaCreacion === 'string') {
-      const partes = fechaCreacion.split(','); // ["30/07/2025", " 11:28:21"]
+    if (esISO) {
+      fechaInicio = new Date(fechaCreacion);
+    } else {
+      const partes = fechaCreacion.split(',');
+      if (partes.length < 2) {
+        console.warn('Formato inesperado en fechaCreacion:', fechaCreacion);
+        return 'Fecha inválida';
+      }
+
       const [dia, mes, año] = partes[0].split('/');
-      const hora = partes[1].trim();
+      const hora = partes[1]?.trim() ?? '00:00:00';
+
+      if (!dia || !mes || !año) {
+        console.warn('Fecha incompleta:', partes[0]);
+        return 'Fecha inválida';
+      }
 
       fechaInicio = new Date(`${año}-${mes}-${dia}T${hora}`);
-    } else {
-      fechaInicio = fechaCreacion;
     }
-
-    const fechaActual = new Date();
-    const milisegundos = fechaActual.getTime() - fechaInicio.getTime();
-
-    const dias = Math.floor(milisegundos / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((milisegundos / (1000 * 60 * 60)) % 24);
-    const minutos = Math.floor((milisegundos / (1000 * 60)) % 60);
-
-    return `${dias} días, ${horas} hrs, ${minutos} min`;
+  } else {
+    fechaInicio = fechaCreacion;
   }
+
+  const fechaActual = new Date();
+  const milisegundos = fechaActual.getTime() - fechaInicio.getTime();
+
+  const dias = Math.floor(milisegundos / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((milisegundos / (1000 * 60 * 60)) % 24);
+  const minutos = Math.floor((milisegundos / (1000 * 60)) % 60);
+
+  return `${dias} días, ${horas} hrs, ${minutos} min`;
+}
 
 
 
@@ -383,6 +400,7 @@ export default class IndexComponent {
     }
   }
 
+  
 
   //Mensaje de Swal/--------------------------------------------------------->
   mensajeAlertaError(titulo: string) {
@@ -454,15 +472,20 @@ export class DialogContentExampleDialog {
     // this.id_usuario = localStorage.getItem('id_usuario');
     this.id_estatusgestion_oficios = localStorage.getItem('id_estatusgestion_oficios');
     this.id_gestion_oficios = data.id_gestion_oficios; // Get the ID passed from the parent component
-
-  }
-  ngOnInit() {
     if (this.id_gestion_oficios) {
-      this.getInfoFolioByIdGestion(this.id_gestion_oficios);
+    this.getInfoFolioByIdGestion(this.id_gestion_oficios);
+    
     }
+   
   }
+  // ngOnInit() {
+    
+      
+  //   }
+  // }
 
   getInfoFolioByIdGestion(id_gestion_oficios: number) {
+
     this.cat_destinatarioService.getregistro_destinatarioByid_gestion_oficios(id_gestion_oficios).subscribe(data => {
       this.list_destinatary = data;
     });

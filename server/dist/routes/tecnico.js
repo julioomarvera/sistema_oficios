@@ -22,9 +22,12 @@ const upload = (0, multer_1.default)({ storage });
 const router = (0, express_1.Router)();
 router.get('/getAlltecnico/:id_usuario', tecnico_1.getAlltecnico);
 router.get('/get_oficio_tecnico_by_id_gestion_oficio_id_oficios/:id_gestion_oficio/:id_oficios', tecnico_1.get_oficio_tecnico_by_id_gestion_oficio_id_oficios);
+router.get('/get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo/:id_gestion_oficio/:id_oficios', tecnico_1.get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo);
+router.get('/get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado/:id_gestion_oficio/:id_oficios/:numero_empleado', tecnico_1.get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado);
+router.get('/get_estatus_oficio/:id_gestion_oficio/:id_oficios', tecnico_1.get_estatus_oficio);
 router.get('/:id/:id_usuario', tecnico_1.getRegByIdtecnico);
 router.post('/', tecnico_1.newtecnico);
-router.put('/upd', tecnico_1.updtecnico);
+router.put('/upd', tecnico_1.newtecnico);
 router.delete('/del/:id/:id_usuario', tecnico_1.deltecnico);
 router.post('/file/:ruta/:id_seguimiento_tecnico', upload.single('myfile'), (req, resp) => {
     var _a;

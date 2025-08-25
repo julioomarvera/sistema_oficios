@@ -1,3 +1,18 @@
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+    <div class='row'>
+        <div class='col-3'>
+            <button class='botonGris' (click)='goInicio()'>
+                <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon=' keyboard_backspace'></mat-icon>
+            </button>
+        </div>
+        <div class='col-6'>
+            <mat-card-content>
+                <p class='title'>Asignación de oficio.</p>
+            </mat-card-content>
+        </div>
+    </div>
+</mat-card>
+
 <div>
     <br>
     <mat-card appearance='outlined'>
@@ -90,14 +105,14 @@
                     </mat-card-actions>
                 </mat-card>
             </div>
-        </div>
+        </div> 
     </mat-card>
 
     <mat-card appearance="outlined">
         <mat-card-content>
-            <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+            <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
                 {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-            </button>
+            </button> -->
             <mat-stepper [linear]="isLinear" #stepper>
                 <mat-step [stepControl]="firstFormGroup">
                     <form [formGroup]="firstFormGroup">
@@ -186,7 +201,7 @@
                 </mat-step>
                 <!-------------------------------------------------------------------------------------------------------------------------------------->
                 <!-- aqui empieza la asignaion ------------------------------------------------------------------------------------------------------- -->
-               
+
                 <mat-step [stepControl]="secondFormGroup" label="Asignación" class="mt-5">
                     <form [formGroup]="secondFormGroup">
                         <br>
@@ -194,7 +209,7 @@
                             <strong>{{text_direccion}}</strong> / <strong>{{text_area}}</strong>
                         </p>
                         <div class='row mt-5'>
-                            <div class='col-12'>
+                            <div class='col-8'>
                                 <mat-form-field class='example-full-width'>
                                     <mat-label>Catalogo de Empleados correspondientes al Área</mat-label>
                                     <select matNativeControl [(ngModel)]="numero_empledo" id="numero_empledo"
@@ -207,6 +222,12 @@
                                         </option>
                                     </select>
                                 </mat-form-field>
+                            </div>
+                            <div class='col-4'>
+                                <button class='botonGris-icon' (click)='openBottomSheet()'>
+                                    <mat-icon aria-hidden='false' aria-label='Example home icon'
+                                        fontIcon='help'></mat-icon>
+                                </button>
                             </div>
                         </div>
                         <div class='row'>
@@ -376,19 +397,15 @@
                                                 </th>
                                                 <td mat-cell *matCellDef='let element' style="width: 10%;">
                                                     <div class='example-flex-container text-center'>
-
-
-
-                                                        <button mat-mini-fab
+                                                        <!-- <button mat-mini-fab
                                                             aria-label='Example icon button with a menu icon'
                                                             style='background-color: rgb(250, 250, 250)'
                                                             matTooltip='Ver el registro'
                                                             (click)='verAvance(element.id_gestion_oficios)'>
                                                             <mat-icon>visibility</mat-icon>
-                                                        </button>
-
-
-                                                        <button mat-mini-fab style="background-color: rgba(255, 174, 0, 0.76);"
+                                                        </button> -->
+                                                        <button mat-mini-fab
+                                                            style="background-color: rgba(255, 174, 0, 0.76);"
                                                             (click)="openDialogContrasenia(element.id_asignacion,element.numero_empledo_asignacion, element.instrucciones,element.foto)"
                                                             aria-label="Example icon button with a home icon"
                                                             matTooltip="editar las instrucciones">
@@ -421,17 +438,15 @@
                                 </mat-card-content>
                             </div>
                         </mat-card>
-
-
-
-
-
-
-
-
                         <div>
-                            <button mat-button matStepperPrevious>Back</button>
-                            <button mat-button matStepperNext>Next</button>
+                            <div class='contNext' style="margin-left: 15%;">
+                                <div class='btn'>
+                                    <button mat-button matStepperPrevious class='botonSiguientePaso'>Atras</button>
+                                </div>
+                                <div class='btn'>
+                                    <button mat-button matStepperNext class='botonSiguientePaso'>Finalizar</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </mat-step>

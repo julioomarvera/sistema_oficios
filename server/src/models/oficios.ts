@@ -43,7 +43,7 @@ export const  dboficios = sequelize.define('ws_oficios' ,{
      allowNull: true, 
    },                      
    asunto:{ 
-     type:DataTypes.STRING, 
+     type:DataTypes.STRING(1000), 
      allowNull: true, 
    },                      
    contenido:{ 

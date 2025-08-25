@@ -712,6 +712,18 @@ export default class ActualizarComponentgestion_oficios {
     });
   }
 
+    toggleCopiaConocimiento(item: any) {
+    const nuevoEstado = item.con_copia === 1 ? 0 : 1;
+
+    this._cat_destinatarioService.ccp_destinatario(item.id_cat_destinatario, this.id_gestion_oficios)
+      .subscribe(data => {
+        if (data === "1") {
+          item.con_copia = nuevoEstado; // Actualiza el estado local sin recargar toda la lista
+        } else {
+          console.warn("No se pudo actualizar el estado de con_copia");
+        }
+      });
+  }
 
 
   //-------------------------------------------------------------------------------------------

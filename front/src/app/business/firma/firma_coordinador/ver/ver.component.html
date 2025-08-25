@@ -1,0 +1,952 @@
+
+<div>
+  <mat-card appearance='outlined'>
+    <p>Información del firma_coordinador con número de identificación : {{ id_firma_coordinador }}</p>
+    <mat-card-content>
+      <form>
+        <div class='row mt-5'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_gestion_oficio</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_gestion_oficio'
+                name = 'id_gestion_oficio'
+                id = 'id_gestion_oficio'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_gestion_oficio) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_oficios</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_oficios'
+                name = 'id_oficios'
+                id = 'id_oficios'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_oficios) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_direccion_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_direccion_coordinador'
+                name = 'id_direccion_coordinador'
+                id = 'id_direccion_coordinador'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_direccion_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_direccion_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_direccion_coordinador'
+                name = 'text_direccion_coordinador'
+                id = 'text_direccion_coordinador'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_direccion_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_area_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_area_coordinador'
+                name = 'id_area_coordinador'
+                id = 'id_area_coordinador'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_area_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_area_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_area_coordinador'
+                name = 'text_area_coordinador'
+                id = 'text_area_coordinador'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_area_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_direccion_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_direccion_peticion'
+                name = 'id_direccion_peticion'
+                id = 'id_direccion_peticion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_direccion_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_direccion_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_direccion_peticion'
+                name = 'text_direccion_peticion'
+                id = 'text_direccion_peticion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_direccion_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_area_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_area_peticion'
+                name = 'id_area_peticion'
+                id = 'id_area_peticion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_area_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>area_text_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='area_text_peticion'
+                name = 'area_text_peticion'
+                id = 'area_text_peticion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarea_text_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_empleado_coordinador'
+                name = 'numero_empleado_coordinador'
+                id = 'numero_empleado_coordinador'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_empleado_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_empleado_coordinador'
+                name = 'nombre_empleado_coordinador'
+                id = 'nombre_empleado_coordinador'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_empleado_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto_empleado_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto_empleado_coordinador'
+                name = 'foto_empleado_coordinador'
+                id = 'foto_empleado_coordinador'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto_empleado_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_empleado_peticion'
+                name = 'numero_empleado_peticion'
+                id = 'numero_empleado_peticion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_empleado_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_empleado_peticion'
+                name = 'nombre_empleado_peticion'
+                id = 'nombre_empleado_peticion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_empleado_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto_empleado_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto_empleado_peticion'
+                name = 'foto_empleado_peticion'
+                id = 'foto_empleado_peticion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto_empleado_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado_secretaria</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_empleado_secretaria'
+                name = 'numero_empleado_secretaria'
+                id = 'numero_empleado_secretaria'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado_secretaria) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_secretaria</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_secretaria'
+                name = 'nombre_secretaria'
+                id = 'nombre_secretaria'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_secretaria) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto_secretario</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto_secretario'
+                name = 'foto_secretario'
+                id = 'foto_secretario'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto_secretario) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado_tecnico</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_empleado_tecnico'
+                name = 'numero_empleado_tecnico'
+                id = 'numero_empleado_tecnico'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado_tecnico) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_tecnico</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_tecnico'
+                name = 'nombre_tecnico'
+                id = 'nombre_tecnico'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_tecnico) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto_tecnico</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto_tecnico'
+                name = 'foto_tecnico'
+                id = 'foto_tecnico'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto_tecnico) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_oficio</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_oficio'
+                name = 'numero_oficio'
+                id = 'numero_oficio'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_oficio) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_contestacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_contestacion'
+                name = 'numero_contestacion'
+                id = 'numero_contestacion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_contestacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_oficio</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_oficio'
+                name = 'archivo_oficio'
+                id = 'archivo_oficio'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_oficio) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_sello</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_sello'
+                name = 'archivo_sello'
+                id = 'archivo_sello'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_sello) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_evidencia</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_evidencia'
+                name = 'archivo_evidencia'
+                id = 'archivo_evidencia'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_evidencia) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_contestacion_pdf</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_contestacion_pdf'
+                name = 'archivo_contestacion_pdf'
+                id = 'archivo_contestacion_pdf'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_contestacion_pdf) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_contestacion_digital</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_contestacion_digital'
+                name = 'archivo_contestacion_digital'
+                id = 'archivo_contestacion_digital'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_contestacion_digital) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>asunto</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='asunto'
+                name = 'asunto'
+                id = 'asunto'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorasunto) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>descripcion_contestacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='descripcion_contestacion'
+                name = 'descripcion_contestacion'
+                id = 'descripcion_contestacion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errordescripcion_contestacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>visto</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='visto'
+                name = 'visto'
+                id = 'visto'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorvisto) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>fecha_contestacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='fecha_contestacion'
+                name = 'fecha_contestacion'
+                id = 'fecha_contestacion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfecha_contestacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>fecha_terminacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='fecha_terminacion'
+                name = 'fecha_terminacion'
+                id = 'fecha_terminacion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfecha_terminacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>tiempo_efectivo_contestacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='tiempo_efectivo_contestacion'
+                name = 'tiempo_efectivo_contestacion'
+                id = 'tiempo_efectivo_contestacion'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errortiempo_efectivo_contestacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>otro</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='otro'
+                name = 'otro'
+                id = 'otro'
+                disabled='true'
+              />
+            </mat-form-field>
+          </div>
+          @if (errorotro) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+              <div class='col-3'>
+                <mat-form-field class='example-full-width'>
+                  <mat-label>Estatus</mat-label>
+                  <select matNativeControl  [(ngModel)]='estatus'  id='estatus'  name='estatus'  disabled='true'>
+                    <option *ngFor="let list_estatus of listestatusfirma" 
+                      [value]="list_estatus.id_estatusfirma">{{list_estatus.descripcion}} 
+                    </option>
+                  </select>
+                </mat-form-field>
+              </div>
+          <div class='mat-elevation-z8'> 
+            <table mat-table [dataSource]='dataSource' matSort>
+              <ng-container matColumnDef='id_historialMaster'>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  id historial Mater
+                 </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_historialMaster}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='id_usuario'>
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                   id Usuario
+                  </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_usuario}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='id_firma_coordinador'>
+                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                   id_firma_coordinador
+                  </th>
+                 <td mat-cell *matCellDef='let element'>
+                   {{ element.id_firma_coordinador}}
+                 </td>
+               </ng-container>
+               <ng-container matColumnDef='id_gestion_oficio'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_gestion_oficio 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.id_gestion_oficio}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='id_oficios'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_oficios 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.id_oficios}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='id_direccion_coordinador'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_direccion_coordinador 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.id_direccion_coordinador}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='text_direccion_coordinador'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                text_direccion_coordinador 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.text_direccion_coordinador}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='id_area_coordinador'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_area_coordinador 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.id_area_coordinador}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='text_area_coordinador'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                text_area_coordinador 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.text_area_coordinador}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='id_direccion_peticion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_direccion_peticion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.id_direccion_peticion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='text_direccion_peticion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                text_direccion_peticion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.text_direccion_peticion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='id_area_peticion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                id_area_peticion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.id_area_peticion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='area_text_peticion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                area_text_peticion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.area_text_peticion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='numero_empleado_coordinador'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                numero_empleado_coordinador 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.numero_empleado_coordinador}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='nombre_empleado_coordinador'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                nombre_empleado_coordinador 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.nombre_empleado_coordinador}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='foto_empleado_coordinador'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                foto_empleado_coordinador 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.foto_empleado_coordinador}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='numero_empleado_peticion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                numero_empleado_peticion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.numero_empleado_peticion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='nombre_empleado_peticion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                nombre_empleado_peticion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.nombre_empleado_peticion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='foto_empleado_peticion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                foto_empleado_peticion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.foto_empleado_peticion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='numero_empleado_secretaria'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                numero_empleado_secretaria 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.numero_empleado_secretaria}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='nombre_secretaria'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                nombre_secretaria 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.nombre_secretaria}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='foto_secretario'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                foto_secretario 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.foto_secretario}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='numero_empleado_tecnico'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                numero_empleado_tecnico 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.numero_empleado_tecnico}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='nombre_tecnico'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                nombre_tecnico 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.nombre_tecnico}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='foto_tecnico'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                foto_tecnico 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.foto_tecnico}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='numero_oficio'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                numero_oficio 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.numero_oficio}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='numero_contestacion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                numero_contestacion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.numero_contestacion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='archivo_oficio'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                archivo_oficio 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.archivo_oficio}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='archivo_sello'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                archivo_sello 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.archivo_sello}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='archivo_evidencia'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                archivo_evidencia 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.archivo_evidencia}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='archivo_contestacion_pdf'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                archivo_contestacion_pdf 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.archivo_contestacion_pdf}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='archivo_contestacion_digital'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                archivo_contestacion_digital 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.archivo_contestacion_digital}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='asunto'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                asunto 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.asunto}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='descripcion_contestacion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                descripcion_contestacion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.descripcion_contestacion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='visto'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                visto 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.visto}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='fecha_contestacion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                fecha_contestacion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.fecha_contestacion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='fecha_terminacion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                fecha_terminacion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.fecha_terminacion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='tiempo_efectivo_contestacion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                tiempo_efectivo_contestacion 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.tiempo_efectivo_contestacion}}
+                  </td>
+                </ng-container>
+               <ng-container matColumnDef='otro'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                otro 
+                  </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.otro}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef='accion'>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    accion 
+                   </th>
+                  <td mat-cell *matCellDef='let element'>
+                    {{ element.accion}}
+                  </td>
+                </ng-container>
+                 <ng-container matColumnDef='createAt'>
+                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                     createAt 
+                   </th>
+                   <td mat-cell *matCellDef='let element'>
+                     {{ element.createAt}}
+                   </td>
+                 </ng-container>
+                 <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+                 <tr mat-row *matRowDef='let row; columns: displayedColumns'></tr>
+               </table>
+             <mat-paginator
+              [pageSizeOptions]='[5, 10, 20]'
+              showFirstLastButtons
+              aria-label='Select page of periodic elements'
+             >
+             </mat-paginator>
+           </div>
+        </div> 
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -74,6 +74,18 @@ exports.dbcat_destinatario = connection_1.default.define('ws_cat_destinatario', 
         type: sequelize_1.DataTypes.TINYINT,
         allowNull: true,
     },
+    fecha_terminacion: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
+    numero_oficio: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
+    asunto: {
+        type: sequelize_1.DataTypes.STRING(1000),
+        allowNull: true,
+    },
     activo: {
         type: sequelize_1.DataTypes.TINYINT,
     },

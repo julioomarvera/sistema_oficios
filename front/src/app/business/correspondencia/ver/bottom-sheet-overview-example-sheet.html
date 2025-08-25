@@ -1,0 +1,35 @@
+@for (item of list_cat_empleadosArea; track item; let i = $index) {
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title><img [src]="item.foto" alt="" style="width: 10%;"> 
+        {{item.nombre_completo}} 
+    </mat-card-title>
+  </mat-card-header>
+  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+  <mat-card-content>
+    
+<mat-accordion>
+
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" (afterExpand)="getServiciosRealizados(item.numero_empleado)" >
+    <mat-expansion-panel-header>
+      <mat-panel-title> Servicios Realizados </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="folder_eye"> {{panelOpenState() ? 'open' : 'closed'}}</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+<div *ngIf="resumenPorEmpleado[item.numero_empleado] as resumen" @fadeIn>
+  <mat-chip color="accent">🟡 No lo ha Visto: {{ resumen.sinVisto }}</mat-chip>
+  <mat-chip color="warn">🟡 En proceso: {{ resumen.enProceso }}</mat-chip>
+  <mat-chip color="accent">🟠 En pausa: {{ resumen.enPausa }}</mat-chip>
+  <mat-chip color="primary">🟢 Concluidos: {{ resumen.concluidos }}</mat-chip>
+  <mat-chip color="default">📋 Total: {{ resumen.total }}</mat-chip>
+</div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+  </mat-card-content>
+</mat-card>
+
+
+}

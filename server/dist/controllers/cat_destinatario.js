@@ -14,8 +14,7 @@ const cat_destinatario_1 = require("../models/cat_destinatario");
 const registro_destinatario_1 = require("../models/registro_destinatario");
 const historialcat_destinatario_1 = require("../models/historialcat_destinatario");
 const historialMasterregistro_destinatario_1 = require("../models/historialMasterregistro_destinatario");
-const gestion_oficios_1 = require("../models/gestion_oficios");
-const oficios_1 = require("../models/oficios");
+const sequelize_1 = require("sequelize");
 const { Sequelize, DataTypes } = require('sequelize');
 //extraer la hora para el sistema //-------------------------------------------------------------> 
 const timeNow = () => {
@@ -83,7 +82,7 @@ exports.getRegByIdcat_destinatario = getRegByIdcat_destinatario;
 //Agregar un nuevo Parametro --------------------------------------------------------------------------> 
 const newcat_destinatario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const time = (0, exports.timeNow)();
-    const { id_registro_destinatario, id_usuario, id_gestion_oficios, id_direccion, text_direccion, id_area, area_texto, numero_empledo, text_nombre_empleado, foto, id_oficio, estatus, id_estatusregistro_destinatario, con_copia, PaginaActual, finalizado } = req.body;
+    const { id_registro_destinatario, id_usuario, id_gestion_oficios, id_direccion, text_direccion, id_area, area_texto, numero_empledo, text_nombre_empleado, foto, id_oficio, estatus, id_estatusregistro_destinatario, con_copia, PaginaActual, finalizado, fecha_terminacion } = req.body;
     //Validamos si ya existe el Parametro en la base de datos 
     const params = yield cat_destinatario_1.dbcat_destinatario.findOne({ where: { id_gestion_oficios: id_gestion_oficios, area_texto: area_texto } }); //a
     if (params) {
@@ -98,6 +97,7 @@ const newcat_destinatario = (req, res) => __awaiter(void 0, void 0, void 0, func
             id_direccion, text_direccion, id_area, area_texto, numero_empledo, text_nombre_empleado, foto, id_oficio, estatus,
             id_estatusregistro_destinatario: id_estatusregistro_destinatario,
             con_copia: con_copia,
+            fecha_terminacion: fecha_terminacion,
             activo: 1,
             visto: 0,
             respuesta: 0,
@@ -399,42 +399,22 @@ exports.actualizarEstadoActivoregistro_destinatario = actualizarEstadoActivoregi
 //Traer todos los Parametros ----------------------------------------------------------------------> 
 const get_id_gestion_oficiosByArea = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_direccion, id_area, estatus } = req.params;
+    const whereDestinatarios = {
+        activo: 1,
+        id_direccion,
+        id_area,
+        id_oficio: {
+            [sequelize_1.Op.ne]: "" // 👈 Esto es lo que necesitas
+        }
+    };
+    if (estatus !== "5") {
+        whereDestinatarios.estatus = estatus;
+    }
     try {
         const destinatarios = yield cat_destinatario_1.dbcat_destinatario.findAll({
-            where: {
-                activo: 1,
-                id_direccion,
-                id_area,
-                estatus: estatus // aquí aplicas el filtro directamente
-            },
-            attributes: ['id_gestion_oficios']
+            where: whereDestinatarios
         });
-        const ids = destinatarios.map((d) => d.id_gestion_oficios);
-        if (ids.length === 0)
-            return res.json([]);
-        const oficios = yield gestion_oficios_1.dbgestion_oficios.findAll({
-            where: {
-                id_gestion_oficios: ids,
-                activo: 1
-            },
-            include: [
-                {
-                    model: oficios_1.dboficios,
-                    attributes: []
-                }
-            ],
-            attributes: [
-                'id_gestion_oficios',
-                'descripcion',
-                'createdAt',
-                [Sequelize.col('ws_oficio.numero_oficio'), 'numero_oficio'],
-                [Sequelize.col('ws_oficio.asunto'), 'asunto'],
-                [Sequelize.literal(`${estatus}`), 'estatus'] // opcional si quieres devolverlo explícitamente
-            ],
-            raw: true,
-            nest: false
-        });
-        return res.json(oficios);
+        return res.json(destinatarios);
     }
     catch (error) {
         console.error('Error al filtrar por estatus:', error);

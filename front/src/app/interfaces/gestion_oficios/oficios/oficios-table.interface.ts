@@ -20,4 +20,5 @@ export interface oficiosTable {
   activo: number | any,
   id_usuario: number | any,
   estatus_oficio?:number | any,
+  createdAt?: string | any,
 }

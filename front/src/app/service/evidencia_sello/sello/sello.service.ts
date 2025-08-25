@@ -40,4 +40,8 @@ export class selloService {
   sendFilesello(body:FormData,ruta:any,id_gestion_oficios:any):Observable<any>{
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}/file/${ruta}/${id_gestion_oficios}`,body);
   }
+
+  getInformacionSello(id_gestion_oficio: number, id_direccion:number, id_area:number,numero_empleado:number):Observable<selloTable>{
+    return this.http.get<selloTable>(`${this.myAppUrl}${this.myApiUrl}/getInformacionSello/${id_gestion_oficio}/${id_direccion}/${id_area}/${numero_empleado}`);
+  }
 }

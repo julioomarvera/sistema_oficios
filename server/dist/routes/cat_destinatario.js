@@ -23,7 +23,7 @@ const router = (0, express_1.Router)();
 router.get('/getAllcat_destinatario/:id_usuario', cat_destinatario_1.getAllcat_destinatario);
 router.get('/getregistro_destinatarioByid_gestion_oficios/:id_gestion_oficios', cat_destinatario_1.getregistro_destinatarioByid_gestion_oficios);
 router.get('/ccp_destinatario/:id_cat_destinatario/:id_gestion_oficios', cat_destinatario_1.ccp_destinatario);
-router.get('/get_id_gestion_oficiosByArea/:id_direcion/:id_area/:estatus', cat_destinatario_1.get_id_gestion_oficiosByArea);
+router.get('/get_id_gestion_oficiosByArea/:id_direccion/:id_area/:estatus', cat_destinatario_1.get_id_gestion_oficiosByArea);
 router.get('/cancelarDestinatario/:id_cat_destinatario/:id_gestion_oficios', cat_destinatario_1.cancelarDestinatario);
 router.get('/actualizarEstatusDestinatario/:id_gestion_oficios/:id_direccion/:id_area/:estatus', cat_destinatario_1.actualizarEstatusDestinatario);
 router.get('/getEstatusDestinatario/:id_gestion_oficios/:id_direccion/:id_area', cat_destinatario_1.getEstatusDestinatario);

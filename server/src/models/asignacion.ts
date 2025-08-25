@@ -25,6 +25,16 @@ export const dbasignacion = sequelize.define('ws_asignacion', {
     id_area_asignacion: {
         type: DataTypes.TINYINT,
     },
+    numero_oficio:{
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    numero_empleado_secretaria:{
+        type: DataTypes.STRING,
+    },
+    foto_empleado_secretaria:{
+        type: DataTypes.STRING,
+    },
     numero_empledo_asignacion: {
         type: DataTypes.STRING,
     },
@@ -40,12 +50,16 @@ export const dbasignacion = sequelize.define('ws_asignacion', {
     foto: {
         type: DataTypes.STRING,
     },
+    fecha_terminacion: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     fecha_asignacion: {
         type: DataTypes.STRING,
     },
-    instrucciones:{
-       type: DataTypes.STRING,
-       allowNull: true
+    instrucciones: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
     estatus_oficio: {
         type: DataTypes.TINYINT,

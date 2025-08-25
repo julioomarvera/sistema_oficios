@@ -9,6 +9,7 @@ import { dbhistorialMastergestion_oficios } from '../models/historialMastergesti
 import { dbcat_oficio } from '../models/cat_oficio';
 import { dbcat_tipo_oficios } from '../models/cat_tipo_oficios';
 import { dbcat_numero_oficios } from '../models/cat_numero_oficios';
+import { dbcat_destinatario } from '../models/cat_destinatario';
 
 //extraer la hora para el sistema //-------------------------------------------------------------> 
 
@@ -81,7 +82,9 @@ export const getRegByIdoficios = async (req: Request, res: Response) => {
 //Agregar un nuevo Parametro --------------------------------------------------------------------------> 
 export const newoficios = async (req: Request, res: Response) => {
    const time = timeNow();
-   const { id_gestion_oficios, id_usuario, oficio, text_oficio, tipo_oficio, text_tipo, folio, numero_oficio, fecha_hora, caso_cop, asunto, contenido, archivo_oficio, otro, id_estatusgestion_oficios, PaginaActual, finalizado } = req.body;
+   const { id_gestion_oficios, id_usuario, oficio, text_oficio, tipo_oficio, text_tipo, folio, numero_oficio, 
+          fecha_hora, caso_cop, asunto, contenido, archivo_oficio, otro, id_estatusgestion_oficios, PaginaActual, 
+          finalizado } = req.body;
    //Validamos si ya existe el Parametro en la base de datos 
    const params = await dboficios.findOne({ where: { numero_oficio: numero_oficio } });
    if (params) {
@@ -106,7 +109,7 @@ export const newoficios = async (req: Request, res: Response) => {
       actualizargestion_oficios(id_gestion_oficios, id, PaginaActual, finalizado);
       actualizarEstadoActivogestion_oficios(id_gestion_oficios);
       NewHistorialMastergestion_oficios(id_usuario, id, oficio, text_oficio, tipo_oficio, text_tipo, numero_oficio, fecha_hora, caso_cop, asunto, contenido, archivo_oficio, otro);
-
+      actualizar_id_oficio_destinatarios(id_gestion_oficios,id,fecha_hora,numero_oficio,asunto);
    }
    catch (error) {
       res.status(404).json({
@@ -152,6 +155,8 @@ export const updoficios = async (req: Request, res: Response) => {
          })
          UpdHistorialoficios(id_usuario, id_oficios, oficio, text_oficio, tipo_oficio, text_tipo, numero_oficio, fecha_hora, caso_cop, asunto, contenido, archivo_oficio, otro);
          actualizarHistorialMastergestion_oficios(id_usuario, id_oficios, oficio, text_oficio, tipo_oficio, text_tipo, numero_oficio, fecha_hora, caso_cop, asunto, contenido, archivo_oficio, otro);
+        actualizar_id_oficio_destinatariosActaulizar(id_oficios,fecha_hora,numero_oficio,asunto);
+     
       }
       catch (error) {
          res.status(404).json({
@@ -349,3 +354,43 @@ export const actualizarEstadoActivogestion_oficios = async (id_gestion_oficios: 
    catch (error) {
    }
 }
+
+//actualizar en la tabla gestion_oficios ----------------------------------------------------------------------> 
+export const actualizar_id_oficio_destinatarios = async (id_gestion_oficios: any, id_oficio: any,fecha_hora:string,numero_oficio:string,asunto:string) => {
+   const time = timeNow();
+   try {
+      const resultado: any = await dbcat_destinatario.update({
+         estatus : 0,
+         id_oficio: id_oficio,
+         fecha_terminacion:fecha_hora,
+         numero_oficio:numero_oficio,
+         asunto:asunto,
+      }, {
+         where: {
+            id_gestion_oficios : id_gestion_oficios
+         },
+      }).then();
+   }
+   catch (error) {
+   }
+}
+
+//actualizar en la tabla gestion_oficios ----------------------------------------------------------------------> 
+export const actualizar_id_oficio_destinatariosActaulizar = async (id_oficio: any,fecha_hora:string,numero_oficio:string,asunto:string) => {
+   const time = timeNow();
+   try {
+      const resultado: any = await dbcat_destinatario.update({
+         estatus : 0,
+         fecha_terminacion:fecha_hora,
+         numero_oficio:numero_oficio,
+         asunto:asunto,
+      }, {
+         where: {
+             id_oficio: id_oficio,
+         },
+      }).then();
+   }
+   catch (error) {
+   }
+}
+

@@ -14,5 +14,7 @@ export interface asignacion {
     estatus_oficio: string | any,
     activo?: number | any,
     instrucciones : string | any,
+    numero_empleado_secretaria: string | any,
+    foto_empleado_secretaria: string | any,
 }
 

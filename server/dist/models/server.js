@@ -56,6 +56,10 @@ const historialMasterseguimiento_tecnico_1 = __importDefault(require("../routes/
 const estatusseguimiento_tecnico_1 = __importDefault(require("../routes/estatusseguimiento_tecnico"));
 const tecnico_1 = __importDefault(require("../routes/tecnico"));
 const seguimiento_tecnico_1 = __importDefault(require("../routes/seguimiento_tecnico"));
+const historialMasterfirma_1 = __importDefault(require("../routes/historialMasterfirma"));
+const estatusfirma_1 = __importDefault(require("../routes/estatusfirma"));
+const firma_coordinador_1 = __importDefault(require("../routes/firma_coordinador"));
+const firma_1 = __importDefault(require("../routes/firma"));
 //IMPORT ROUTES
 const rolles_2 = require("./rolles");
 const menu_2 = require("./menu");
@@ -129,6 +133,12 @@ const tecnico_2 = require("./tecnico");
 const historialtecnico_1 = require("./historialtecnico");
 const seguimiento_tecnico_2 = require("./seguimiento_tecnico");
 const historialseguimiento_tecnico_1 = require("./historialseguimiento_tecnico");
+const estatusfirma_2 = require("./estatusfirma");
+const historialestatusfirma_1 = require("./historialestatusfirma");
+const firma_coordinador_2 = require("./firma_coordinador");
+const historialfirma_coordinador_1 = require("./historialfirma_coordinador");
+const firma_2 = require("./firma");
+const historialfirma_1 = require("./historialfirma");
 //IMPORT DB
 class Server {
     constructor() {
@@ -192,6 +202,10 @@ class Server {
         this.app.use('/api/estatusseguimiento_tecnico', estatusseguimiento_tecnico_1.default);
         this.app.use('/api/tecnico', tecnico_1.default);
         this.app.use('/api/seguimiento_tecnico', seguimiento_tecnico_1.default);
+        this.app.use('/api/historialMasterfirma', historialMasterfirma_1.default);
+        this.app.use('/api/estatusfirma', estatusfirma_1.default);
+        this.app.use('/api/firma_coordinador', firma_coordinador_1.default);
+        this.app.use('/api/firma', firma_1.default);
         //ROUTES ATLAS
     }
     dbConnect() {
@@ -261,14 +275,20 @@ class Server {
                 yield historialsello_1.dbhistorialsello.sync();
                 yield evidencia_sello_2.dbevidencia_sello.sync();
                 yield historialevidencia_sello_1.dbhistorialevidencia_sello.sync();
-                yield asignacion_2.dbasignacion.sync({ alter: true });
+                yield asignacion_2.dbasignacion.sync();
                 yield historialMasterseguimiento_tecnico_2.dbhistorialMasterseguimiento_tecnico.sync();
                 yield estatusseguimiento_tecnico_2.dbestatusseguimiento_tecnico.sync();
                 yield historialestatusseguimiento_tecnico_1.dbhistorialestatusseguimiento_tecnico.sync();
-                yield tecnico_2.dbtecnico.sync();
+                yield tecnico_2.dbtecnico.sync({ alter: true });
                 yield historialtecnico_1.dbhistorialtecnico.sync();
                 yield seguimiento_tecnico_2.dbseguimiento_tecnico.sync();
                 yield historialseguimiento_tecnico_1.dbhistorialseguimiento_tecnico.sync();
+                yield estatusfirma_2.dbestatusfirma.sync();
+                yield historialestatusfirma_1.dbhistorialestatusfirma.sync();
+                yield firma_coordinador_2.dbfirma_coordinador.sync();
+                yield historialfirma_coordinador_1.dbhistorialfirma_coordinador.sync();
+                yield firma_2.dbfirma.sync();
+                yield historialfirma_1.dbhistorialfirma.sync();
                 //DB ATLAS
             }
             catch (error) {

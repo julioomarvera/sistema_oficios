@@ -19,6 +19,8 @@ import { asigacionService } from '../../../service/asignacion/asignacion_service
 import { asignacion } from '../../../interfaces/asignacion/asignacion_table.interface';
 import { oficiosTable } from '../../../interfaces/gestion_oficios/oficios/oficios-table.interface';
 import { MatChip } from "@angular/material/chips";
+import { ContadorChipComponent } from "../../../tools/pipes/contador.chip.component"; 
+
 
 
 
@@ -31,10 +33,13 @@ import { MatChip } from "@angular/material/chips";
     FormsModule, ReactiveFormsModule,
     MatSlideToggleModule, MatDialogModule, MatButtonModule,
     CommonModule, MatPaginatorModule,
-    MatTooltipModule, MatChip],
+    MatTooltipModule, MatChip,  ContadorChipComponent],
   templateUrl: './lista.component.html',
   styleUrl: './lista.component.scss'
 })
+
+
+
 
 export default class ListaComponent {
 
@@ -142,23 +147,35 @@ export default class ListaComponent {
     }
   }
 
-  getTiempoTranscurrido(fechaCreacion: string | Date): string {
-    let fechaInicio: Date;
-    if (typeof fechaCreacion === 'string') {
-      const partes = fechaCreacion.split(','); // ["30/07/2025", " 11:28:21"]
-      const [dia, mes, año] = partes[0].split('/');
-      const hora = partes[1].trim();
-      fechaInicio = new Date(`${año}-${mes}-${dia}T${hora}`);
-    } else {
-      fechaInicio = fechaCreacion;
-    }
-    const fechaActual = new Date();
-    const milisegundos = fechaActual.getTime() - fechaInicio.getTime();
-    const dias = Math.floor(milisegundos / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((milisegundos / (1000 * 60 * 60)) % 24);
-    const minutos = Math.floor((milisegundos / (1000 * 60)) % 60);
-    return `${dias} días, ${horas} hrs, ${minutos} min`;
+getTiempoRestanteHasta(fechaLimite: string | Date): string {
+  const fechaFinal = new Date(fechaLimite);
+
+  // Aseguramos que la fecha final termine al final del día (23:59:59)
+  fechaFinal.setHours(23, 59, 59, 999);
+
+  const fechaActual = new Date();
+
+  if (isNaN(fechaFinal.getTime())) {
+    return 'Fecha inválida';
   }
+
+  const milisegundosRestantes = fechaFinal.getTime() - fechaActual.getTime();
+
+  if (milisegundosRestantes < 0) {
+    return 'La fecha ya venció';
+  }
+
+  const dias = Math.floor(milisegundosRestantes / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((milisegundosRestantes / (1000 * 60 * 60)) % 24);
+  const minutos = Math.floor((milisegundosRestantes / (1000 * 60)) % 60);
+
+  return `${dias} días, ${horas} hrs, ${minutos} min restantes`;
+}
+
+
+
+
+
 
   verAvance(id_oficios: string, id_asignacion: number) {
     if (id_oficios != "") {
@@ -192,13 +209,37 @@ getChipColor(estatus: number): string {
 
 estatusVisualMap: Record<number, { label: string; icon: string; color: string }> = {
   1: { label: 'Nuevo oficio', icon: 'fiber_new', color: 'primary' },
-  2: { label: 'Visto', icon: 'visibility', color: 'accent' },
-  3: { label: 'Sellado', icon: 'verified', color: 'warn' },
-  4: { label: 'Asignado', icon: 'assignment_turned_in', color: 'success' } // 'success' si tienes tema extendido
+  2: { label: 'En Poceso', icon: 'visibility', color: 'accent' },
+  3: { label: 'En Pausa', icon: 'verified', color: 'warn' },
+  4: { label: 'Concluido por el técnico', icon: 'assignment_turned_in', color: 'success' } // 'success' si tienes tema extendido
 };
 
 getEstatusVisual(estatus: number) {
   return this.estatusVisualMap[estatus] || { label: 'Desconocido', icon: 'help', color: '' };
+}
+
+getColor(fechaLimite: string | Date): string {
+  const fechaFinal = new Date(fechaLimite);
+  fechaFinal.setHours(23, 59, 59, 999);
+  const ahora = new Date();
+  const msRestantes = fechaFinal.getTime() - ahora.getTime();
+  const dias = Math.floor(msRestantes / (1000 * 60 * 60 * 24));
+
+  if (dias > 2) return 'verde';
+  if (dias > 0) return 'amarillo';
+  return 'rojo';
+}
+
+getIcon(fechaLimite: string | Date): string {
+  const fechaFinal = new Date(fechaLimite);
+  fechaFinal.setHours(23, 59, 59, 999);
+  const ahora = new Date();
+  const msRestantes = fechaFinal.getTime() - ahora.getTime();
+  const dias = Math.floor(msRestantes / (1000 * 60 * 60 * 24));
+
+  if (dias > 2) return 'check_circle';     // ✅
+  if (dias > 0) return 'warning';          // ⚠️
+  return 'error';                          // ❌
 }
 
 

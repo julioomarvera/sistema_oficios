@@ -23,6 +23,18 @@ exports.dbtecnico = connection_1.default.define('ws_tecnico', {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: true,
     },
+    nombre_tecnico: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
+    numero_empleado_tecnico: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true,
+    },
+    foto_tecnico: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
     numero_oficio: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: true,
@@ -80,7 +92,7 @@ exports.dbtecnico = connection_1.default.define('ws_tecnico', {
         allowNull: true,
     },
     porcentaje_seguimiento: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: true,
     },
     fecha_contestacion: {

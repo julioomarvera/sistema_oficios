@@ -33,15 +33,21 @@ import routerusers_opdm from '../routes/users_opdm';
 import routerusuarios_opdm from '../routes/usuarios_opdm';
 import routerDirecciones_areas from '../routes/cat_direcciones_areas';
 import routerVerificacionUser from '../routes/validar_usuario';
-import routerhistorialMasterevidencia_sello  from '../routes/historialMasterevidencia_sello'; 
-import routerestatusevidencia_sello  from '../routes/estatusevidencia_sello';
-import routersello  from '../routes/sello'; 
-import routerevidencia_sello  from '../routes/evidencia_sello'; 
-import routerasignacion from '../routes/asignacion'; 
-import routerhistorialMasterseguimiento_tecnico  from '../routes/historialMasterseguimiento_tecnico'; 
-import routerestatusseguimiento_tecnico  from '../routes/estatusseguimiento_tecnico';
-import routertecnico  from '../routes/tecnico'; 
-import routerseguimiento_tecnico  from '../routes/seguimiento_tecnico';
+import routerhistorialMasterevidencia_sello from '../routes/historialMasterevidencia_sello';
+import routerestatusevidencia_sello from '../routes/estatusevidencia_sello';
+import routersello from '../routes/sello';
+import routerevidencia_sello from '../routes/evidencia_sello';
+import routerasignacion from '../routes/asignacion';
+import routerhistorialMasterseguimiento_tecnico from '../routes/historialMasterseguimiento_tecnico';
+import routerestatusseguimiento_tecnico from '../routes/estatusseguimiento_tecnico';
+import routertecnico from '../routes/tecnico';
+import routerseguimiento_tecnico from '../routes/seguimiento_tecnico';
+
+import routerhistorialMasterfirma from '../routes/historialMasterfirma';
+import routerestatusfirma from '../routes/estatusfirma';
+import routerfirma_coordinador from '../routes/firma_coordinador';
+import routerfirma from '../routes/firma';
+
 
 
 //IMPORT ROUTES
@@ -108,22 +114,29 @@ import { dbhistorialusers_opdm } from './historialusers_opdm';
 import { dbusuarios_opdm } from './usuarios_opdm';
 import { dbhistorialusuarios_opdm } from './historialusuarios_opdm';
 
-import { dbhistorialMasterevidencia_sello} from './historialMasterevidencia_sello'; 
-import { dbestatusevidencia_sello} from './estatusevidencia_sello'; 
-import { dbhistorialestatusevidencia_sello} from './historialestatusevidencia_sello'; 
-import { dbsello} from './sello'; 
-import { dbhistorialsello} from './historialsello'; 
-import { dbevidencia_sello } from './evidencia_sello'; 
-import { dbhistorialevidencia_sello } from './historialevidencia_sello'; 
+import { dbhistorialMasterevidencia_sello } from './historialMasterevidencia_sello';
+import { dbestatusevidencia_sello } from './estatusevidencia_sello';
+import { dbhistorialestatusevidencia_sello } from './historialestatusevidencia_sello';
+import { dbsello } from './sello';
+import { dbhistorialsello } from './historialsello';
+import { dbevidencia_sello } from './evidencia_sello';
+import { dbhistorialevidencia_sello } from './historialevidencia_sello';
 import { dbasignacion } from './asignacion';
 
-import { dbhistorialMasterseguimiento_tecnico} from './historialMasterseguimiento_tecnico'; 
-import { dbestatusseguimiento_tecnico} from './estatusseguimiento_tecnico'; 
-import { dbhistorialestatusseguimiento_tecnico} from './historialestatusseguimiento_tecnico'; 
-import { dbtecnico} from './tecnico'; 
-import { dbhistorialtecnico} from './historialtecnico'; 
-import { dbseguimiento_tecnico } from './seguimiento_tecnico'; 
-import { dbhistorialseguimiento_tecnico } from './historialseguimiento_tecnico'; 
+import { dbhistorialMasterseguimiento_tecnico } from './historialMasterseguimiento_tecnico';
+import { dbestatusseguimiento_tecnico } from './estatusseguimiento_tecnico';
+import { dbhistorialestatusseguimiento_tecnico } from './historialestatusseguimiento_tecnico';
+import { dbtecnico } from './tecnico';
+import { dbhistorialtecnico } from './historialtecnico';
+import { dbseguimiento_tecnico } from './seguimiento_tecnico';
+import { dbhistorialseguimiento_tecnico } from './historialseguimiento_tecnico';
+import { dbestatusfirma} from './estatusfirma'; 
+import { dbhistorialestatusfirma } from './historialestatusfirma';
+import { dbfirma_coordinador } from './firma_coordinador';
+import { dbhistorialfirma_coordinador } from './historialfirma_coordinador';
+import { dbfirma } from './firma';
+import { dbhistorialfirma } from './historialfirma';
+
 //IMPORT DB
 
 class Server {
@@ -184,19 +197,23 @@ class Server {
     this.app.use('/api/estatususuarios_opdm', routerestatususuarios_opdm);
     this.app.use('/api/users_opdm', routerusers_opdm);
     this.app.use('/api/usuarios_opdm', routerusuarios_opdm);
-    this.app.use('/api/direcciones_areas',routerDirecciones_areas)
-    this.app.use('/api/verificarUser',routerVerificacionUser)
-    this.app.use('/api/historialMasterevidencia_sello', routerhistorialMasterevidencia_sello); 
-    this.app.use('/api/estatusevidencia_sello', routerestatusevidencia_sello); 
-    this.app.use('/api/sello', routersello); 
-    this.app.use('/api/evidencia_sello', routerevidencia_sello); 
+    this.app.use('/api/direcciones_areas', routerDirecciones_areas)
+    this.app.use('/api/verificarUser', routerVerificacionUser)
+    this.app.use('/api/historialMasterevidencia_sello', routerhistorialMasterevidencia_sello);
+    this.app.use('/api/estatusevidencia_sello', routerestatusevidencia_sello);
+    this.app.use('/api/sello', routersello);
+    this.app.use('/api/evidencia_sello', routerevidencia_sello);
     this.app.use('/api/asignacion', routerasignacion);
-    this.app.use('/api/historialMasterseguimiento_tecnico', routerhistorialMasterseguimiento_tecnico); 
-    this.app.use('/api/estatusseguimiento_tecnico', routerestatusseguimiento_tecnico); 
-    this.app.use('/api/tecnico', routertecnico); 
-    this.app.use('/api/seguimiento_tecnico', routerseguimiento_tecnico); 
+    this.app.use('/api/historialMasterseguimiento_tecnico', routerhistorialMasterseguimiento_tecnico);
+    this.app.use('/api/estatusseguimiento_tecnico', routerestatusseguimiento_tecnico);
+    this.app.use('/api/tecnico', routertecnico);
+    this.app.use('/api/seguimiento_tecnico', routerseguimiento_tecnico);
 
-    
+    this.app.use('/api/historialMasterfirma', routerhistorialMasterfirma);
+    this.app.use('/api/estatusfirma', routerestatusfirma);
+    this.app.use('/api/firma_coordinador', routerfirma_coordinador);
+    this.app.use('/api/firma', routerfirma);
+
     //ROUTES ATLAS
   }
 
@@ -261,21 +278,29 @@ class Server {
       await dbhistorialusers_opdm.sync();
       await dbusuarios_opdm.sync();
       await dbhistorialusuarios_opdm.sync();
-      await dbhistorialMasterevidencia_sello.sync(); 
-      await dbestatusevidencia_sello.sync(); 
+      await dbhistorialMasterevidencia_sello.sync();
+      await dbestatusevidencia_sello.sync();
       await dbhistorialestatusevidencia_sello.sync();
-      await dbsello.sync(); 
+      await dbsello.sync();
       await dbhistorialsello.sync();
       await dbevidencia_sello.sync();
       await dbhistorialevidencia_sello.sync();
-      await dbasignacion.sync({alter:true});
-      await dbhistorialMasterseguimiento_tecnico.sync(); 
-      await dbestatusseguimiento_tecnico.sync(); 
+      await dbasignacion.sync();
+      await dbhistorialMasterseguimiento_tecnico.sync();
+      await dbestatusseguimiento_tecnico.sync();
       await dbhistorialestatusseguimiento_tecnico.sync();
-      await dbtecnico.sync(); 
+      await dbtecnico.sync({ alter: true });
       await dbhistorialtecnico.sync();
       await dbseguimiento_tecnico.sync();
       await dbhistorialseguimiento_tecnico.sync();
+      
+      await dbestatusfirma.sync(); 
+      await dbhistorialestatusfirma.sync();
+      await dbfirma_coordinador.sync();
+      await dbhistorialfirma_coordinador.sync();
+      await dbfirma.sync();
+      await dbhistorialfirma.sync();
+
       //DB ATLAS
     }
     catch (error) {

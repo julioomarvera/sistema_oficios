@@ -9,12 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.get_oficio_tecnico_by_id_gestion_oficio_id_oficios = exports.actualizarEstatusSeguimiento = exports.actualizarEstadoActivoseguimiento_tecnico = exports.DelMasterHistorialtecnico = exports.actualizarHistorialMasterseguimiento_tecnico = exports.NewHistorialMasterseguimiento_tecnico = exports.actualizarseguimiento_tecnico = exports.DelHistorialtecnico = exports.UpdHistorialtecnico = exports.NewHistorialtecnico = exports.HistorialgetRegByIdtecnico = exports.HistorialgetAlltecnico = exports.deltecnico = exports.updtecnico = exports.newtecnico = exports.getRegByIdtecnico = exports.getAlltecnico = exports.timeNow = void 0;
+exports.get_estatus_oficio = exports.get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado = exports.get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo = exports.get_oficio_tecnico_by_id_gestion_oficio_id_oficios = exports.actualizarEstatusSeguimiento = exports.actualizarEstadoActivoseguimiento_tecnico = exports.DelMasterHistorialtecnico = exports.actualizarHistorialMasterseguimiento_tecnico = exports.NewHistorialMasterseguimiento_tecnico = exports.actualizarseguimiento_tecnico = exports.DelHistorialtecnico = exports.UpdHistorialtecnico = exports.NewHistorialtecnico = exports.HistorialgetRegByIdtecnico = exports.HistorialgetAlltecnico = exports.deltecnico = exports.updtecnico = exports.newtecnico = exports.getRegByIdtecnico = exports.getAlltecnico = exports.timeNow = void 0;
+const sequelize_1 = require("sequelize");
 const tecnico_1 = require("../models/tecnico");
 const seguimiento_tecnico_1 = require("../models/seguimiento_tecnico");
 const historialtecnico_1 = require("../models/historialtecnico");
 const historialMasterseguimiento_tecnico_1 = require("../models/historialMasterseguimiento_tecnico");
 const asignacion_1 = require("../models/asignacion");
+const users_opdm_1 = require("../models/users_opdm");
 //extraer la hora para el sistema //-------------------------------------------------------------> 
 const timeNow = () => {
     const now = new Date(); // Jul 2021 Friday 
@@ -72,38 +74,79 @@ exports.getRegByIdtecnico = getRegByIdtecnico;
 //Agregar un nuevo Parametro --------------------------------------------------------------------------> 
 const newtecnico = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const time = (0, exports.timeNow)();
-    const { id_asignacion, id_seguimiento_tecnico, id_usuario, id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio, id_estatusseguimiento_tecnico, PaginaActual, finalizado } = req.body;
+    const { id_asignacion, id_seguimiento_tecnico, id_usuario, id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio, id_estatusseguimiento_tecnico, PaginaActual, finalizado, numero_empleado_tecnico, nombre_tecnico, foto_tecnico } = req.body;
     //Validamos si ya existe el Parametro en la base de datos 
-    const params = yield tecnico_1.dbtecnico.findOne({ where: { id_gestion_oficio: id_gestion_oficio } });
-    if (params) {
-        return res.status(404).json({
-            msg: 'Registro de la tabla : tecnico  ya almacenado',
-        });
+    const params = yield tecnico_1.dbtecnico.findAll({ where: { id_gestion_oficio: id_gestion_oficio } });
+    if (params && params.length > 0) {
+        const porcentajes = params.map(p => p.get('porcentaje_seguimiento'));
+        const algunoMayor = porcentajes.some(p => p > porcentaje_seguimiento);
+        if (algunoMayor) {
+            return res.status(400).json({ msg: 'El porcentaje ingresado no puede ser menor  o igual que al seguimiento anterior' });
+        }
+        else {
+            try {
+                const resultado = yield tecnico_1.dbtecnico.create({
+                    id_usuario: id_usuario,
+                    id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante,
+                    id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion,
+                    fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio,
+                    id_estatusseguimiento_tecnico: id_estatusseguimiento_tecnico,
+                    nombre_tecnico,
+                    foto_tecnico,
+                    numero_empleado_tecnico: numero_empleado_tecnico,
+                    activo: 1,
+                    createdAt: time,
+                    updatedAt: time,
+                });
+                const id = (resultado.dataValues.id_tecnico);
+                res.json({
+                    msg: `tecnico registro almacenado exitosamente`,
+                });
+                (0, exports.NewHistorialtecnico)(id_usuario, id, id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio);
+                (0, exports.actualizarseguimiento_tecnico)(id_seguimiento_tecnico, id, PaginaActual, finalizado);
+                (0, exports.actualizarEstadoActivoseguimiento_tecnico)(id_seguimiento_tecnico);
+                (0, exports.NewHistorialMasterseguimiento_tecnico)(id_usuario, id, id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio);
+                (0, exports.actualizarEstatusSeguimiento)(id_asignacion, estatus_seguimiento);
+            }
+            catch (error) {
+                res.status(404).json({
+                    msg: 'Ocurrio un inconveniente al tratar de almacenar el registro',
+                    error
+                });
+            }
+        }
     }
-    try {
-        const resultado = yield tecnico_1.dbtecnico.create({
-            id_usuario: id_usuario,
-            id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio,
-            id_estatusseguimiento_tecnico: id_estatusseguimiento_tecnico,
-            activo: 1,
-            createdAt: time,
-            updatedAt: time,
-        }).then();
-        const id = (resultado.dataValues.id_tecnico);
-        res.json({
-            msg: `tecnico registro almacenado exitosamente`,
-        });
-        (0, exports.NewHistorialtecnico)(id_usuario, id, id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio);
-        (0, exports.actualizarseguimiento_tecnico)(id_seguimiento_tecnico, id, PaginaActual, finalizado);
-        (0, exports.actualizarEstadoActivoseguimiento_tecnico)(id_seguimiento_tecnico);
-        (0, exports.NewHistorialMasterseguimiento_tecnico)(id_usuario, id, id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio);
-        (0, exports.actualizarEstatusSeguimiento)(id_asignacion, estatus_seguimiento);
-    }
-    catch (error) {
-        res.status(404).json({
-            msg: 'Ocurrio un inconveniente al tratar de almacenar el registro',
-            error
-        });
+    else {
+        try {
+            const resultado = yield tecnico_1.dbtecnico.create({
+                id_usuario: id_usuario,
+                id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante,
+                id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion,
+                fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio,
+                id_estatusseguimiento_tecnico: id_estatusseguimiento_tecnico,
+                nombre_tecnico,
+                foto_tecnico,
+                numero_empleado_tecnico: numero_empleado_tecnico,
+                activo: 1,
+                createdAt: time,
+                updatedAt: time,
+            });
+            const id = (resultado.dataValues.id_tecnico);
+            res.json({
+                msg: `tecnico registro almacenado exitosamente`,
+            });
+            (0, exports.NewHistorialtecnico)(id_usuario, id, id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio);
+            (0, exports.actualizarseguimiento_tecnico)(id_seguimiento_tecnico, id, PaginaActual, finalizado);
+            (0, exports.actualizarEstadoActivoseguimiento_tecnico)(id_seguimiento_tecnico);
+            (0, exports.NewHistorialMasterseguimiento_tecnico)(id_usuario, id, id_gestion_oficio, id_oficio, numero_oficio, id_direcion_firmante, text_direccion_firmante, id_area_firmante, text_area_firmante, numero_empleado_firmante, id_direccion_asignacion, text_direccion_asignacion, id_area_asignacion, text_area_asignacion, numero_empleado_asignacion, fecha_asignacion, estatus_seguimiento, observaciones, porcentaje_seguimiento, fecha_contestacion, evidencia, documento_oficio);
+            (0, exports.actualizarEstatusSeguimiento)(id_asignacion, estatus_seguimiento);
+        }
+        catch (error) {
+            res.status(404).json({
+                msg: 'Ocurrio un inconveniente al tratar de almacenar el registro',
+                error
+            });
+        }
     }
 });
 exports.newtecnico = newtecnico;
@@ -398,14 +441,129 @@ const get_oficio_tecnico_by_id_gestion_oficio_id_oficios = (req, res) => __await
     const { id_gestion_oficio, id_oficios } = req.params;
     let findtecnico = "";
     try {
-        let findtecnico = yield tecnico_1.dbtecnico.findOne({ where: { id_gestion_oficio: id_gestion_oficio, id_oficio: id_oficios } });
-        return res.json(findtecnico);
+        let findtecnico = yield tecnico_1.dbtecnico.findOne({
+            where: { id_gestion_oficio: id_gestion_oficio, id_oficio: id_oficios },
+            order: [['porcentaje_seguimiento', 'DESC']],
+        });
+        if (!findtecnico) {
+            return res.status(404).json({ msg: 'Técnico no encontrado.' });
+        }
+        // 2. Buscar usuario por número de empleado
+        const numeroEmpleado = findtecnico.dataValues.numero_empleado_tecnico;
+        const userData = yield users_opdm_1.dbusers_opdm.findOne({
+            where: { numero_empleado: numeroEmpleado },
+            attributes: ['foto', 'nombre', 'apepa', 'apema'] // solo traemos la foto
+        });
+        const nombre = (userData === null || userData === void 0 ? void 0 : userData.dataValues.nombre) || '';
+        const apepa = (userData === null || userData === void 0 ? void 0 : userData.dataValues.apepa) || '';
+        const apema = (userData === null || userData === void 0 ? void 0 : userData.dataValues.apema) || '';
+        // 3. Fusionar datos
+        const response = Object.assign(Object.assign({}, findtecnico.toJSON()), { foto_tecnico: (userData === null || userData === void 0 ? void 0 : userData.dataValues.foto) || null, nombre_tecnico: `${nombre} ${apepa} ${apema}`.trim() });
+        return res.json(response);
     }
     catch (error) {
-        res.status(404).json({
-            msg: 'Ocurrió un inconveniente al tratar de listar la información de los tecnico. ',
+        return res.status(500).json({
+            msg: 'Ocurrió un error al obtener la información del técnico.',
             error
         });
     }
 });
 exports.get_oficio_tecnico_by_id_gestion_oficio_id_oficios = get_oficio_tecnico_by_id_gestion_oficio_id_oficios;
+const get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_gestion_oficio, id_oficios } = req.params;
+    try {
+        const tecnicos = yield tecnico_1.dbtecnico.findAll({
+            where: { id_gestion_oficio, id_oficio: id_oficios },
+            raw: true
+        });
+        if (tecnicos.length === 0) {
+            return res.status(404).json({ msg: 'No se encontraron técnicos.' });
+        }
+        const numerosEmpleado = tecnicos.map((t) => t.numero_empleado_tecnico);
+        const users = yield users_opdm_1.dbusers_opdm.findAll({
+            where: { numero_empleado: { [sequelize_1.Op.in]: numerosEmpleado } },
+            attributes: ['numero_empleado', 'foto', 'nombre', 'apepa', 'apema'],
+            raw: true
+        });
+        const userMap = new Map(users.map((u) => [u.numero_empleado, u]));
+        const response = tecnicos.map((tech) => {
+            const usr = userMap.get(tech.numero_empleado_tecnico) || {};
+            const nombreCompleto = [usr.nombre, usr.apepa, usr.apema]
+                .filter(Boolean)
+                .join(' ')
+                .trim();
+            return Object.assign(Object.assign({}, tech), { foto_tecnico: usr.foto || null, nombre_tecnico: nombreCompleto });
+        });
+        return res.json(response);
+    }
+    catch (error) {
+        return res.status(500).json({
+            msg: 'Ocurrió un error al obtener la información de los técnicos.',
+            error
+        });
+    }
+});
+exports.get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo = get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo;
+const get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_gestion_oficio, id_oficios, numero_empleado } = req.params;
+    try {
+        const tecnicos = yield tecnico_1.dbtecnico.findAll({
+            where: { id_gestion_oficio: id_gestion_oficio, id_oficio: id_oficios, numero_empleado_tecnico: numero_empleado },
+            raw: true
+        });
+        res.json(tecnicos);
+    }
+    catch (error) {
+        return res.status(500).json({
+            msg: 'Ocurrió un error al obtener la información de los técnicos.',
+            error
+        });
+    }
+});
+exports.get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado = get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado;
+const get_estatus_oficio = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_gestion_oficio, id_oficios } = req.params;
+    // Validación de parámetros
+    if (!id_gestion_oficio || !id_oficios) {
+        return res.status(400).json({ msg: 'Faltan parámetros requeridos.' });
+    }
+    try {
+        // Consulta de técnicos
+        const result = yield tecnico_1.dbtecnico.findAll({
+            where: { id_gestion_oficio, id_oficio: id_oficios, activo: 1 },
+            order: [['fecha_asignacion', 'DESC']],
+            raw: true
+        });
+        const tecnicos = result;
+        // Filtrado de técnicos únicos por número de empleado
+        const tecnicosUnicos = {};
+        tecnicos.forEach(t => {
+            if (!tecnicosUnicos[t.numero_empleado_tecnico]) {
+                tecnicosUnicos[t.numero_empleado_tecnico] = t;
+            }
+        });
+        const tecnicosFinales = Object.values(tecnicosUnicos);
+        const promedioAvance = calcularPromedioAvance(tecnicosFinales);
+        // Respuesta enriquecida
+        res.json({
+            tecnicos: tecnicosFinales,
+            promedioAvance,
+            totalTecnicos: tecnicosFinales.length,
+            gestion: id_gestion_oficio,
+            oficio: id_oficios
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            msg: 'Ocurrió un error al obtener la información de los técnicos.',
+            error
+        });
+    }
+});
+exports.get_estatus_oficio = get_estatus_oficio;
+// Helper para calcular el promedio de avance
+function calcularPromedioAvance(tecnicos) {
+    const avances = tecnicos.map(t => t.porcentaje_seguimiento || 0);
+    const total = avances.reduce((sum, val) => sum + val, 0);
+    return avances.length ? Math.round(total / avances.length) : 0;
+}

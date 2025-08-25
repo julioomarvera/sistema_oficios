@@ -15,5 +15,9 @@ export interface selloTable{
   nombre_documento_sello : string|any,  
   id_estatusevidencia_sello : number|any,  
   activo     : number|any,  
-  id_usuario : number|any,  
+  id_usuario : number|any, 
+  createdAt : string|any,  
+  numero_empleado_secretaria : string|any,  
+  foto_secretaria : string|any,  
+
 }

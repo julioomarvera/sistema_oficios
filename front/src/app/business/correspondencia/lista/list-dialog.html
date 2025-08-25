@@ -1,0 +1,113 @@
+<!-- @if(list_destinatary.length > 0){
+  <p>si hay</p>
+}
+@else {
+  <p>no hay</p>
+} -->
+@for (item of list_destinatary; track item; let i = $index) {
+  @if(item.con_copia == 0){
+  <mat-card class="example-card" appearance="outlined" style="width: 105%;">
+    <mat-card-header>
+      <mat-card-title style="text-align: center;">{{item.area_texto}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-4">
+          <img [src]="item.foto" style="width: 50%;" />
+        </div>
+        <div class="col-8">
+          <p>{{item.text_nombre_empleado}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <mat-stepper linear [selectedIndex]="getPasoActual(item)">
+            <!-- Paso 1: No leído -->
+            <mat-step [ngClass]="item.estatus === 0 ? 'step-rojo' : 'step-azul'" [completed]="item.estatus === 1">
+              <ng-template matStepLabel>Entregado</ng-template>
+              <p>El Oficio ha sido entregado correctamente</p>
+            </mat-step>
+            <!-- Paso 2: Revisado -->
+            <mat-step [completed]="item.estatus === 2">
+              <ng-template matStepLabel>Visto</ng-template>
+              <p>El área asignada ya revisó el oficio</p>
+            </mat-step>
+            <!-- Paso 3: Firmado -->
+            <mat-step [completed]="item.estatus === 3">
+              <ng-template matStepLabel>Sellado</ng-template>
+              <p>El área asignada ya selló el oficio de enterado</p>
+            </mat-step>
+            <!-- Paso 4: Firmado -->
+            <mat-step [completed]="item.estatus === 4">
+              <ng-template matStepLabel>Asignado</ng-template>
+              <p>Ya se turnó al encargado de realizar la tarea</p>
+            </mat-step>
+          </mat-stepper>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer">
+      <div class="progress" role="progressbar" [attr.aria-valuenow]="getPorcentajeAvance(item)" aria-valuemin="0"
+        aria-valuemax="100">
+        <div class="progress-bar progress-bar-striped progress-bar-animated text-center" [ngClass]="getColorAvance(item)"
+          [style.width.%]="getPorcentajeAvance(item)">
+          {{ getPorcentajeAvance(item) }}%
+        </div>
+      </div>
+
+    </mat-card-footer>
+  </mat-card>
+  <hr>
+  }
+  @else if(item.con_copia == 1){
+  <mat-card class="example-card" appearance="outlined" style="width: 105%; background-color: rgba(202, 180, 180, 0.226);">
+    <mat-card-header>
+      <mat-card-title style="text-align: center;">Con copia  de conocimiento para : {{item.area_texto}} </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-4">
+          <img [src]="item.foto" style="width: 50%;" />
+        </div>
+        <div class="col-8">
+          <p>{{item.text_nombre_empleado}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <mat-stepper linear [selectedIndex]="getPasoActual(item)"  style="background-color: rgba(202, 180, 180, 0.226);">
+            <!-- Paso 1: No leído -->
+            <mat-step [ngClass]="item.estatus === 0 ? 'step-rojo' : 'step-azul'" [completed]="item.estatus === 1">
+              <ng-template matStepLabel>Entregado</ng-template>
+              <p>El Oficio ha sido entregado correctamente</p>
+            </mat-step>
+            <!-- Paso 2: Revisado -->
+            <mat-step [completed]="item.estatus === 2">
+              <ng-template matStepLabel>Visto</ng-template>
+              <p>El área asignada ya revisó el oficio</p>
+            </mat-step>
+            <!-- Paso 3: Firmado -->
+            <mat-step [completed]="item.estatus === 3">
+              <ng-template matStepLabel>Sellado</ng-template>
+              <p>El área asignada ya selló el oficio de enterado</p>
+            </mat-step>
+            <!-- Paso 4: Firmado -->
+            
+          </mat-stepper>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer">
+      <div class="progress" role="progressbar" [attr.aria-valuenow]="getPorcentajeAvance(item)" aria-valuemin="0"
+        aria-valuemax="100">
+        <div class="progress-bar progress-bar-striped progress-bar-animated text-center" [ngClass]="getColorAvance(item)"
+          [style.width.%]="getPorcentajeAvance(item)">
+          {{ getPorcentajeAvance(item) }}%
+        </div>
+      </div>
+
+    </mat-card-footer>
+  </mat-card>
+  <hr>
+  }
+}

@@ -16,4 +16,5 @@ export interface Nuevocat_destinatario{
   activo     : number|any,  
   id_usuario : number|any,  
   con_copia : string| any,
+  fecha_terminacion: string| any,
 }

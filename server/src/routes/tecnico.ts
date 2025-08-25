@@ -1,5 +1,6 @@
 import {Router} from 'express'; 
-import {getRegByIdtecnico, getAlltecnico,get_oficio_tecnico_by_id_gestion_oficio_id_oficios,newtecnico,updtecnico,deltecnico} from '../controllers/tecnico';
+import {getRegByIdtecnico, getAlltecnico,get_oficio_tecnico_by_id_gestion_oficio_id_oficios,get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo,
+   newtecnico,updtecnico,deltecnico,get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado,get_estatus_oficio} from '../controllers/tecnico';
 import validateToken from './validate-token';
 import multer    from 'multer';
   const storage = multer.diskStorage({
@@ -20,9 +21,13 @@ import multer    from 'multer';
 const router = Router(); 
    router.get('/getAlltecnico/:id_usuario', getAlltecnico  ); 
    router.get('/get_oficio_tecnico_by_id_gestion_oficio_id_oficios/:id_gestion_oficio/:id_oficios', get_oficio_tecnico_by_id_gestion_oficio_id_oficios  ); 
+   router.get('/get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo/:id_gestion_oficio/:id_oficios', get_oficio_tecnico_by_id_gestion_oficio_id_oficios_arreglo  ); 
+   router.get('/get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado/:id_gestion_oficio/:id_oficios/:numero_empleado', get_oficio_tecnico_by_id_gestion_oficio_id_oficios_numero_empleado  ); 
+   router.get('/get_estatus_oficio/:id_gestion_oficio/:id_oficios', get_estatus_oficio  ); 
+
    router.get('/:id/:id_usuario', getRegByIdtecnico  ); 
    router.post('/',    newtecnico     ); 
-   router.put('/upd', updtecnico     ); 
+   router.put('/upd', newtecnico     ); 
    router.delete('/del/:id/:id_usuario', deltecnico     ); 
    router.post('/file/:ruta/:id_seguimiento_tecnico', upload.single('myfile'), (req,resp)=>{
       const file = req.file?.filename;

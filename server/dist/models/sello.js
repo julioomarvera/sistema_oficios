@@ -35,6 +35,14 @@ exports.dbsello = connection_1.default.define('ws_sello', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
+    numero_empleado_secretaria: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
+    foto_secretaria: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
     numero_oficio: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: true,

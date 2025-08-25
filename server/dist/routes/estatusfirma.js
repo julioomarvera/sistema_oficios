@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const estatusfirma_1 = require("../controllers/estatusfirma");
+const router = (0, express_1.Router)();
+router.get('/getAllestatusfirma/:id_usuario', estatusfirma_1.getAllestatusfirma);
+router.get('/getRegByIdestatusfirma/:id/:id_usuario', estatusfirma_1.getRegByIdestatusfirma);
+router.post('/', estatusfirma_1.newestatusfirma);
+router.put('/upd', estatusfirma_1.updateestatusfirma);
+router.delete('/del/:id/:id_usuario', estatusfirma_1.delestatusfirma);
+exports.default = router;

@@ -12,6 +12,12 @@ export interface Nueva_asignacion {
     fecha_asignacion: string | any,
     estatus_oficio: string | any,
     instrucciones: string | any,
+    numero_empleado_tecnico: number | any,
+    fecha_terminacion: string | any,
+    numero_empleado_secretaria: string | any,
+    foto_empleado_secretaria: string | any,
+    numero_oficio:string | any,
+
 
 }
 

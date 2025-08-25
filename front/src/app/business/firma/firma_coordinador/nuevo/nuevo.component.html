@@ -1,0 +1,661 @@
+  
+@if(this.loading  ==  true){
+  <mat-card appearance='outlined' class='loadingPanel'>
+    <mat-card-content>
+      <div class='loader'></div>
+      <div class=' loadingPanelTitulo'></div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance='outlined' class='loadingPanelTitulo'>
+    <mat-card-content>
+      <h5>Procesando</h5>
+    </mat-card-content>
+  </mat-card>
+} @else{
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+  <div class='row'>
+    <div class='col-3'>
+      <button class='botonGris' (click)='goInicio()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon=' keyboard_backspace'
+        ></mat-icon>
+      </button>
+    </div>
+    <div class='col-6'>
+      <mat-card-content>
+        <p class='title'>Nuevo FIRMA DEL COORDINADOR</p>
+      </mat-card-content>
+    </div>
+    <div class='col-3'>
+      <button class='botonGris-icon' (click)='openHelper()'>
+        <mat-icon
+          aria-hidden='false'
+          aria-label='Example home icon'
+          fontIcon='help'
+        ></mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<div>
+  <mat-card appearance='outlined'>
+    <mat-card-content>
+      <form>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_gestion_oficio</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_gestion_oficio'
+                name = 'id_gestion_oficio'
+                id = 'id_gestion_oficio'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_gestion_oficio) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_oficios</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_oficios'
+                name = 'id_oficios'
+                id = 'id_oficios'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_oficios) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_direccion_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_direccion_coordinador'
+                name = 'id_direccion_coordinador'
+                id = 'id_direccion_coordinador'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_direccion_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_direccion_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_direccion_coordinador'
+                name = 'text_direccion_coordinador'
+                id = 'text_direccion_coordinador'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_direccion_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_area_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_area_coordinador'
+                name = 'id_area_coordinador'
+                id = 'id_area_coordinador'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_area_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_area_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_area_coordinador'
+                name = 'text_area_coordinador'
+                id = 'text_area_coordinador'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_area_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_direccion_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_direccion_peticion'
+                name = 'id_direccion_peticion'
+                id = 'id_direccion_peticion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_direccion_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>text_direccion_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='text_direccion_peticion'
+                name = 'text_direccion_peticion'
+                id = 'text_direccion_peticion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errortext_direccion_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>id_area_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='id_area_peticion'
+                name = 'id_area_peticion'
+                id = 'id_area_peticion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorid_area_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>area_text_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='area_text_peticion'
+                name = 'area_text_peticion'
+                id = 'area_text_peticion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarea_text_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_empleado_coordinador'
+                name = 'numero_empleado_coordinador'
+                id = 'numero_empleado_coordinador'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_empleado_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_empleado_coordinador'
+                name = 'nombre_empleado_coordinador'
+                id = 'nombre_empleado_coordinador'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_empleado_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto_empleado_coordinador</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto_empleado_coordinador'
+                name = 'foto_empleado_coordinador'
+                id = 'foto_empleado_coordinador'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto_empleado_coordinador) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_empleado_peticion'
+                name = 'numero_empleado_peticion'
+                id = 'numero_empleado_peticion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_empleado_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_empleado_peticion'
+                name = 'nombre_empleado_peticion'
+                id = 'nombre_empleado_peticion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_empleado_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto_empleado_peticion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto_empleado_peticion'
+                name = 'foto_empleado_peticion'
+                id = 'foto_empleado_peticion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto_empleado_peticion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado_secretaria</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_empleado_secretaria'
+                name = 'numero_empleado_secretaria'
+                id = 'numero_empleado_secretaria'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado_secretaria) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_secretaria</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_secretaria'
+                name = 'nombre_secretaria'
+                id = 'nombre_secretaria'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_secretaria) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto_secretario</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto_secretario'
+                name = 'foto_secretario'
+                id = 'foto_secretario'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto_secretario) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_empleado_tecnico</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_empleado_tecnico'
+                name = 'numero_empleado_tecnico'
+                id = 'numero_empleado_tecnico'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_empleado_tecnico) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>nombre_tecnico</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='nombre_tecnico'
+                name = 'nombre_tecnico'
+                id = 'nombre_tecnico'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornombre_tecnico) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>foto_tecnico</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='foto_tecnico'
+                name = 'foto_tecnico'
+                id = 'foto_tecnico'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfoto_tecnico) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_oficio</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_oficio'
+                name = 'numero_oficio'
+                id = 'numero_oficio'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_oficio) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>numero_contestacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='numero_contestacion'
+                name = 'numero_contestacion'
+                id = 'numero_contestacion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errornumero_contestacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_oficio</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_oficio'
+                name = 'archivo_oficio'
+                id = 'archivo_oficio'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_oficio) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_sello</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_sello'
+                name = 'archivo_sello'
+                id = 'archivo_sello'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_sello) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_evidencia</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_evidencia'
+                name = 'archivo_evidencia'
+                id = 'archivo_evidencia'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_evidencia) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_contestacion_pdf</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_contestacion_pdf'
+                name = 'archivo_contestacion_pdf'
+                id = 'archivo_contestacion_pdf'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_contestacion_pdf) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>archivo_contestacion_digital</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='archivo_contestacion_digital'
+                name = 'archivo_contestacion_digital'
+                id = 'archivo_contestacion_digital'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorarchivo_contestacion_digital) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>asunto</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='asunto'
+                name = 'asunto'
+                id = 'asunto'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorasunto) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>descripcion_contestacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='descripcion_contestacion'
+                name = 'descripcion_contestacion'
+                id = 'descripcion_contestacion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errordescripcion_contestacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>visto</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='visto'
+                name = 'visto'
+                id = 'visto'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorvisto) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>fecha_contestacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='fecha_contestacion'
+                name = 'fecha_contestacion'
+                id = 'fecha_contestacion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfecha_contestacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>fecha_terminacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='fecha_terminacion'
+                name = 'fecha_terminacion'
+                id = 'fecha_terminacion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorfecha_terminacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div>
+        <div class='row'>
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>tiempo_efectivo_contestacion</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='tiempo_efectivo_contestacion'
+                name = 'tiempo_efectivo_contestacion'
+                id = 'tiempo_efectivo_contestacion'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errortiempo_efectivo_contestacion) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+          <div class='col-3'>
+            <mat-form-field class='example-full-width'>
+              <mat-label>otro</mat-label>
+              <input
+                type='text'
+                matInput 
+                [(ngModel)]='otro'
+                name = 'otro'
+                id = 'otro'
+                
+              />
+            </mat-form-field>
+          </div>
+          @if (errorotro) { 
+            <mat-error>Error: Falta descripción en este parámetro.</mat-error>
+          }
+        </div> 
+        <div class='row mt-5'>
+          <div class='col-6'></div>
+            <div class='col-3 boton-derecha'>
+              <div class='cont'>
+                <div class='btn'>
+                  <button class='botonAlmacenar' (click)="save()">
+                    <mat-icon
+                      aria-hidden='false'
+                      aria-label='Example home icon'
+                      fontIcon='check_small'
+                      class='textoBoton'
+                    ></mat-icon>
+                     Finalizar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

@@ -1,1 +1,351 @@
-<p>historial works!</p>
+@if(this.loading == true){
+<mat-card appearance='outlined' class='loadingPanel'>
+    <mat-card-content>
+        <div class='loader'></div>
+        <div class=' loadingPanelTitulo'></div>
+    </mat-card-content>
+</mat-card>
+<mat-card appearance='outlined' class='loadingPanelTitulo'>
+    <mat-card-content>
+        <h5>Procesando</h5>
+    </mat-card-content>
+</mat-card>
+} @else{
+<mat-card appearance='outlined' class='card-primary back_light-title'>
+    <div class='row'>
+        <div class='col-3'>
+            <button class='botonGris' (click)='goInicio()'>
+                <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon=' keyboard_backspace'></mat-icon>
+            </button>
+        </div>
+        <div class='col-6'>
+            <mat-card-content>
+                <p class='title'>SEGUIMIENTO DEL OFICIO</p>
+            </mat-card-content>
+        </div>
+        <div class='col-3'>
+            <button class='botonGris-icon' (click)='openHelper()'>
+                <mat-icon aria-hidden='false' aria-label='Example home icon' fontIcon='help'></mat-icon>
+            </button>
+        </div>
+    </div>
+</mat-card>
+<div>
+    <p><strong>Avance del tramite {{porcentajeFinal}} %</strong></p>
+    <!-- <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" [ngClass]="[getColorClass(porcentajeFinal), 'heartbeat']"
+
+            [style.width.%]="porcentajeFinal">
+        </div>
+    </div> -->
+    <!-- <app-progreso.oficio [porcentaje]="avance.porcentaje" [heartbeat]="true"></app-progreso.oficio>
+     -->
+    <app-progreso-oficio [porcentaje]="porcentajeFinal" ></app-progreso-oficio>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12" (click)="informacionOficio(1,1,numero_empleado_firmante)">
+                    <mat-card appearance="outlined" [ngClass]="verInformacion === 1 ? 'card-activo' : 'card-inactivo'">
+                        <!--  class="card_firmante" -->
+                        <mat-card-header>
+                            <mat-card-title style="text-align: center; align-items: center;">Información del Área quien
+                                emitio
+                                el oficio
+                            </mat-card-title>
+                            <mat-card-subtitle class="mt-3" style="text-align: center"></mat-card-subtitle>
+                        </mat-card-header>
+                        <div class="panel-vidrio">
+                            <p><strong>{{text_direccion_firmante}} - {{text_area_firmante}}</strong></p>
+                            <div class="row">
+                                <div class="col-4">
+                                    <img mat-card-sm-image src="{{foto_firmante}}">
+                                </div>
+                                <div class="col-6">
+                                    <h3 class="panel-vidrio-title">{{text_nombre_empleado}}</h3>
+                                </div>
+                                <div class="col-2">
+                                    <img mat-card-sm-image src="opdm-logo.png"
+                                        style="width: 90%; margin-top: -6%; margin-left: -25%;">
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+            @for (itemS of list_secretaria; track itemS; let s = $index) {
+            <div class="row mt-4">
+
+                <div class="col-12" (click)="informacionOficio(2,contadorFirmante+s+1,itemS.numero_empleado )">
+                    <mat-card appearance="outlined"
+                        [ngClass]="verInformacion === contadorFirmante+s+1 ? 'card-activo' : 'card-inactivo'">
+                        <mat-card-header>
+                            <mat-card-title style="text-align: center; align-items: center;">Información de quien asigno
+                                el
+                                oficio ( {{contadorFirmante+s+1}})
+                            </mat-card-title>
+                            <mat-card-subtitle class="mt-3" style="text-align: center"></mat-card-subtitle>
+                        </mat-card-header>
+                        <div class="panel-vidrio">
+                            <p><strong>{{itemS.texto_direccion}} - {{itemS.texto_area}}</strong></p>
+                            <div class="row">
+                                <div class="col-4">
+                                    <img mat-card-sm-image src="{{itemS.foto}}">
+                                </div>
+                                <div class="col-6">
+                                    <h3 class="panel-vidrio-title">{{itemS.nombre}} {{itemS.apema}} {{itemS.apepa}}</h3>
+                                </div>
+                                <div class="col-2">
+                                    <img mat-card-sm-image src="opdm-logo.png"
+                                        style="width: 90%; margin-top: -6%; margin-left: -25%;">
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+            }
+            @for (item of list_tecnicos; track item; let i = $index) {
+            <div class="row mt-4">
+                <div class="col-12"
+                    (click)="informacionOficio(3,contadorSecretaria+contadorFirmante+i+1,item.numero_empledo_asignacion)">
+
+                    <mat-card appearance="outlined"
+                        [ngClass]="verInformacion === contadorSecretaria+contadorFirmante+i+1 ? 'card-activo' : 'card-inactivo'">
+                        <mat-card-header>
+                            <mat-card-title style="text-align: center; align-items: center;">Información del técnico
+                                quien dio
+                                seguimiento al oficio {{contadorSecretaria+contadorFirmante+i+1}}
+                            </mat-card-title>
+                            <mat-card-subtitle class="mt-3" style="text-align: center"></mat-card-subtitle>
+                        </mat-card-header>
+                        <div class="panel-vidrio">
+                            <p><strong>{{item.text_direccion}} - {{item.text_area}}</strong>
+                            </p>
+                            <div class="row">
+                                <div class="col-4">
+                                    <img mat-card-sm-image src="{{item.foto}}">
+                                </div>
+                                <div class="col-6">
+                                    <h3 class="panel-vidrio-title">{{item.text_nombre_empleado_asignacion}}</h3>
+                                </div>
+                                <div class="col-2">
+                                    <img mat-card-sm-image src="opdm-logo.png"
+                                        style="width: 90%; margin-top: -6%; margin-left: -25%;">
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <br>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="col-6">
+            @if(tipoPanel == 1){
+            <mat-card appearance="outlined">
+                <mat-card-header>
+                    <mat-card-title style="font-size: xx-large;">Información del oficio recibido</mat-card-title>
+                </mat-card-header>
+                <div class="row mt-4">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <p style="font-size: large;">Numero de Oficio :</p>
+                    </div>
+                    <div class="col-8">
+                        <strong style="font-size: large;">{{numero_oficio}}</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <p style="font-size: large;">Asunto :</p>
+                    </div>
+                    <div class="col-8">
+                        <strong style="font-size: large;">{{asunto}}</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <p style="font-size: large;">Fecha de creación :</p>
+                    </div>
+                    <div class="col-8">
+                        <strong style="font-size: large;">{{fechaCreacionOficio | date: 'dd/MM/yyyy'}}</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <p style="font-size: large;">Fecha de terminación :</p>
+                    </div>
+                    <div class="col-8">
+                        <strong style="font-size: large;">{{fecha_asignacion | date: 'dd/MM/yyyy'}}</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <app-contador-chip [fechaLimite]="fecha_asignacion"></app-contador-chip>
+                    </div>
+                </div>
+                <br>
+            </mat-card>
+            <mat-card appearance="outlined">
+                <mat-card-actions>
+                    @if(this.archivo_oficio != ''){
+                    <object type='text/html' [data]='this.archivo_oficio' ngDraggable
+                        style="width: 100%; height: 800px;"></object>
+                    }
+                </mat-card-actions>
+                <br>
+            </mat-card>
+            }
+            @else if (tipoPanel == 2) {
+            <mat-card appearance="outlined">
+                <mat-card-header>
+                    <div mat-card-avatar><img src="{{foto_secretaria}}" alt="" style="width: 150%;"></div>
+                    <hr>
+                </mat-card-header>
+                <p class="mt-5" style="font-size: x-large;"><strong>Asignaciones realizadas</strong></p>
+                <mat-card-content class="mt-5">
+                    @for (itemSecre of list_oficio_secretaria; track itemSecre; let i = $index) {
+
+                    <mat-card appearance="outlined">
+                        <mat-card-content>
+                            <img src="{{itemSecre.foto}}" alt="" style="width: 10%;">
+                            <p><strong>Nombre del Técnico Asignado:
+                                    {{itemSecre.text_nombre_empleado_asignacion}}</strong></p>
+                            <p><strong>instrucciones: {{itemSecre.instrucciones}}</strong></p>
+                            <p><strong>Fecha de asignación:
+                                    {{itemSecre.fecha_asignacion | date: 'dd/MM/yyyy HH:MM'}}</strong></p>
+                        </mat-card-content>
+                    </mat-card>
+                    }
+                    @if(this.nombre_documento_sello_digital != '' && this.nombre_documento_sello != ""){
+                    <div class="row">
+                        <div class="col-6">
+                            <object type='text/html' [data]='this.nombre_documento_sello_digital' ngDraggable
+                                style="width: 100%; height: 500px;"></object>
+                        </div>
+                        <div class="col-6">
+                            <object type='text/html' [data]='this.nombre_documento_sello' ngDraggable
+                                style="width: 100%; height: 500px;"></object>
+                        </div>
+                    </div>
+                    }
+                    @else if (this.nombre_documento_sello_digital != '') {
+                    <object type='text/html' [data]='this.nombre_documento_sello_digital' ngDraggable
+                        style="width: 100%; height: 500px;"></object>
+                    }
+                    @else if (this.nombre_documento_sello != '') {
+                    <object type='text/html' [data]='this.nombre_documento_sello' ngDraggable
+                        style="width: 100%; height: 500px;"></object>
+                    }
+                </mat-card-content>
+            </mat-card>
+            }
+            @else if (tipoPanel == 3) {
+            @if(list_info_tecnicos.length > 0){
+            <mat-card appearance="outlined">
+                <mat-card-header>
+                    <mat-card-title style="font-size: x-large;"><strong> Evidencia del Técnico</strong>
+                        <hr>
+                    </mat-card-title>
+
+                    <mat-card-subtitle>
+                        <div class="example-action-buttons">
+                            <button mat-fab extended (click)="accordion().openAll()"
+                                style="background-color: rgba(70, 3, 3, 0.808); color: white;">
+                                <mat-icon>visibility</mat-icon>Ver todo </button>
+                            <button mat-fab extended (click)="accordion().closeAll()"
+                                style="background-color: rgba(70, 3, 3, 0.808); color: white;">
+                                <mat-icon>visibility_off</mat-icon>Cerrar todo </button>
+                        </div>
+
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <!-- <mat-card-actions> -->
+                <mat-accordion class="example-headers-align" multi>
+
+                    @for (item of list_info_tecnicos; track item; let i = $index) {
+
+                    <mat-expansion-panel [expanded]="i === list_info_tecnicos.length - 1">
+                        <mat-expansion-panel-header style="width: 100%; margin-left: 0%;">
+                            <mat-panel-title>
+                                Progreso del Técnico: {{ item.nombre_tecnico }}
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Estatus: {{ item.estatus_seguimiento | estatusTecnico }} &nbsp;&nbsp;
+                                {{item.porcentaje_seguimiento}} %
+                                <mat-icon>account_circle</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="row mt-4">
+                            <div class="col-4">
+                                <img src="{{item.foto_tecnico}}" alt="Foto del técnico"
+                                    style="width: 150px; height: 150px;">
+                            </div>
+                            <div class="col-8">
+                                <app-pie-chart [progress]="item.porcentaje_seguimiento"
+                                    [chartWidth]="300"></app-pie-chart>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-4">
+                                <p style="font-size: larger;"><strong>Observaciones:</strong></p>
+                            </div>
+                            <div class="col-8">
+                                <p style="font-size: larger;"><strong> {{ item.observaciones }}</strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <p style="font-size: larger;"><strong>Estatus:</strong></p>
+                            </div>
+                            <div class="col-8">
+                                <p style="font-size: larger;"><strong> {{ item.estatus_seguimiento | estatusTecnico
+                                        }}</strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <p style="font-size: larger;"><strong>Fecha de Contestación:</strong></p>
+                            </div>
+                            <div class="col-8">
+                                <p style="font-size: larger;"><strong>
+                                        {{ item.fecha_contestacion | date:'dd/MM/yyyy HH:mm' }}</strong></p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h4>Evidencia</h4>
+                            <div class="row mt-3" *ngIf="item.evidencia">
+                                <div class="col-12">
+                                    <app-evidencia-modular [url]="item.evidencia"></app-evidencia-modular>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    }
+                </mat-accordion>
+            </mat-card>
+            }
+            @else {
+            <mat-card appearance="outlined">
+                <mat-card-content style="font-size: xx-large;"><strong>Este usuario no ha visto el oficio
+                        {{numero_oficio}}</strong></mat-card-content>
+            </mat-card>
+            }
+            }
+        </div>
+    </div>
+</div>
+}
+
+
+<!-- -->
+<!-- <input type="range" value="25" min="0" max="100" [(ngModel)]="porcentaje_seguimiento" />  -->
+
+
+
+<!--  -->

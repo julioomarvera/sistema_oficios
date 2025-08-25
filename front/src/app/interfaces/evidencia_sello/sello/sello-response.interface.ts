@@ -15,5 +15,7 @@ export interface Nuevosello{
   id_estatusevidencia_sello : number|any,  
   activo     : number|any,  
   id_usuario : number|any,  
+  numero_empleado_secretaria: string|any,
+  foto_secretaria: string|any,
   
 }

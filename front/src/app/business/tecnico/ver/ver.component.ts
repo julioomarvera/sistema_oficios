@@ -163,7 +163,10 @@ export default class VerComponent {
   recognition: any;
 
   id_asignacion :string | any = "";
+  numero_empleado_tecnico: string |any; 
 
+  usuario:string | any = "";
+  foto:string | any = "";
 
 
   private fileTmp: any;
@@ -189,6 +192,10 @@ export default class VerComponent {
     this.elim = localStorage.getItem('elim');
     this.nuev = localStorage.getItem('nuev');
     this.img = localStorage.getItem('img');
+    this.usuario = localStorage.getItem('usuario');
+    this.foto = localStorage.getItem('foto');
+    this.numero_empleado_tecnico = localStorage.getItem('numero_empleado');
+
 
     if (this.id_oficio != "") {
       this.getId_gestion_oficio(this.id_oficio);
@@ -241,7 +248,7 @@ export default class VerComponent {
   }
 
   getInformacionAsignacion(id_gestion_oficio: number, numero_empleado: number) {
-    this.asigacionService.getInfo_quien_solicito(id_gestion_oficio, numero_empleado).subscribe(data => {
+    this.asigacionService.getInfo_quien_solicito(id_gestion_oficio, numero_empleado,this.id_rol).subscribe(data => {
       this.id_direccion_asignacion = data.id_direccion;
       this.id_area_asignacion = data.id_area;
       this.numero_empleado_asignacion = data.numero_empleado;
@@ -253,7 +260,7 @@ export default class VerComponent {
   }
 
   getInstrucciones(id_gestion_oficio: number) {
-    this.asigacionService.getInstrucciones(id_gestion_oficio).subscribe(data => {
+    this.asigacionService.getInstruccion(id_gestion_oficio).subscribe(data => {
       if (data != null) {
         this.instrucciones = data.instrucciones;
       } else {
@@ -453,7 +460,10 @@ export default class VerComponent {
       fecha_contestacion: this.fecha_contestacion,
       evidencia: this.evidencia,
       documento_oficio: this.documento_oficio,
-      activo: 1
+      activo: 1,
+      numero_empleado_tecnico: this.numero_empleado_tecnico,
+      nombre_tecnico: this.usuario, 
+      foto_tecnico: this.foto,
     }
     this.tecnico_Service.newtecnico(tecnico).subscribe({
       next: (v) => {

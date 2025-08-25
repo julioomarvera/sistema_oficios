@@ -1,4 +1,4 @@
-import { Component, ViewChild, ChangeDetectionStrategy, OnInit, Inject, inject } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy, OnInit, Inject, inject, AfterViewInit, AfterContentInit, ElementRef, signal } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { oficiosTable } from '../../../interfaces/gestion_oficios/oficios/oficios-table.interface';
@@ -55,6 +55,19 @@ import { Nueva_asignacion } from '../../../interfaces/asignacion/asignacion.inte
 import { asigacionService } from '../../../service/asignacion/asignacion_service';
 import { asignacion } from '../../../interfaces/asignacion/asignacion_table.interface';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DestinatariosDireccionAsignacion } from '../../../interfaces/registro_destinatario/destinatario_direccion_asignacion.interface';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
+import {
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheet,
+  MatBottomSheetModule,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { MatChipsModule } from '@angular/material/chips';
+import { tecnicoTable } from '../../../interfaces/seguimiento_tecnico/tecnico/tecnico-table.interface';
 
 
 
@@ -64,7 +77,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [MatCardModule, MatIconModule, MatFormFieldModule, MatSortModule, MatTableModule,
     MatInputModule, FormsModule, ReactiveFormsModule, MatSortModule,
     MatSlideToggleModule, MatDialogModule, MatButtonModule, CommonModule, MatStepperModule, MatPaginatorModule,
-    MatTooltipModule],
+    MatTooltipModule, MatProgressSpinnerModule, MatBottomSheetModule
+  ],
   templateUrl: './ver.component.html',
   styleUrl: './ver.component.scss'
 })
@@ -261,8 +275,10 @@ export default class VerComponent {
   displayedColumns: string[] = ['activo', 'id_oficio', 'text_direccion', 'text_nombre_empleado_asignacion', 'foto', 'instrucciones', 'fecha_asignacion', 'estatus_oficio', 'Funciones'];
 
   instrucciones: string = "";
-  total_tramites :number = 0;
-
+  total_tramites: number = 0;
+  private _bottomSheet = inject(MatBottomSheet);
+  numero_empleado_tecnico : number | any = "";
+  foto_user: string | any = "";
   //-------------------------------------------------------------------------->
 
   constructor(private _oficiosServices: oficiosService, private router: Router,
@@ -297,6 +313,8 @@ export default class VerComponent {
     this.id_area = localStorage.getItem('id_area');
     this.text_area = localStorage.getItem('text_area');
     this.usuarioCuenta = localStorage.getItem('usuario');
+    this.numero_empleado_asiganacion= localStorage.getItem('numero_empleado');
+    this.foto_user  = localStorage.getItem('foto');
     this.PaginaActual = '/index/nuevooficios';
     this.finalizado = 1;
 
@@ -363,7 +381,7 @@ export default class VerComponent {
   }
 
   goInicio() {
-    this.router.navigate(['/index/gestion_oficios']);
+    this.router.navigate(['/index/correspondencia']);
   }
 
   getInformacionById() {
@@ -386,8 +404,6 @@ export default class VerComponent {
       })
     }
   }
-
-
 
 
 
@@ -427,8 +443,6 @@ export default class VerComponent {
 
 
 
-
-
   getFile($event: any, tipo: any): void {
     const [file] = $event.target.files;
     this.fileTmp = {
@@ -459,7 +473,6 @@ export default class VerComponent {
     }
   }
   transform(ruta: string, tipo: any): SafeHtml {
-    debugger;
     switch (tipo) {
       case 'nombre_documento_sello_digital':
         this.nombre_documento_sello_digitalImagen = this._sanitizer.bypassSecurityTrustResourceUrl(ruta);
@@ -471,7 +484,7 @@ export default class VerComponent {
         this.nombre_documento_selloImagen = this._sanitizer.bypassSecurityTrustResourceUrl(ruta);
         this.nombre_documento_sello = ruta;
         this.banderaActualizarSello = true
-       this.actualizarEstatusVisto(3);
+        this.actualizarEstatusVisto(3);
         break;
     }
     return (ruta);
@@ -553,6 +566,8 @@ export default class VerComponent {
       nombre_documento_oficio: this.nombre_documento_oficio,
       nombre_documento_sello_digital: this.nombre_documento_sello_digital,
       nombre_documento_sello: this.nombre_documento_sello,
+      numero_empleado_secretaria: this.numero_empleado_asiganacion,
+      foto_secretaria: this.foto_user,
       activo: 1
     }
     this.sello_Service.newsello(sello).subscribe({
@@ -613,7 +628,7 @@ export default class VerComponent {
   }
   get_personal_para_asignacion() {
     if (this.id_gestion_oficios != '') {
-        this.asigacionService.getAllcat_empleadosByDireccionAreas(this.id_gestion_oficios, this.id_direccion, this.id_area).subscribe(data => {
+      this.asigacionService.getAllcat_empleadosByDireccionAreas(this.id_gestion_oficios, this.id_direccion, this.id_area).subscribe(data => {
         this.listcat_empleados = data;
       });
     }
@@ -624,7 +639,7 @@ export default class VerComponent {
     const numero = +selectElement.value;
     const empleado = this.listcat_empleados.find(e => e.numero_empleado === numero);
     if (empleado) {
-      this.numero_empleado_asiganacion = empleado.numero_empleado;
+      this.numero_empleado_tecnico = empleado.numero_empleado;
       this.text_nombre_empleado_asignacion = empleado.nombre_completo;
       this.foto_asignacion = empleado.foto;
       this.total_tramites = empleado.total_tramites;
@@ -699,7 +714,7 @@ export default class VerComponent {
       id_oficio: this.id_oficios,
       id_direccion_asignacion: this.id_direcion_asignacion,
       id_area_asignacion: this.id_area_base_asignacion,
-      numero_empledo_asignacion: this.numero_empleado_asiganacion,
+      numero_empledo_asignacion: this.numero_empleado_tecnico,
       text_direccion: this.text_direccion,
       text_area: this.text_area,
       text_nombre_empleado_asignacion: this.text_nombre_empleado_asignacion,
@@ -707,6 +722,11 @@ export default class VerComponent {
       fecha_asignacion: this.fecha_asignacion,
       estatus_oficio: 1,
       instrucciones: this.instrucciones,
+      numero_empleado_tecnico : this.numero_empleado_tecnico,
+      fecha_terminacion : this.fecha_hora,
+      numero_empleado_secretaria: this.numero_empleado_asiganacion,
+      foto_empleado_secretaria:this.foto_user,
+      numero_oficio:this.numero_oficio,
     }
     this.asigacionService.new_asignacion(asigacion).subscribe({
       next: (v) => {
@@ -803,29 +823,11 @@ export default class VerComponent {
 
   }
 
-  openDialogContrasenia(id_asignacion: number, numero_empledo_asignacion: number, instrucciones: string, foto: string) {
-    // Pass the 'usuario' data in the 'data' property of the configuration object
-    const dialogRef = this.dialog.open(DialogContentExampleDialog, {
-      data: {
-        id_asignacion: id_asignacion,
-        numero_empledo_asignacion: numero_empledo_asignacion,
-        instrucciones: instrucciones,
-        foto: foto,
-        refrescar: () => this.getEncargadoid_gestion_oficios()
-
-      } // <-- **THIS IS THE CRUCIAL CHANGE!**
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog was closed');
-      // The line 'usuario : this.usuario;' here doesn't do anything useful.
-      // If the dialog returns a result, it would be in the 'result' variable.
-    });
-  }
 
 
 
-  actualizarEstatusVisto(estatus:number): Promise<number> {
+
+  actualizarEstatusVisto(estatus: number): Promise<number> {
     return new Promise<number>((resolve) => {
       if (this.id_gestion_oficios != "" && this.id_direccion != "" && this.id_area != "") {
         this.cat_destinatarioService.actualizarEstatusDestinatario(this.id_gestion_oficios, this.id_direccion, this.id_area, estatus).subscribe(data => {
@@ -869,7 +871,7 @@ export default class VerComponent {
 
   //Oficio de sellor------------------------------------------------------------------------>
   async generatePdf(): Promise<void> {
-const fechaEnString = new Date().toLocaleString();
+    const fechaEnString = new Date().toLocaleString();
     const partesFechaHora = fechaEnString.split(', ');
     const partesFecha = partesFechaHora[0].split('/');
     const partesHora = partesFechaHora[1].split(':');
@@ -1051,6 +1053,59 @@ const fechaEnString = new Date().toLocaleString();
 
   //------------------------------------------------------------------------------------------------->
 
+  openDialogContrasenia(id_asignacion: number, numero_empledo_asignacion: number, instrucciones: string, foto: string,) {
+    // Pass the 'usuario' data in the 'data' property of the configuration object
+    const dialogRef = this.dialog.open(DialogContentExampleDialog, {
+      data: {
+        id_asignacion: id_asignacion,
+        numero_empledo_asignacion: numero_empledo_asignacion,
+        instrucciones: instrucciones,
+        foto: foto,
+        tipo: 1,
+        refrescar: () => this.getEncargadoid_gestion_oficios()
+
+      } // <-- **THIS IS THE CRUCIAL CHANGE!**
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+      // The line 'usuario : this.usuario;' here doesn't do anything useful.
+      // If the dialog returns a result, it would be in the 'result' variable.
+    });
+  }
+
+  openHelper() {
+    const dialogRef = this.dialog.open(DialogContentExampleDialog, {
+      data: {
+        id_direccion: this.id_direccion,
+        id_area: this.id_area,
+        tipo: 2,
+
+      } // <-- **THIS IS THE CRUCIAL CHANGE!**
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+      // The line 'usuario : this.usuario;' here doesn't do anything useful.
+      // If the dialog returns a result, it would be in the 'result' variable.
+    });
+  }
+
+
+
+  openBottomSheet(): void {
+    const misDatos = {
+      id_direccion: this.id_direccion, id_area: this.id_area,
+    };
+
+    // Abrimos el BottomSheet y le pasamos los datos en la propiedad 'data'
+    this._bottomSheet.open(BottomSheetOverviewExampleSheet, {
+      data: misDatos
+    });
+    // this._bottomSheet.open(BottomSheetOverviewExampleSheet);
+  }
+
+
 
 }
 
@@ -1060,7 +1115,7 @@ const fechaEnString = new Date().toLocaleString();
   selector: 'nuevo-dialog',
   templateUrl: 'dialog.html',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, FormsModule, MatCardModule],
+  imports: [MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, FormsModule, MatCardModule, CommonModule, MatProgressSpinnerModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './ver.component.scss'
 })
@@ -1072,17 +1127,32 @@ export class DialogContentExampleDialog {
   nuevaIntruccion: string = '';
   foto: string = '';
   errorActualizar: boolean = false;
+  id_direccion: any = '';
+  id_area: any = '';
+  tipo: string = '';
 
-  constructor(
-    public dialogRef: MatDialogRef<DialogContentExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { id_asignacion: any, numero_empledo_asignacion: any, instrucciones: any, foto: any, refrescar: () => void }, // <-- Aquí inyectas los datos
+  loading: boolean = false;
+  @ViewChild('btnCargar') btnCargar!: ElementRef<HTMLButtonElement>;
+
+  constructor(public dialogRef: MatDialogRef<DialogContentExampleDialog>, @Inject(MAT_DIALOG_DATA)
+  public data: {
+    id_asignacion: any,
+    numero_empledo_asignacion: any,
+    instrucciones: any,
+    foto: any,
+    refrescar: () => void
+  }, // <-- Aquí inyectas los datos
     private asigacionService: asigacionService, private router: Router) {
     // Aquí puedes acceder a los datos pasados desde el componente que abre el diálogo
     this.id_asignacion = this.data.id_asignacion;
     this.numero_empledo_asignacion = this.data.numero_empledo_asignacion;
     this.instrucciones = this.data.instrucciones;
     this.foto = this.data.foto;
+
   }
+
+
+
 
   // Puedes añadir métodos para cerrar el diálogo si es necesario
   onNoClick(): void {
@@ -1131,103 +1201,98 @@ export class DialogContentExampleDialog {
 
   }
 
-  // validarPass() {
-  //   if (this.passActual != "") {
-  //     const login: ValidateUser = {
-  //       numero_empleado: this.numero_empleado,
-  //       clave: this.passActual,
-  //     }
-  //     this._useService.validatPass(login).subscribe({
-  //       next: (data: any) => {
-  //         if (data != "") {
-  //           if (data === 1) {
-  //             this.banderaCambioContrasenia = true;
-  //           }
-  //           else {
-  //             Swal.fire({
-  //               icon: "error",
-  //               title: "Error",
-  //               text: data,
-  //               footer: '<a href="#">Si necesitas ayuda, contacta al administrador.</a>'
-  //             });
-  //           }
-  //         }
-  //       },
-  //       error: (event: HttpErrorResponse) => {
-  //         Swal.fire({
-  //           icon: "error",
-  //           title: "Error",
-  //           text: "No existe el usuario favor de verificar la información.",
-  //           footer: '<a href="#">Si necesitas ayuda, contacta al administrador.</a>'
-  //         });
-  //       }
-  //     })
-  //   }
-  // }
+}
 
-  // validacionPassword() {
-  //   if (this.passNueva1 === this.passNueva2) {
-  //     const login: ValidateUser = {
-  //       numero_empleado: this.numero_empleado,
-  //       clave: this.passNueva1,
-  //     }
-  //     this._useService.actualizarPass(login).subscribe({
-  //       next: (data: any) => {
-  //         if (data != "") {
-  //           if (data === 1) {
-  //             Swal.fire({
-  //               position: "center",
-  //               icon: "success",
-  //               title: "Contraseña actualizada correctamente",
-  //               showConfirmButton: false,
-  //               timer: 1500
-  //             });
-  //             //GlobalConstants.appStatus = "LogIn";
-  //             this.router.navigate(['']);
-  //             this.dialogRef.close();
-  //           }
-  //           else {
-  //             Swal.fire({
-  //               icon: "error",
-  //               title: "Error",
-  //               text: data,
-  //               footer: '<a href="#">Si necesitas ayuda, contacta al administrador.</a>'
-  //             });
-  //           }
-  //         }
-  //       },
-  //     })
-  //   }
-  //   else {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Error",
-  //       text: "No coinciden las contraseñas, favor de validar",
-  //     });
-  //   }
-  // }
+@Component({
+  selector: 'bottom-sheet-overview-example-sheet',
+  templateUrl: 'bottom-sheet-overview-example-sheet.html',
+  standalone: true,
+  imports: [MatListModule, MatButtonModule, MatCardModule, CommonModule, MatExpansionModule, MatIconModule,MatChipsModule,],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-in', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 
-  // ActualizarPass() {
-  //   if (this.passNueva1 == "") {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Error",
-  //       text: "Para generar la nueva contraseña es necesario proporcionar la nueva contraseña e inmediatamente después confirmé su nueva contraseña",
-  //     });
-  //   }
-  //   else if (this.passNueva2 == "") {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Error",
-  //       text: "Por favor, confirme la contraseña",
-  //     });
-  //   }
-  //   else {
-  //     this.validacionPassword();
-  //   }
-  // }
+})
+export class BottomSheetOverviewExampleSheet {
+  datosRecibidos: any;
 
-  // Logout() {
-  //   this.router.navigate(['']);
+
+  // private _bottomSheetRef =
+  //   inject<MatBottomSheetRef<BottomSheetOverviewExampleSheet>>(MatBottomSheetRef);
+
+  // openLink(event: MouseEvent): void {
+  //   this._bottomSheetRef.dismiss();
+  //   event.preventDefault();
   // }
+  id_direccion: any;
+  id_area: any;
+  list_cat_empleadosArea: DestinatariosDireccionAsignacion[] = [];
+  list_asignacion_estatus: tecnicoTable[] = [];
+  readonly panelOpenState = signal(false);
+
+  resumenPorEmpleado: {
+    [numero_empleado: number]: {
+      sinVisto: number;
+      enProceso: number;
+      enPausa: number;
+      concluidos: number;
+      total: number;
+    }
+  } = {};
+
+
+
+
+
+  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: any, private asigacionService: asigacionService, private router: Router) {
+    //this.datosRecibidos = data;
+    this.id_direccion = data.id_direccion;
+    this.id_area = data.id_area;
+    if (this.id_direccion != "" && this.id_area != "") {
+
+      this.getPersonalArea();
+    }
+
+  }
+
+  getPersonalArea() {
+
+    this.asigacionService.getEncargadosPorDireccionArea(this.id_direccion, this.id_area).subscribe({
+      next: (data) => {
+        
+        this.list_cat_empleadosArea = data;
+      },
+      error: (error) => {
+        console.error('Error cargando empleados', error);
+      }
+    });
+  }
+
+getServiciosRealizados(numero_empleado: number) {
+  this.asigacionService.getAsignacionesByNumeroEmpleado(numero_empleado).subscribe({
+    next: (data: tecnicoTable[]) => {
+      this.list_asignacion_estatus = data;
+      const resumen = {
+        sinVisto: data.filter(a => String(a.estatus_seguimiento).toLowerCase() === '').length, //en proceso
+        enProceso: data.filter(a => String(a.estatus_seguimiento).toLowerCase() === '2').length, //en proceso
+        enPausa: data.filter(a => String(a.estatus_seguimiento).toLowerCase() === '3').length,//en pausa
+        concluidos: data.filter(a => String(a.estatus_seguimiento).toLowerCase() === '4').length,//concluidos
+        total: data.length
+      };
+      this.resumenPorEmpleado[numero_empleado] = resumen;
+    },
+    error: (error) => {
+      console.error('Error cargando empleados', error);
+    }
+  });
+}
+
+
+
+
 }

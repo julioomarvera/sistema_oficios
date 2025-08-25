@@ -9,12 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getInstrucciones = exports.getInfo_quien_solicito = exports.update_firmante_instrucciones = exports.getOficiosByNumeroEmpleado = exports.deleteAsignacion = exports.getAllcat_empleadosByid_gestion_oficios = exports.getEncargadoArea = exports.getAllcat_empleadosByDireccionAreas = exports.new_asignacion = exports.timeNow = void 0;
+exports.getSecretariasAsignadosByid_gestion_oficioBydireccionNumeroEmpleado = exports.getSecretariasAsignadosByid_gestion_oficioBydireccion = exports.getTecnicosAsignadosByid_gestion_oficioBydireccion = exports.getAsignacionesByNumeroEmpleado = exports.getInstrucciones = exports.getInfo_quien_solicito = exports.update_firmante_instrucciones = exports.getOficiosByNumeroEmpleado = exports.deleteAsignacion = exports.getAllcat_empleadosByid_gestion_oficios = exports.getEncargadosPorDireccionArea = exports.getEncargadoArea = exports.getAllcat_empleadosByDireccionAreas = exports.new_asignacion = exports.timeNow = void 0;
 const { Sequelize, DataTypes } = require('sequelize');
 const asignacion_1 = require("../models/asignacion");
 const cat_empleados_1 = require("../models/cat_empleados");
+const sequelize_1 = require("sequelize");
 const oficios_1 = require("../models/oficios");
 const users_opdm_1 = require("../models/users_opdm");
+const tecnico_1 = require("../models/tecnico");
 //extraer la hora para el sistema //-------------------------------------------------------------> 
 const timeNow = () => {
     const now = new Date(); // Jul 2021 Friday 
@@ -35,7 +37,7 @@ exports.timeNow = timeNow;
 //Agregar un nuevo Parametro --------------------------------------------------------------------------> 
 const new_asignacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const time = (0, exports.timeNow)();
-    const { id_usuario_quien_asigna, id_gestion_oficios, id_oficio, id_direccion_asignacion, id_area_asignacion, numero_empledo_asignacion, text_direccion, text_area, text_nombre_empleado_asignacion, foto, fecha_asignacion, estatus_oficio, instrucciones } = req.body;
+    const { id_usuario_quien_asigna, id_gestion_oficios, id_oficio, id_direccion_asignacion, id_area_asignacion, numero_empledo_asignacion, text_direccion, text_area, text_nombre_empleado_asignacion, foto, fecha_asignacion, estatus_oficio, instrucciones, fecha_terminacion, numero_empleado_secretaria, foto_empleado_secretaria, numero_oficio } = req.body;
     //Validamos si ya existe el Parametro en la base de datos 
     const params = yield asignacion_1.dbasignacion.findOne({ where: { id_gestion_oficios: id_gestion_oficios, numero_empledo_asignacion: numero_empledo_asignacion, activo: 1 } });
     if (params) {
@@ -58,6 +60,10 @@ const new_asignacion = (req, res) => __awaiter(void 0, void 0, void 0, function*
             fecha_asignacion: fecha_asignacion,
             estatus_oficio: estatus_oficio,
             instrucciones: instrucciones,
+            fecha_terminacion: fecha_terminacion,
+            numero_empleado_secretaria,
+            foto_empleado_secretaria,
+            numero_oficio,
             activo: 1,
             createdAt: time,
             updatedAt: time,
@@ -139,6 +145,44 @@ const getEncargadoArea = (req, res) => __awaiter(void 0, void 0, void 0, functio
     res.json(listcat_empleados);
 });
 exports.getEncargadoArea = getEncargadoArea;
+//Traer todos los Parametros ----------------------------------------------------------------------> 
+const getEncargadosPorDireccionArea = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_direccion, id_area } = req.params;
+    try {
+        // 1. Traer empleados activos en la dirección y área
+        const listcat_empleados = yield cat_empleados_1.dbcat_empleados.findAll({
+            where: { activo: 1, direccion: id_direccion, area: id_area }
+        });
+        if (!listcat_empleados || listcat_empleados.length === 0) {
+            return res.json([]);
+        }
+        // 2. Obtener números de empleado
+        const numerosEmpleados = listcat_empleados.map((emp) => emp.numero_empleado);
+        // 3. Consultar asignaciones para esos empleados
+        const list_asignados = yield asignacion_1.dbasignacion.findAll({
+            where: {
+                activo: 1,
+                numero_empledo_asignacion: numerosEmpleados
+            }
+        });
+        // 4. Agrupar asignaciones por número de empleado
+        const asignacionesMap = list_asignados.reduce((acc, asignacion) => {
+            const numero = asignacion.numero_empledo_asignacion;
+            if (!acc[numero])
+                acc[numero] = [];
+            acc[numero].push(asignacion);
+            return acc;
+        }, {});
+        // 5. Unir empleados con sus asignaciones
+        const resultado = listcat_empleados.map((empleado) => (Object.assign(Object.assign({}, empleado.toJSON()), { asignaciones: asignacionesMap[empleado.numero_empleado] || [] })));
+        res.json(resultado);
+    }
+    catch (error) {
+        console.error('Error en consulta:', error);
+        res.status(500).json({ error: 'Error en la consulta' });
+    }
+});
+exports.getEncargadosPorDireccionArea = getEncargadosPorDireccionArea;
 //Traer todos los  ----------------------------------------------------------------------> 
 const getAllcat_empleadosByid_gestion_oficios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_gestion_oficios } = req.params;
@@ -188,6 +232,9 @@ const getOficiosByNumeroEmpleado = (req, res) => __awaiter(void 0, void 0, void 
         activo: 1,
         id_direccion_asignacion: id_direccion,
         id_area_asignacion: id_area,
+        id_oficio: {
+            [sequelize_1.Op.ne]: ""
+        }
     };
     if (roll === "4") {
         baseWhere.numero_empledo_asignacion = numero_empleado;
@@ -199,9 +246,8 @@ const getOficiosByNumeroEmpleado = (req, res) => __awaiter(void 0, void 0, void 
         // Paso 1: Obtener asignaciones
         const asignados = yield asignacion_1.dbasignacion.findAll({
             where: baseWhere,
-            attributes: ['id_oficio', 'id_asignacion', 'estatus_oficio']
+            attributes: ['id_oficio', 'id_asignacion', 'estatus_oficio', 'fecha_asignacion']
         });
-        console.log(asignados);
         // Paso 2: Extraer IDs de oficio
         const id_oficios = asignados.map((a) => a.id_oficio);
         // Paso 3: Obtener oficios
@@ -209,7 +255,7 @@ const getOficiosByNumeroEmpleado = (req, res) => __awaiter(void 0, void 0, void 
             where: {
                 activo: 1,
                 id_oficios: id_oficios
-            }
+            },
         });
         // Paso 4: Combinar datos
         const resultado = oficios.map((oficio) => {
@@ -259,24 +305,45 @@ const update_firmante_instrucciones = (req, res) => __awaiter(void 0, void 0, vo
 });
 exports.update_firmante_instrucciones = update_firmante_instrucciones;
 const getInfo_quien_solicito = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_gestion_oficios, numero_tecnico_asignado } = req.params;
+    const { id_gestion_oficios, numero_tecnico_asignado, id_rol } = req.params;
+    console.log(req.params);
     try {
-        const asignacion = yield asignacion_1.dbasignacion.findOne({
-            where: {
-                activo: 1,
-                id_gestion_oficios: id_gestion_oficios,
-                numero_empledo_asignacion: numero_tecnico_asignado
-            },
-        });
-        const id_usuario_quien_asigna = asignacion === null || asignacion === void 0 ? void 0 : asignacion.dataValues.id_usuario_quien_asigna;
-        if (id_usuario_quien_asigna != "") {
-            const list_user = yield users_opdm_1.dbusers_opdm.findOne({
+        if (id_rol == "4") {
+            const asignacion = yield asignacion_1.dbasignacion.findOne({
                 where: {
                     activo: 1,
-                    id_users_opdm: id_usuario_quien_asigna
+                    id_gestion_oficios: id_gestion_oficios,
+                    numero_empledo_asignacion: numero_tecnico_asignado
                 },
             });
-            res.json(list_user);
+            const id_usuario_quien_asigna = asignacion === null || asignacion === void 0 ? void 0 : asignacion.dataValues.id_usuario_quien_asigna;
+            if (id_usuario_quien_asigna != "") {
+                const list_user = yield users_opdm_1.dbusers_opdm.findOne({
+                    where: {
+                        activo: 1,
+                        id_users_opdm: id_usuario_quien_asigna
+                    },
+                });
+                res.json(list_user);
+            }
+        }
+        else if (id_rol == "2" || id_rol == "1") {
+            const asignacion = yield asignacion_1.dbasignacion.findOne({
+                where: {
+                    activo: 1,
+                    id_gestion_oficios: id_gestion_oficios,
+                },
+            });
+            const id_usuario_quien_asigna = asignacion === null || asignacion === void 0 ? void 0 : asignacion.dataValues.id_usuario_quien_asigna;
+            if (id_usuario_quien_asigna != "") {
+                const list_user = yield users_opdm_1.dbusers_opdm.findOne({
+                    where: {
+                        activo: 1,
+                        id_users_opdm: id_usuario_quien_asigna
+                    },
+                });
+                res.json(list_user);
+            }
         }
     }
     catch (error) {
@@ -302,3 +369,99 @@ const getInstrucciones = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.getInstrucciones = getInstrucciones;
+const getAsignacionesByNumeroEmpleado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { numero_empleado } = req.params;
+    console.log(numero_empleado);
+    try {
+        const asignaciones = yield tecnico_1.dbtecnico.findAll({
+            where: {
+                activo: 1,
+                numero_empleado_tecnico: numero_empleado,
+            },
+        });
+        res.json(asignaciones);
+    }
+    catch (error) {
+        console.error('Error al obtener empleados:', error);
+        res.status(500).json({ error: 'Error al obtener empleados' });
+    }
+});
+exports.getAsignacionesByNumeroEmpleado = getAsignacionesByNumeroEmpleado;
+const getTecnicosAsignadosByid_gestion_oficioBydireccion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_gestion_oficio, id_oficios, id_direccion, id_area } = req.params;
+    console.log(req.params);
+    try {
+        const asignaciones = yield asignacion_1.dbasignacion.findAll({
+            where: {
+                activo: 1,
+                id_gestion_oficios: id_gestion_oficio,
+                id_oficio: id_oficios,
+                id_direccion_asignacion: id_direccion,
+                id_area_asignacion: id_area
+            },
+        });
+        res.json(asignaciones);
+    }
+    catch (error) {
+        console.error('Error al obtener empleados:', error);
+        res.status(500).json({ error: 'Error al obtener empleados' });
+    }
+});
+exports.getTecnicosAsignadosByid_gestion_oficioBydireccion = getTecnicosAsignadosByid_gestion_oficioBydireccion;
+const getSecretariasAsignadosByid_gestion_oficioBydireccion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_gestion_oficio, id_oficios, id_direccion, id_area } = req.params;
+    try {
+        // 1) Traer asignaciones activas
+        const asignaciones = yield asignacion_1.dbasignacion.findAll({
+            where: {
+                activo: 1,
+                id_gestion_oficios: id_gestion_oficio, // Valida que la columna realmente se llame así
+                id_oficio: id_oficios,
+                id_direccion_asignacion: id_direccion,
+                id_area_asignacion: id_area
+            }
+        });
+        if (!asignaciones.length) {
+            return res.status(404).json({ msg: 'No hay asignaciones para esos filtros.' });
+        }
+        // 2) Extraer los IDs de usuario que asignaron
+        const secretariaIds = asignaciones.map(a => a.get('id_usuario_quien_asigna'));
+        // 3) Buscar TODOS los oficios cuyos id_users_opdm estén en el array
+        const oficios = yield users_opdm_1.dbusers_opdm.findAll({
+            where: {
+                activo: 1,
+                id_users_opdm: {
+                    [sequelize_1.Op.in]: secretariaIds
+                }
+            }
+        });
+        return res.json(oficios);
+    }
+    catch (error) {
+        console.error('Error al obtener empleados:', error);
+        return res.status(500).json({ error: 'Error al obtener empleados' });
+    }
+});
+exports.getSecretariasAsignadosByid_gestion_oficioBydireccion = getSecretariasAsignadosByid_gestion_oficioBydireccion;
+const getSecretariasAsignadosByid_gestion_oficioBydireccionNumeroEmpleado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_gestion_oficio, id_oficios, id_direccion, id_area, numero_empleado } = req.params;
+    try {
+        // 1) Traer asignaciones activas
+        const asignaciones = yield asignacion_1.dbasignacion.findAll({
+            where: {
+                activo: 1,
+                id_gestion_oficios: id_gestion_oficio, // Valida que la columna realmente se llame así
+                id_oficio: id_oficios,
+                id_direccion_asignacion: id_direccion,
+                id_area_asignacion: id_area,
+                numero_empleado_secretaria: numero_empleado
+            }
+        });
+        return res.json(asignaciones);
+    }
+    catch (error) {
+        console.error('Error al obtener empleados:', error);
+        return res.status(500).json({ error: 'Error al obtener empleados' });
+    }
+});
+exports.getSecretariasAsignadosByid_gestion_oficioBydireccionNumeroEmpleado = getSecretariasAsignadosByid_gestion_oficioBydireccionNumeroEmpleado;

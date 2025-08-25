@@ -1,0 +1,23 @@
+<!-- evidencia-viewer.component.html -->
+<button mat-fab extended (click)="abrirDocumento()" style="background-color: rgba(59, 3, 3, 0.445); color: white; width: 100%;">
+  <mat-icon>article_person</mat-icon>
+  Ver evidencia
+</button>
+<hr>
+<div class="evidencia-container">
+  <ng-container [ngSwitch]="tipo">
+    <!-- Imagen -->
+    <img *ngSwitchCase="'imagen'" [src]="url" class="evidencia-img shimmer" />
+
+    <!-- PDF -->
+    <iframe *ngSwitchCase="'pdf'" [src]="url" class="evidencia-pdf shimmer" frameborder="0"></iframe>
+
+    <!-- Video -->
+    <video *ngSwitchCase="'video'" [src]="url" controls class="evidencia-video shimmer"></video>
+
+    <!-- Otro -->
+    <div *ngSwitchDefault class="evidencia-fallback">
+      <p>No se puede mostrar esta evidencia. Tipo desconocido.</p>
+    </div>
+  </ng-container>
+</div>

@@ -27,4 +27,9 @@ export interface tecnicoTable{
   id_estatusseguimiento_tecnico : number|any,  
   activo     : number|any,  
   id_usuario : number|any,  
+  createdAt?:string|any,
+  numero_empleado_tecnico: number|any,
+  nombre_tecnico : string|any,  
+  foto_tecnico: string|any, 
+
 }
